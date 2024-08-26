@@ -7,13 +7,57 @@
 define s = Character(_("Secretary"), color="#c8ffc8")
 define m = Character(_("Me"), color="#c8c8ff")
 define b = Character(_("Boss"), color="#ffc8ff")
-define g = Character(_("Guard"), color="#ffffff")
+define g = Character(_("Guard"), color="#ffffaa")
+define f = Character(_("Friend"), color="#c8c8")
+define j = Character(_("JOBifAI"), color="#ccc8c8")
 
 
 # The game starts here.
 label start:
 
     # play music "illurock.opus"
+
+    scene bg bedroom
+    with fade
+
+    m "Gin...ious... I'm a gin...ious..."
+    show f green normal
+    with dissolve
+    f "Ahem... If you're so... rhum...markeable... Hohoho... Why aren't you working for Giggle?"
+    m "Giggle... When I apply, I'll be there in no time. Watch me!"
+    f "Watching... With my Eyes... Wide...  OZzzzZZZzzzzz"
+    hide f green normal
+    with dissolve
+    m "Finn, you never handled alcohol too well."
+
+    show j black normal
+    with fade
+    m "JOBifAI, how do I become concept designer for Giggle?"
+    j "Complete these 4 steps to become concept designer for Giggle:"
+    j "Step 1: Send this CV I made for you. It says you have a degree in Industrial Design from RISD."
+    j "Add the link of your SinkedIN page I just made. I connected you to some notable concept designers."
+    m "What is RISD? And who are these SinkedIN \'friends\' you connected me to? Their faces are weird."
+    j "Step 2: Attach this portfolio I just generated for you, with the following description."
+    j "I grew up in Videville, a small town known for its vertical lake..."
+    j "At 10, while helping my grandfather build the town's cycle superhighway, a cyclist stopped by." 
+    j "It was no other than Syd Meat. Listening to his encouraging words, my vocation became clear."
+    m "You know what, if I don't apply, I have a 100\% chance of being rejected. So I'll apply."
+    j " Step 3: Read this 587 page document detailing the work environment at Giggle."
+    j "With these three steps, you're guaranteed to get hired!"
+    j "Remember, this version of JOBifAI is experimental. It is not advised to use it in a real-life setting."
+    m "Awesome. Now I just need to submit the CV and portfolio, and hope for the best."
+
+    hide j black normal
+    with fade
+
+    m "Finn! Wake up!!! I got an interview with Giggle!"
+    show f green normal
+    with dissolve
+    f "Wait... Wwwhat?"
+    m "Don't tell me... You forgot our conversation last night?"
+    f "I'm afraid I only remember not having a headache like now..."
+    m "I got an interview! Tomorrow 10am, I'm meeting the CEO of Giggle!"
+    f "That's awesome, I'll be rooting for you!"
 
     scene bg buildinghall
     with fade

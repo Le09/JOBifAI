@@ -71,6 +71,15 @@ label start:
     show s green normal
     with dissolve
 
+    # init game assets
+    prompt = "Generate a random prompt p for Stable Diffusion about a subject that would be appealing to people, yet mash different ideas in a very unexpected way. Give a short human-readable description of that prompt s. Give your answer in a json of the form {'prompt': p, 'sentence': s}"
+    schema = '{"type": "object", "properties": {"prompt": { "type": "string" }, "sentence": { "type": "string"}}, "required": ["prompt", "sentence"]}'
+    python:
+        result = ask_llm(prompt, schema)
+        portfolio_idea = result["sentence"]
+        portfolio_prompt = result["prompt"]
+        portfolio_0 = generate_images_data_job(portfolio_prompt, "portfolio_0")
+
     "A woman. She's smiling. Should I go and talk to her?"
 
     $ count = 0
@@ -79,6 +88,27 @@ label start:
     menu:
 
         "As soon as she catches my eye, I decide..."
+        # precise to describe what you do
+        # What do you do?
+
+        reply = INPUT
+
+        prompt = """Context: you are...
+        Here are the possible actions:
+        1) ask the secretary for instructions
+        2) inspect the building
+        3) act in a very suspicious or rude manner
+
+        Here is a description of what the character did:
+        INPUT %s
+        Evaluate what the answer may be among the previous options as a choice c. Moreover, describe what happens as a result of this action as a sentence s. Give your answer of the form {"choice": c, "result": s}.""" % reply
+        schema = '{"type": "object", "properties": {"choice": {"type": "integer"}, "result": {"type": "string"}}, "required": ["choice", "result"]}'
+        answer = ask_llm_validate_input(prompt, schema)
+        choice = answer["choice"]
+        result = answer["result"]
+
+        # describe result  # maybe not depending on the transition?
+        apply choice transition
 
         "To talk to her.":
 

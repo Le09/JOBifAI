@@ -3,7 +3,15 @@ import re
 import requests
 import jsonschema
 
+# https://github.com/cheahjs/free-llm-api-resources
+# GROQ
 
+# https://llmpricecheck.com/
+# https://novita.ai/model-api/pricing
+# https://goose.ai/docs/api
+
+# https://www.together.ai/pricing
+# free tier: https://www.arliai.com/pricing
 
 def send_to_llm(prompt):
     # TODO: get config from renpy.config

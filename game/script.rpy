@@ -22,17 +22,17 @@ label start:
         call screen config_menu
         # $ game_first_time = False
 
-    init python:
-        # import chatgpt_n
-        # import jsonschema
-        print(os.environ.get('PYTHONPATH'))
     scene bg bedroom
     with fade
 
     init python:
-        # import chatgpt_n
-        # import jsonschema
-        print(os.environ.get('PYTHONPATH'))
+        import os
+        import sys
+        path_venv = "~/.virtualenvs/llenaige/lib/python3.9/site-packages/"
+        sys.path.append(os.path.expanduser(path_venv))
+        import jsonschema
+        import chatgpt_n
+
     m "Gin...ious... I'm a gin...ious..."
     show f green normal
     with dissolve

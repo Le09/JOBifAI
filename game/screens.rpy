@@ -729,6 +729,9 @@ style slot_button_text:
 
 screen preferences():
 
+    default pak_value = VariableInputValue("persistent.prodia_api_key", returnable=True)
+    default ck2_value = VariableInputValue("persistent.config_key_2", returnable=True)
+    
     tag menu
 
     use game_menu(_("Preferences"), scroll="viewport"):
@@ -737,7 +740,27 @@ screen preferences():
 
             hbox:
                 box_wrap True
+                vbox:
+                    style_prefix "input"
+                    label _("Prodia API Key")
+                    button:
+                        action pak_value.Toggle()
+                        input:
+                            value pak_value
 
+            hbox:
+                box_wrap True
+                vbox:
+                    style_prefix "input"
+                    label _("Key 2")
+                    button:
+                        action ck2_value.Toggle()
+                        input:
+                            value ck2_value
+            hbox:
+                box_wrap True
+
+                
                 if renpy.variant("pc") or renpy.variant("web"):
 
                     vbox:

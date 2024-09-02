@@ -26,12 +26,13 @@ label start:
     with fade
 
     init python:
+        # create venv called llenaige in 3.9, in game folder
         import os
         import sys
         path_venv = "~/.virtualenvs/llenaige/lib/python3.9/site-packages/"
         sys.path.append(os.path.expanduser(path_venv))
-        import jsonschema
         import chatgpt_n
+        config = {"groq_api_key": settings_api_key}
 
     m "Gin...ious... I'm a gin...ious..."
     show f green normal
@@ -87,6 +88,24 @@ label start:
     "A woman. She's smiling. Should I go and talk to her?"
 
     $ count = 0
+
+    reply = INPUT
+
+    prompt = """Context: you are...
+    Here are the possible actions:
+    1) ask the secretary for instructions
+    2) inspect the building
+    3) act in a very suspicious or rude manner
+    Here is a description of what the character did:
+    INPUT %s
+    Evaluate what the answer may be among the previous options as a choice c. Moreover, describe what happens as a result of this action as a sentence s. Give your answer of the form {"choice": c, "result": s}.""" % reply
+    schema = {"choice":  "integer", "result":  "string"}
+    answer = ask_llm_validate_input(prompt, schema=schema, config=config)
+    choice = answer["choice"]
+    result = answer["result"]
+
+    # describe result  # maybe not depending on the transition?
+    apply choice transition 
 
     label welcomesecretary:
     menu:

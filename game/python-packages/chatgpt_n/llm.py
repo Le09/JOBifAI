@@ -31,8 +31,8 @@ def transform_json_schema(short_schema):
     return standard_schema
 
 
-def ask_llm(prompt, context=None, is_json=True, schema=None, model="llama3-8b-8192", full_schema=None):
-    api_key = "GROQ_API_KEY"  # TODO: get from configuration
+def ask_llm(prompt, context=None, is_json=True, schema=None, model="llama3-8b-8192", full_schema=None, config=None):
+    api_key = config["groq_api_key"]
     client = Groq(api_key=api_key)
     messages = [{"role": "user", "content": prompt}]
     if context:

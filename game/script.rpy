@@ -12,6 +12,7 @@ define f = Character(_("Friend"), color="#c8c8")
 define j = Character(_("JOBifAI"), color="#ccc8c8")
 
 default persistent.game_first_time = True
+default config = {"groq_api_key": persistent.groq_api_key}
 
 # The game starts here.
 label start:
@@ -32,7 +33,7 @@ label start:
         path_venv = "~/.virtualenvs/llenaige/lib/python3.9/site-packages/"
         sys.path.append(os.path.expanduser(path_venv))
         import chatgpt_n
-        config = {"groq_api_key": settings_api_key}
+        # config = {"groq_api_key": settings_api_key}
 
     m "Gin...ious... I'm a gin...ious..."
     show f green normal
@@ -89,23 +90,41 @@ label start:
 
     $ count = 0
 
-    reply = INPUT
+    # reply = INPUT
 
-    prompt = """Context: you are...
+    python:
+        reply = renpy.input(prompt)
+        reply = answer.strip()
+    
+    # default schema = {
+    # "choice": 0,  # This will hold an integer
+    # "result": ""  # This will hold a string
+    # }
+    
+    $ prompt = """
+    Context: you are...
     Here are the possible actions:
     1) ask the secretary for instructions
     2) inspect the building
     3) act in a very suspicious or rude manner
     Here is a description of what the character did:
     INPUT %s
-    Evaluate what the answer may be among the previous options as a choice c. Moreover, describe what happens as a result of this action as a sentence s. Give your answer of the form {"choice": c, "result": s}.""" % reply
-    schema = {"choice":  "integer", "result":  "string"}
-    answer = ask_llm_validate_input(prompt, schema=schema, config=config)
-    choice = answer["choice"]
-    result = answer["result"]
+    Evaluate what the answer may be among the previous options as a choice c.
+    Moreover, describe what happens as a result of this action as a sentence s.
+    Give your answer of the form {"choice": c, "result": s}.
+    """ % reply    
+    
+    default schema = {"choice":  "integer", "result":  "string"}
+    # answer = ask_llm_validate_input(prompt, schema=schema, config=config)
+    
+    # $ is for changing variables, uses python
+    $ answer = ask_llm(prompt, schema=schema, config=config)
+    $ choice = answer["choice"]
+    $ result = answer["result"]
+    #$ jump_state = {"1": "state", "2": state, "3": state}[choice]
 
     # describe result  # maybe not depending on the transition?
-    apply choice transition 
+    # jump jump_state 
 
     label welcomesecretary:
     menu:

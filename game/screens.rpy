@@ -730,7 +730,7 @@ style slot_button_text:
 screen preferences():
 
     default pak_value = VariableInputValue("persistent.prodia_api_key", returnable=True)
-    default ck2_value = VariableInputValue("persistent.config_key_2", returnable=True)
+    default ck2_value = VariableInputValue("persistent.groq_api_key", returnable=True)
     
     tag menu
 
@@ -747,16 +747,18 @@ screen preferences():
                         action pak_value.Toggle()
                         input:
                             value pak_value
+                            copypaste True
 
             hbox:
                 box_wrap True
                 vbox:
                     style_prefix "input"
-                    label _("Key 2")
+                    label _("Groq Key")
                     button:
                         action ck2_value.Toggle()
                         input:
                             value ck2_value
+                            copypaste True
             hbox:
                 box_wrap True
 

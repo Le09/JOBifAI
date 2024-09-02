@@ -117,6 +117,7 @@ label start:
     # $ is for changing variables, uses python
     python:
         # answer = chatgpt.compl(prompt, schema=schema, config=config)
+         
         answer = ask_llm(prompt, schema=schema, config=persistent.config)
     $ choice = answer["choice"]
     $ result = answer["result"]

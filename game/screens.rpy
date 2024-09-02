@@ -1,4 +1,4 @@
-﻿################################################################################
+################################################################################
 ## Initialization
 ################################################################################
 
@@ -730,7 +730,7 @@ style slot_button_text:
 screen preferences():
 
     default pak_value = VariableInputValue("persistent.prodia_api_key", returnable=True)
-    default ck2_value = VariableInputValue("persistent.config_key_2", returnable=True)
+    default ck2_value = VariableInputValue("persistent.groq_api_key", returnable=True)
     
     tag menu
 

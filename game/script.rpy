@@ -12,7 +12,7 @@ define f = Character(_("Friend"), color="#c8c8")
 define j = Character(_("JOBifAI"), color="#ccc8c8")
 
 default persistent.game_first_time = True
-default config = {"groq_api_key": persistent.groq_api_key}
+default persistent.config = {"groq_api_key": persistent.groq_api_key}
 
 # The game starts here.
 label start:
@@ -32,7 +32,7 @@ label start:
         import sys
         path_venv = "~/.virtualenvs/llenaige/lib/python3.9/site-packages/"
         sys.path.append(os.path.expanduser(path_venv))
-        import chatgpt_n
+        from chatgpt_n.llm import ask_llm
         # config = {"groq_api_key": settings_api_key}
 
     m "Gin...ious... I'm a gin...ious..."
@@ -93,13 +93,8 @@ label start:
     # reply = INPUT
 
     python:
-        reply = renpy.input(prompt)
-        reply = answer.strip()
-    
-    # default schema = {
-    # "choice": 0,  # This will hold an integer
-    # "result": ""  # This will hold a string
-    # }
+        reply = renpy.input("Describe what you do.")
+        reply = reply.strip()
     
     $ prompt = """
     Context: you are...
@@ -108,20 +103,24 @@ label start:
     2) inspect the building
     3) act in a very suspicious or rude manner
     Here is a description of what the character did:
-    INPUT %s
+    
+    %s
+
     Evaluate what the answer may be among the previous options as a choice c.
     Moreover, describe what happens as a result of this action as a sentence s.
     Give your answer of the form {"choice": c, "result": s}.
     """ % reply    
     
-    default schema = {"choice":  "integer", "result":  "string"}
+    $ schema = {"choice":  "integer:0<=i<=4", "result":  "string"}
     # answer = ask_llm_validate_input(prompt, schema=schema, config=config)
     
     # $ is for changing variables, uses python
-    $ answer = ask_llm(prompt, schema=schema, config=config)
+    python:
+        # answer = chatgpt.compl(prompt, schema=schema, config=config)
+        answer = ask_llm(prompt, schema=schema, config=persistent.config)
     $ choice = answer["choice"]
     $ result = answer["result"]
-    #$ jump_state = {"1": "state", "2": state, "3": state}[choice]
+    $ jump_state = {"1": "state", "2": state, "3": state}[choice]
 
     # describe result  # maybe not depending on the transition?
     # jump jump_state 

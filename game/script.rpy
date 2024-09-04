@@ -14,9 +14,9 @@ define j = Character(_("JOBifAI"), color="#ccc8c8")
 default persistent.game_first_time = True
 default persistent.config = {"groq_api_key": persistent.groq_api_key}
 
-default persistent.portfolio_idea = None
-default persistent.portfolio_prompt = None
-default persistent.portfolio_0 = None
+default portfolio_idea = None
+default portfolio_prompt = None
+default portfolio_0 = None
 
 default prompt = None
 default schema = None
@@ -138,17 +138,16 @@ label start:
     label before_portfolio_0:
         $ renpy.checkpoint(hard=False)
         python:
-            persistent.portfolio_idea = result["sentence"]
-            persistent.portfolio_prompt = result["prompt"]
-            if not persistent.portfolio_0:
-                persistent.portfolio_0 = get_random_object_name("portfolio/img_0.png")
-                # if not renpy.exists("images/" + persistent.portfolio_0):
-                retry("before_portfolio_0", generate_images_data_job, {"prompt": persistent.portfolio_prompt, "name": persistent.portfolio_0, "renpy": renpy, "api_key": persistent.prodia_api_key})
+            portfolio_idea = result["sentence"]
+            portfolio_prompt = result["prompt"]
+            if not portfolio_0:
+                portfolio_0 = get_random_object_name("portfolio/img_0.png")
+                retry("before_portfolio_0", generate_images_data_job, {"prompt": portfolio_prompt, "name": portfolio_0, "renpy": renpy, "api_key": persistent.prodia_api_key})
         
     label dont_reload_image_here:
         $ renpy.checkpoint(hard=False)
         "A woman. She's smiling. Should I go and talk to her?"
-        $ im_portfolio_0 = im.Image(persistent.portfolio_0)
+        $ im_portfolio_0 = im.Image(portfolio_0)
         show expression im_portfolio_0 
 
     label lobby_first:
@@ -160,8 +159,6 @@ label start:
             reply = renpy.input("Describe what you do.")
             reply = reply.strip()
 
-        $ renpy.show("images/" + persistent.portfolio_0 + ".png")
-        
         $ prompt = """
         Context: you are in the lobby of Grizley, an entertainment company.
         There is a central desk with a secretary, some office doors, a lift, and the doors to the street.

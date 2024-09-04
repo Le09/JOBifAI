@@ -14,6 +14,10 @@ define j = Character(_("JOBifAI"), color="#ccc8c8")
 default persistent.game_first_time = True
 default persistent.config = {"groq_api_key": persistent.groq_api_key}
 
+default persistent.portfolio_idea = ""
+default persistent.portfolio_plot = ""
+default persistent.portfolio_0 = None
+
 # The game starts here.
 label start:
 
@@ -33,6 +37,7 @@ label start:
         path_venv = "~/.virtualenvs/llenaige/lib/python3.9/site-packages/"
         sys.path.append(os.path.expanduser(path_venv))
         from chatgpt_n.llm import ask_llm
+        from chatgpt_n.images import generate_images_data_job, get_random_object_name
         # config = {"groq_api_key": settings_api_key}
         def retry(fallback, function, kwargs):
             try:
@@ -102,45 +107,74 @@ label start:
     show s green normal
     with dissolve
 
-    "A woman. She's smiling. Should I go and talk to her?"
+    # init game assets
 
-    $ count = 0
+    label random_plot_0:
+        $ prompt = """
+        Generate a random plot p for Stable Diffusion.
+        Its subject should be appealing to people, yet mash different ideas in 
+        a very unexpected way. 
+        Give a short human-readable description of that prompt s. 
+        Give your answer in a json of the form {'plot': p, 'sentence': s}.
+        """
 
-    # reply = INPUT
+        $ schema = {"plot":  "string", "sentence": "string"}
+        
+        $ a = persistent.groq_api_key
+        
+        $ result = retry("random_plot_0", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
 
-    python:
-        reply = renpy.input("Describe what you do.")
-        reply = reply.strip()
-    
-    $ prompt = """
-    Context: you are in the lobby of Grizley, an entertainment company.
-    There is a central desk with a secretary, some office doors, a lift, and the doors to the street.
-    Here are the possible actions:
-    1) ask the secretary for instructions
-    2) inspect the building
-    3) leave the building
-    4) act in a very suspicious or rude manner
-    Here is a description of what the character did:
-    
-    %s
+    label before_portfolio_0:
+        $ persistent.portfolio_idea = result["sentence"]
+        $ portfolio_prompt = result["plot"]
+        $ persistent.portfolio_0 = get_random_object_name("portfolio/img_0")
+        $ retry("before_portfolio_0", generate_images_data_job, {"prompt": portfolio_prompt, "name": persistent.portfolio_0, "renpy": renpy, "api_key": persistent.prodia_api_key})
+        
+    label dont_reload_image_here:
+        "A woman. She's smiling. Should I go and talk to her?"
+        $ im_porfolio_0 = im.Image(persistent.portfolio_0)
+        show expression im_porfolio_0 
 
-    Evaluate what the answer may be among the previous options as a choice c.
-    Moreover, describe what happens as a result of this action as a sentence s.
-    Give your answer as a json of the form {"choice": c, "result": s}.
-    """ % reply    
-    
-    $ schema = {"choice":  "integer:1<=i<=4", "result":  "string"}
-    
-    #python:
-    $ a = persistent.groq_api_key
-    $ answer = retry("start", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
-    $ choice = answer["choice"]
-    $ result = answer["result"]
-    $ jump_state = ["talk_secretary", "look_building", "bad_ending", "security"][choice - 1]
+    label lobby_first:
+        $ count = 0
 
-    # describe result  # maybe not depending on the transition?
-    $ renpy.say(narrator, result)
-    $ renpy.jump(jump_state) 
+        # reply = INPUT
+
+        python:
+            reply = renpy.input("Describe what you do.")
+            reply = reply.strip()
+
+        $ renpy.show("images/" + persistent.portfolio_0 + ".png")
+        
+        $ prompt = """
+        Context: you are in the lobby of Grizley, an entertainment company.
+        There is a central desk with a secretary, some office doors, a lift, and the doors to the street.
+        Here are the possible actions:
+        1) ask the secretary for instructions
+        2) inspect the building
+        3) leave the building
+        4) act in a very suspicious or rude manner
+        Here is a description of what the character did:
+        
+        %s
+
+        Evaluate what the answer may be among the previous options as a choice c.
+        Moreover, describe what happens as a result of this action as a sentence s.
+        Give your answer as a json of the form {"choice": c, "result": s}.
+        """ % reply    
+        
+        $ schema = {"choice":  "integer:1<=i<=4", "result":  "string"}
+        
+        #python:
+        $ a = persistent.groq_api_key
+        $ answer = retry("lobby_first", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+        $ choice = answer["choice"]
+        $ result = answer["result"]
+        $ jump_state = ["talk_secretary", "look_building", "bad_ending", "security"][choice - 1]
+
+        # describe result  # maybe not depending on the transition?
+        $ renpy.say(narrator, result)
+        $ renpy.jump(jump_state) 
 
     label welcome_secretary:
     menu:

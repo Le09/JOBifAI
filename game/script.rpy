@@ -136,13 +136,13 @@ label start:
     $ answer = retry("start", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
     $ choice = answer["choice"]
     $ result = answer["result"]
-    $ jump_state = ["talk_secretary", "lookbuilding", "bad_ending", "security"][choice - 1]
+    $ jump_state = ["talk_secretary", "look_building", "bad_ending", "security"][choice - 1]
 
     # describe result  # maybe not depending on the transition?
     $ renpy.say(narrator, result)
     $ renpy.jump(jump_state) 
 
-    label welcomesecretary:
+    label welcome_secretary:
     menu:
 
         "As soon as she catches my eye, I decide..."
@@ -150,22 +150,22 @@ label start:
         "To talk to her.":
 
             $ count += 1
-            jump talksecretary
+            jump talk_secretary
 
         "To pretend to look around.":
             while count < 3:     
                     $ count += 1
-                    jump lookbuilding
+                    jump look_building
 
-            jump angryboss
+            jump angry_boss
 
-    label lookbuilding:
+    label look_building:
 
         "What beautiful architecture."
         "Next time I'll definitely ask the lady for help."
-        jump welcomesecretary
+        jump welcome_secretary
 
-    label talksecretary:
+    label talk_secretary:
         scene bg buildinghall
         show s green normal at truecenter
 
@@ -193,9 +193,9 @@ label start:
         show g blue normal
         g "You're being disruptive. Please exit"
 
-        jump badending
+        jump bad_ending
 
-    label angryboss:
+    label angry_boss:
 
         hide s green normal
         with dissolve
@@ -242,14 +242,14 @@ label start:
             if not answer:
                 answer = "Errr..."
 
-        # jump angryboss
-        # jump happyboss
+        # jump angry_boss
+        # jump happy_boss
 
         b "I see. Come with me."
 
         jump ending
 
-    label badending:
+    label bad_ending:
         "{b}Bad Ending{/b}"
 
         return

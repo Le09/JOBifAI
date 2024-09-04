@@ -36,10 +36,11 @@ init python:
     # create venv called llenaige in 3.9, in game folder
     import os
     import sys
+    import uuid
     path_venv = "~/.virtualenvs/llenaige/lib/python3.9/site-packages/"
     sys.path.append(os.path.expanduser(path_venv))
     from chatgpt_n.llm import ask_llm
-    from chatgpt_n.images import get_random_object_name, download_job_image, generate_job
+    from chatgpt_n.images import download_job_image, generate_job
     # config = {"groq_api_key": settings_api_key}
     def retry(fallback, function, kwargs):
         try:
@@ -60,6 +61,19 @@ init python:
 
     def exists_img(image_name):
         return renpy.exists(os.path.join("images", image_name))
+
+    def get_random_object_name(base_name):
+        name, ext = os.path.splitext(base_name)
+        new_name = name + str(uuid.uuid4()).replace("-", "_")
+        return new_name + ext  # ext would be "" or ".ext"
+
+    def img_full_path(name):
+        dir_base = renpy.config.basedir
+        dir_images = os.path.join(dir_base, "game", "images")
+        if ".png" not in name:
+            name += ".png"
+        file_path = os.path.join(dir_images, name)
+        return file_path
 
 
 # The game starts here.
@@ -144,7 +158,7 @@ label start:
         python:
             if not exists_img(series_cover):
                 series_cover = get_random_object_name("portfolio/series.png")
-                retry("finish_series_job", download_job_image, {"job_id": series_cover_job, "name": series_cover, "api_key": persistent.prodia_api_key, "renpy": renpy})
+                retry("finish_series_job", download_job_image, {"job_id": series_cover_job, "file_path": img_full_path(series_cover), "api_key": persistent.prodia_api_key})
 
     "Am I late? No one's there."
 
@@ -183,7 +197,7 @@ label start:
         $ renpy.checkpoint(hard=False)
         python:
             if not exists_img(portfolio_0):
-                retry("finish_portfolio_0", download_job_image, {"job_id": portfolio_0_job, "name": portfolio_0, "renpy": renpy, "api_key": persistent.prodia_api_key})
+                retry("finish_portfolio_0", download_job_image, {"job_id": portfolio_0_job, "file_path": img_full_path(portfolio_0), "api_key": persistent.prodia_api_key})
         
     label dont_reload_image_here:
         $ renpy.checkpoint(hard=False)

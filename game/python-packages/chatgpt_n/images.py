@@ -26,8 +26,9 @@ def generate_images_data_job(prompt, name, api_key=None, renpy=None):
     response = requests.get(image_url)
     dir_base = renpy.config.basedir
     dir_images = os.path.join(dir_base, "game", "images")
-    file_name = name + ".png"
-    file_path = os.path.join(dir_images, file_name)
+    if ".png" not in name:
+        name += ".png"
+    file_path = os.path.join(dir_images, name)
     with open(file_path, 'wb') as file:
         file.write(response.content)
 

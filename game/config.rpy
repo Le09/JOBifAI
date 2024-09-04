@@ -2,11 +2,6 @@ default persistent.prodia_api_key = "default_value_1"
 default persistent.groq_api_key = "default_value_2"
 
 screen config_menu():
-    # Todo: 
-    # input both keys /
-    # save both keys
-    # make it pretty
-    # make it work with AI api
     tag menu
 
     frame:

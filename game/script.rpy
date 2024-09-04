@@ -14,9 +14,44 @@ define j = Character(_("JOBifAI"), color="#ccc8c8")
 default persistent.game_first_time = True
 default persistent.config = {"groq_api_key": persistent.groq_api_key}
 
-default persistent.portfolio_idea = ""
-default persistent.portfolio_plot = ""
+default persistent.portfolio_idea = None
+default persistent.portfolio_prompt = None
 default persistent.portfolio_0 = None
+
+default prompt = None
+default schema = None
+default result = None
+default im_portfolio_0 = None
+default answer = None
+default choice = None
+default jump_state = None
+
+init python:
+    # create venv called llenaige in 3.9, in game folder
+    import os
+    import sys
+    path_venv = "~/.virtualenvs/llenaige/lib/python3.9/site-packages/"
+    sys.path.append(os.path.expanduser(path_venv))
+    from chatgpt_n.llm import ask_llm
+    from chatgpt_n.images import generate_images_data_job, get_random_object_name
+    # config = {"groq_api_key": settings_api_key}
+    def retry(fallback, function, kwargs):
+        try:
+            return function(**kwargs)
+        except Exception as e:
+            # TODO: more robust error handling
+            if "body" in dir(e) and "error" in e.body:
+                se = "Error: %s\n" % e.body["error"]["message"]
+                se += "Justification: %s\n" % e.body["error"]["failed_generation"]
+            else:
+                se = e.message if "message" in dir(e) else str(e)
+            s = "%s\n\n The operation failed. Do you want to retry?" % se
+            again = renpy.confirm(s)
+            if again:
+                return retry(fallback, function, kwargs)
+            else:
+                renpy.jump(fallback)
+
 
 # The game starts here.
 label start:
@@ -30,31 +65,6 @@ label start:
     scene bg bedroom
     with fade
 
-    init python:
-        # create venv called llenaige in 3.9, in game folder
-        import os
-        import sys
-        path_venv = "~/.virtualenvs/llenaige/lib/python3.9/site-packages/"
-        sys.path.append(os.path.expanduser(path_venv))
-        from chatgpt_n.llm import ask_llm
-        from chatgpt_n.images import generate_images_data_job, get_random_object_name
-        # config = {"groq_api_key": settings_api_key}
-        def retry(fallback, function, kwargs):
-            try:
-                return function(**kwargs)
-            except Exception as e:
-                # TODO: more robust error handling
-                if "body" in dir(e) and "error" in e.body:
-                    se = "Error: %s\n" % e.body["error"]["message"]
-                    se += "Justification: %s\n" % e.body["error"]["failed_generation"]
-                else:
-                    se = e.message if "message" in dir(e) else str(e)
-                s = "%s\n\n The operation failed. Do you want to retry?" % se
-                again = renpy.confirm(s)
-                if again:
-                    return retry(fallback, function, kwargs)
-                else:
-                    renpy.jump(fallback)
 
     m "Gin...ious... I'm a gin...ious..."
     show f green normal
@@ -109,31 +119,37 @@ label start:
 
     # init game assets
 
-    label random_plot_0:
+    label random_prompt_0:
+        $ renpy.checkpoint(hard=False)
         $ prompt = """
-        Generate a random plot p for Stable Diffusion.
+        Generate a random prompt p for Stable Diffusion.
         Its subject should be appealing to people, yet mash different ideas in 
         a very unexpected way. 
         Give a short human-readable description of that prompt s. 
-        Give your answer in a json of the form {'plot': p, 'sentence': s}.
+        Give your answer in a json of the form {'prompt': p, 'sentence': s}.
         """
 
-        $ schema = {"plot":  "string", "sentence": "string"}
+        $ schema = {"prompt":  "string", "sentence": "string"}
         
         $ a = persistent.groq_api_key
         
-        $ result = retry("random_plot_0", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+        $ result = retry("random_prompt_0", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
 
     label before_portfolio_0:
-        $ persistent.portfolio_idea = result["sentence"]
-        $ portfolio_prompt = result["plot"]
-        $ persistent.portfolio_0 = get_random_object_name("portfolio/img_0")
-        $ retry("before_portfolio_0", generate_images_data_job, {"prompt": portfolio_prompt, "name": persistent.portfolio_0, "renpy": renpy, "api_key": persistent.prodia_api_key})
+        $ renpy.checkpoint(hard=False)
+        python:
+            persistent.portfolio_idea = result["sentence"]
+            persistent.portfolio_prompt = result["prompt"]
+            if not persistent.portfolio_0:
+                persistent.portfolio_0 = get_random_object_name("portfolio/img_0.png")
+                # if not renpy.exists("images/" + persistent.portfolio_0):
+                retry("before_portfolio_0", generate_images_data_job, {"prompt": persistent.portfolio_prompt, "name": persistent.portfolio_0, "renpy": renpy, "api_key": persistent.prodia_api_key})
         
     label dont_reload_image_here:
+        $ renpy.checkpoint(hard=False)
         "A woman. She's smiling. Should I go and talk to her?"
-        $ im_porfolio_0 = im.Image(persistent.portfolio_0)
-        show expression im_porfolio_0 
+        $ im_portfolio_0 = im.Image(persistent.portfolio_0)
+        show expression im_portfolio_0 
 
     label lobby_first:
         $ count = 0

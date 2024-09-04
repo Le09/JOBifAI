@@ -32,3 +32,23 @@ def generate_images_data_job(prompt, name, api_key=None, renpy=None):
     with open(file_path, 'wb') as file:
         file.write(response.content)
 
+
+def generate_job(prompt, api_key=None):
+    prodia = Prodia(api_key=api_key)
+    job = prodia.sdxl.generate(prompt=prompt)
+    return job["job"]
+
+
+def download_job_image(job_id, name, api_key=None, renpy=None):
+    job = {'job': job_id, 'status': 'queued'}
+    prodia = Prodia(api_key=api_key)
+    result = prodia.wait(job)
+    image_url = result.image_url
+    response = requests.get(image_url)
+    dir_base = renpy.config.basedir
+    dir_images = os.path.join(dir_base, "game", "images")
+    if ".png" not in name:
+        name += ".png"
+    file_path = os.path.join(dir_images, name)
+    with open(file_path, 'wb') as file:
+        file.write(response.content)

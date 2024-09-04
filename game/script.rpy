@@ -17,6 +17,12 @@ default persistent.config = {"groq_api_key": persistent.groq_api_key}
 default portfolio_idea = None
 default portfolio_prompt = None
 default portfolio_0 = None
+default portfolio_0_job = None
+
+default series_idea = None
+default series_prompt = None
+default series_cover = None
+default series_cover_job = None
 
 default prompt = None
 default schema = None
@@ -33,7 +39,7 @@ init python:
     path_venv = "~/.virtualenvs/llenaige/lib/python3.9/site-packages/"
     sys.path.append(os.path.expanduser(path_venv))
     from chatgpt_n.llm import ask_llm
-    from chatgpt_n.images import generate_images_data_job, get_random_object_name
+    from chatgpt_n.images import get_random_object_name, download_job_image, generate_job
     # config = {"groq_api_key": settings_api_key}
     def retry(fallback, function, kwargs):
         try:
@@ -52,6 +58,9 @@ init python:
             else:
                 renpy.jump(fallback)
 
+    def exists_img(image_name):
+        return renpy.exists(os.path.join("images", image_name))
+
 
 # The game starts here.
 label start:
@@ -69,8 +78,8 @@ label start:
     m "Gin...ious... I'm a gin...ious..."
     show f green normal
     with dissolve
-    f "Ahem... If you're so... rhum...markeable... Hohoho... Why aren't you working for Giggle?"
-    m "Giggle... When I apply, I'll be there in no time. Watch me!"
+    f "Ahem... If you're so... rhum...markeable... Hohoho... Why aren't you working for Grizley?"
+    m "Grizley... When I apply, I'll be there in no time. Watch me!"
     f "Watching... With my Eyes... Wide...  OZzzzZZZzzzzz"
     hide f green normal
     with dissolve
@@ -78,8 +87,8 @@ label start:
 
     show j black normal
     with fade
-    m "JOBifAI, how do I become concept designer for Giggle?"
-    j "Complete these 4 steps to become concept designer for Giggle:"
+    m "JOBifAI, how do I become concept designer for Grizley?"
+    j "Complete these 4 steps to become concept designer for Grizley:"
     j "Step 1: Send this CV I made for you. It says you have a degree in Industrial Design from RISD."
     j "Add the link of your SinkedIN page I just made. I connected you to some notable concept designers."
     m "What is RISD? And who are these SinkedIN \'friends\' you connected me to? Their faces are weird."
@@ -88,25 +97,54 @@ label start:
     j "At 10, while helping my grandfather build the town's cycle superhighway, a cyclist stopped by." 
     j "It was no other than Syd Meat. Listening to his encouraging words, my vocation became clear."
     m "You know what, if I don't apply, I have a 100\% chance of being rejected. So I'll apply."
-    j " Step 3: Read this 587 page document detailing the work environment at Giggle."
+    j " Step 3: Read this 587 page document detailing the work environment at Grizley."
     j "With these three steps, you're guaranteed to get hired!"
     j "Remember, this version of JOBifAI is experimental. It is not advised to use it in a real-life setting."
     m "Awesome. Now I just need to submit the CV and portfolio, and hope for the best."
 
+
+    label init_series:
+        $ renpy.checkpoint(hard=False)
+        $ prompt = """
+        Generate a prompt p for Stable Diffusion. 
+        That prompt should describe a main illustration for a new interesting anime series targeting a teen audience created by a big entertainment company.
+        Give a short description of that prompt s that a marketing department might use. 
+        Give your answer in a json of the form {'prompt': p, 'sentence': s}.
+        """
+        $ schema = {"prompt":  "string", "sentence": "string"}
+        $ a = persistent.groq_api_key
+        $ result = retry("start", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+    
+    label init_series_job:
+        $ renpy.checkpoint(hard=False)
+        python:
+            series_idea = result["sentence"]
+            series_prompt = result["prompt"]
+            if not series_cover_job:
+                series_cover = get_random_object_name("portfolio/series.png")
+                series_cover_job = retry("init_series_job", generate_job, {"prompt": series_prompt, "api_key": persistent.prodia_api_key})
+
     hide j black normal
     with fade
 
-    m "Finn! Wake up!!! I got an interview with Giggle!"
+    m "Finn! Wake up!!! I got an interview with Grizley!"
     show f green normal
     with dissolve
     f "Wait... Wwwhat?"
     m "Don't tell me... You forgot our conversation last night?"
     f "I'm afraid I only remember not having a headache like now..."
-    m "I got an interview! Tomorrow 10am, I'm meeting the CEO of Giggle!"
+    m "I got an interview! Tomorrow 10am, I'm meeting the CEO of Grizley!"
     f "That's awesome, I'll be rooting for you!"
 
     scene bg buildinghall
     with fade
+
+    label finish_series_job:
+        $ renpy.checkpoint(hard=False)
+        python:
+            if not exists_img(series_cover):
+                series_cover = get_random_object_name("portfolio/series.png")
+                retry("finish_series_job", download_job_image, {"job_id": series_cover_job, "name": series_cover, "api_key": persistent.prodia_api_key, "renpy": renpy})
 
     "Am I late? No one's there."
 
@@ -128,11 +166,8 @@ label start:
         Give a short human-readable description of that prompt s. 
         Give your answer in a json of the form {'prompt': p, 'sentence': s}.
         """
-
         $ schema = {"prompt":  "string", "sentence": "string"}
-        
         $ a = persistent.groq_api_key
-        
         $ result = retry("random_prompt_0", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
 
     label before_portfolio_0:
@@ -142,7 +177,13 @@ label start:
             portfolio_prompt = result["prompt"]
             if not portfolio_0:
                 portfolio_0 = get_random_object_name("portfolio/img_0.png")
-                retry("before_portfolio_0", generate_images_data_job, {"prompt": portfolio_prompt, "name": portfolio_0, "renpy": renpy, "api_key": persistent.prodia_api_key})
+                portfolio_0_job = retry("before_portfolio_0", generate_job, {"prompt": portfolio_prompt, "api_key": persistent.prodia_api_key})
+    
+    label finish_portfolio_0:
+        $ renpy.checkpoint(hard=False)
+        python:
+            if not exists_img(portfolio_0):
+                retry("finish_portfolio_0", download_job_image, {"job_id": portfolio_0_job, "name": portfolio_0, "renpy": renpy, "api_key": persistent.prodia_api_key})
         
     label dont_reload_image_here:
         $ renpy.checkpoint(hard=False)

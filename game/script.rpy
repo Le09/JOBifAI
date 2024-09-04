@@ -34,6 +34,22 @@ label start:
         sys.path.append(os.path.expanduser(path_venv))
         from chatgpt_n.llm import ask_llm
         # config = {"groq_api_key": settings_api_key}
+        def retry(fallback, function, kwargs):
+            try:
+                return function(**kwargs)
+            except Exception as e:
+                # TODO: more robust error handling
+                if "body" in dir(e) and "error" in e.body:
+                    se = "Error: %s\n" % e.body["error"]["message"]
+                    se += "Justification: %s\n" % e.body["error"]["failed_generation"]
+                else:
+                    se = e.message if "message" in dir(e) else str(e)
+                s = "%s\n\n The operation failed. Do you want to retry?" % se
+                again = renpy.confirm(s)
+                if again:
+                    return retry(fallback, function, kwargs)
+                else:
+                    renpy.jump(fallback)
 
     m "Gin...ious... I'm a gin...ious..."
     show f green normal
@@ -97,34 +113,34 @@ label start:
         reply = reply.strip()
     
     $ prompt = """
-    Context: you are...
+    Context: you are in the lobby of Grizley, an entertainment company.
+    There is a central desk with a secretary, some office doors, a lift, and the doors to the street.
     Here are the possible actions:
     1) ask the secretary for instructions
     2) inspect the building
-    3) act in a very suspicious or rude manner
+    3) leave the building
+    4) act in a very suspicious or rude manner
     Here is a description of what the character did:
     
     %s
 
     Evaluate what the answer may be among the previous options as a choice c.
     Moreover, describe what happens as a result of this action as a sentence s.
-    Give your answer of the form {"choice": c, "result": s}.
+    Give your answer as a json of the form {"choice": c, "result": s}.
     """ % reply    
     
-    $ schema = {"choice":  "integer:0<=i<=4", "result":  "string"}
-    # answer = ask_llm_validate_input(prompt, schema=schema, config=config)
+    $ schema = {"choice":  "integer:1<=i<=4", "result":  "string"}
     
-    # $ is for changing variables, uses python
-    python:
-        # answer = chatgpt.compl(prompt, schema=schema, config=config)
-         
-        answer = ask_llm(prompt, schema=schema, config=persistent.config)
+    #python:
+    $ a = persistent.groq_api_key
+    $ answer = retry("start", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
     $ choice = answer["choice"]
     $ result = answer["result"]
-    $ jump_state = {"1": "state", "2": state, "3": state}[choice]
+    $ jump_state = ["talk_secretary", "lookbuilding", "bad_ending", "security"][choice - 1]
 
     # describe result  # maybe not depending on the transition?
-    # jump jump_state 
+    $ renpy.say(narrator, result)
+    $ renpy.jump(jump_state) 
 
     label welcomesecretary:
     menu:

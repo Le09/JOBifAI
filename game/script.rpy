@@ -222,12 +222,14 @@ label start:
         2) inspect the building
         3) leave the building
         4) act in a very suspicious or rude manner
+        5) something else
         Here is a description of what the character did:
         
         %s
 
         Evaluate what the answer may be among the previous options as a choice c.
         Moreover, describe what happens as a result of this action as a sentence s.
+        Describe only the direct result of the action.
         Give your answer as a json of the form {"choice": c, "result": s}.
         """ % reply    
         

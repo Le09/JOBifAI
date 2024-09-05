@@ -3,7 +3,7 @@ label start:
 
     if persistent.game_first_time:
         call screen config_menu
-        # $ game_first_time = False
+        $ persistent.game_first_time = False
 
     scene bg bedroom
     with fade

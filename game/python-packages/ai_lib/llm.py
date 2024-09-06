@@ -53,7 +53,7 @@ def ask_llm(prompt, context=None, is_json=True, schema=None, model="llama3-8b-81
     if full_schema:
         full_schema["type"] = "object"  # yeah this is stupid
         # to check maximum and minimum constraints
-        validate_json(result, full_schema)
+        validate_json(relax_json_schema(result, full_schema), full_schema)
     return result
 
 
@@ -77,6 +77,20 @@ def validate_json(json_data, schema):
     # raises if invalid
     jsonschema.validate(instance=json_data, schema=schema)
 
+def relax_json_schema(json_dict, full_schema):
+    props = full_schema["properties"]
+    for key, value in json_dict.items():
+        if key in props:
+            expected_type = props[key]["type"]
+            if expected_type == "number" and isinstance(value, str):
+                json_dict[key] = float(value)
+            elif expected_type == "integer" and isinstance(value, str):
+                json_dict[key] = int(value)
+            elif expected_type == "boolean" and isinstance(value, str):
+                json_dict[key] = value.lower() not in ["false", "0"]
+            else:
+                json_dict[key] = value
+    return json_dict
 
 if __name__ == "__main__":
     context = "You are a very rude and foul-mouthed employer. The day has been long and you're not on your best mood. You are about to reply to a message from an employee."

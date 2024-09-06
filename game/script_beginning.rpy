@@ -26,7 +26,7 @@ label start:
     j "Step 1: Send this CV I made for you. It says you have a degree in Industrial Design from RISD."
     j "Add the link of your SinkedIN page I just made. I connected you to some notable concept designers."
     m "What is RISD? And who are these SinkedIN \'friends\' you connected me to? Their faces are weird."
-    j "Step 2: Attach this portfolio I just generated for you, with the following description."
+    j "Step 2: Attach this portfolio I am generating for you, with the following description:"
     j "I grew up in Videville, a small town known for its vertical lake..."
     j "At 10, while helping my grandfather build the town's cycle superhighway, a cyclist stopped by." 
     j "It was no other than Syd Meat. Listening to his encouraging words, my vocation became clear."
@@ -34,7 +34,7 @@ label start:
     j " Step 3: Read this 587 page document detailing the work environment at Grizley."
     j "With these three steps, you're guaranteed to get hired!"
     j "Remember, this version of JOBifAI is experimental. It is not advised to use it in a real-life setting."
-    m "Awesome. Now I just need to submit the CV and portfolio, and hope for the best."
+    m "Awesome. Now I just need to submit the CV and portfolio, and hope for the best. Let's wait a bit..."
 
 
 label init_series:
@@ -81,14 +81,13 @@ label finish_series_job:
             series_cover = get_random_object_name("portfolio/series.png")
             retry("finish_series_job", download_job_image, {"job_id": series_cover_job, "file_path": img_full_path(series_cover), "api_key": persistent.prodia_api_key})
 
-"Am I late? No one's there."
+label company_lobby:
+    "Am I late? No one's there."
+    "Galactic walls, ice-cream statues, pink electric barbed wires, just what I'd expect from the job of my dreams."
+    "I see someone coming, very slowly though..."
 
-"Galactic walls, ice-cream statues, pink electric barbed wires, just what I'd expect from the job of my dreams."
-
-"I see someone coming!"
-
-show s green normal
-with dissolve
+    show s green normal
+    with dissolve
 
 label random_prompt_0:
     $ renpy.checkpoint(hard=False)
@@ -109,7 +108,7 @@ label before_portfolio_0:
         portfolio_idea = result["sentence"]
         portfolio_prompt = result["prompt"]
         if not portfolio_0:
-     #        portfolio_0 = get_random_object_name("portfolio/img_0.png")
+        #   portfolio_0 = get_random_object_name("portfolio/img_0.png")
             portfolio_0_job = retry("before_portfolio_0", generate_job, {"prompt": portfolio_prompt, "api_key": persistent.prodia_api_key})
 
 label finish_portfolio_0:
@@ -130,7 +129,7 @@ label lobby_first:
     # reply = INPUT
 
     python:
-        reply = renpy.input("Describe what you do.")
+        reply = renpy.input("Describe what you do in front of the lady.")
         reply = reply.strip()
 
     $ prompt = """

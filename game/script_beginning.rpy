@@ -1,6 +1,6 @@
 ﻿# The game begins here.
 label start:
-
+    $ dir_session = get_random_object_name("session", short=True)
     if persistent.game_first_time:
         call screen config_menu
         $ persistent.game_first_time = False
@@ -55,7 +55,7 @@ label init_series_job:
         series_idea = result["sentence"]
         series_prompt = result["prompt"]
         if not series_cover_job:
-            series_cover = get_random_object_name("portfolio/series.png")
+            series_cover = get_random_object_name("series.png", [dir_session])
             series_cover_job = retry("init_series_job", generate_job, {"prompt": series_prompt, "api_key": persistent.prodia_api_key})
 
 label wake_up:
@@ -78,7 +78,6 @@ label finish_series_job:
     $ renpy.checkpoint(hard=False)
     python:
         if not exists_img(series_cover):
-            series_cover = get_random_object_name("portfolio/series.png")
             retry("finish_series_job", download_job_image, {"job_id": series_cover_job, "file_path": img_full_path(series_cover), "api_key": persistent.prodia_api_key})
 
 label company_lobby:
@@ -108,7 +107,7 @@ label before_portfolio_0:
         portfolio_idea = result["sentence"]
         portfolio_prompt = result["prompt"]
         if not portfolio_0:
-        #   portfolio_0 = get_random_object_name("portfolio/img_0.png")
+            portfolio_0 = get_random_object_name("img_0.png", [dir_session])
             portfolio_0_job = retry("before_portfolio_0", generate_job, {"prompt": portfolio_prompt, "api_key": persistent.prodia_api_key})
 
 label finish_portfolio_0:

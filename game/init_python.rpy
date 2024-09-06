@@ -8,7 +8,7 @@ init python:
     sys.path.append(os.path.expanduser(path_venv))
     from ai_lib.llm import ask_llm
     from ai_lib.images import download_job_image, generate_job
-    # config = {"groq_api_key": settings_api_key}
+    
     def retry(fallback, function, kwargs):
         try:
             return function(**kwargs)
@@ -29,11 +29,16 @@ init python:
     def exists_img(image_name):
         return renpy.exists(os.path.join("images", image_name))
 
-    def get_random_object_name(base_name):
+    def get_random_object_name(base_name, folders=None, short=False):
         name, ext = os.path.splitext(base_name)
-        new_name = name + str(uuid.uuid4()).replace("-", "_")
-        return new_name + ext  # ext would be "" or ".ext"
-
+        salt = str(uuid.uuid4())
+        salt = salt[:8] if short else salt.replace("-", "_")
+        new_name = name + salt
+        new_name = new_name + ext  # ext would be "" or ".ext"
+        if folders:
+            new_name = os.path.join(*folders, new_name)
+        return new_name
+    
     def img_full_path(name):
         dir_base = renpy.config.basedir
         dir_images = os.path.join(dir_base, "game", "images")

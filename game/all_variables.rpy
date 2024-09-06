@@ -10,9 +10,11 @@ define j = Character(_("JOBifAI"), color="#ccc8c8")
 default persistent.game_first_time = True
 default persistent.config = {"groq_api_key": persistent.groq_api_key}
 
+default dir_session = None
+
 default portfolio_idea = None
 default portfolio_prompt = None
-default portfolio_0 = ""
+default portfolio_0 = None
 default portfolio_0_job = None
 
 default series_idea = None

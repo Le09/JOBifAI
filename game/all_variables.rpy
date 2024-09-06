@@ -12,7 +12,7 @@ default persistent.config = {"groq_api_key": persistent.groq_api_key}
 
 default portfolio_idea = None
 default portfolio_prompt = None
-default portfolio_0 = None
+default portfolio_0 = ""
 default portfolio_0_job = None
 
 default series_idea = None

@@ -79,6 +79,10 @@ label wake_up:
     m "I got an interview! Tomorrow 10am, I'm meeting the CEO of Grizley!"
     h "That's awesome, I'll be rooting for you!"
 
+label street:
+    scene bg street
+    "Hope they won't ask any hard questions, I didn't have time to check out my CV and portfolio..."
+
 label finish_series_job:
     $ renpy.checkpoint(hard=False)
     python:
@@ -94,8 +98,6 @@ label company_lobby:
     # "Galactic walls, ice-cream statues, pink electric barbed wires, just what I'd expect from the job of my dreams."
     "I see someone coming, very slowly though..."
 
-    show secretary
-    with dissolve
 
 label random_prompt_0:
     $ renpy.checkpoint(hard=False)
@@ -127,6 +129,10 @@ label finish_portfolio_0:
     
 label dont_reload_image_here:
     $ renpy.checkpoint(hard=False)
+
+    show secretary
+    with dissolve
+
     "Looks like it's the secretary approaching. Should I say something?"
     # $ im_portfolio_0 = im.Image(portfolio_0)
     # show expression im_portfolio_0

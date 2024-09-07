@@ -75,13 +75,13 @@ label wake_up:
     with dissolve
     h "Wait... Wwwhat?"
     m "Don't tell me... You forgot our conversation last night?"
-    h "I'm afraid I only remember not having a headache like now..."
+    h "I'm afraid I only remember not having a headache, whereas now..."
     m "I got an interview! Tomorrow 10am, I'm meeting the CEO of Grizley!"
-    h "That's awesome, I'll be rooting for you!"
+    h "Tomorrow! Too late to Escape! I'll be rooting for you!"
 
 label street:
     scene bg street
-    "Hope they won't ask any hard questions, I didn't have time to check out my CV and portfolio..."
+    "Hope they won't ask any hard questions, I didn't have time to check out my CV and portfolio... The road is longer than I expected."
 
 label finish_series_job:
     $ renpy.checkpoint(hard=False)
@@ -96,7 +96,7 @@ label company_lobby:
 
     "Am I late? No one's there."
     # "Galactic walls, ice-cream statues, pink electric barbed wires, just what I'd expect from the job of my dreams."
-    "I see someone coming, very slowly though..."
+    "I see someone coming, very slowly though... Guess I'll just wait."
 
 
 label random_prompt_0:
@@ -137,72 +137,62 @@ label dont_reload_image_here:
     # $ im_portfolio_0 = im.Image(portfolio_0)
     # show expression im_portfolio_0
 
-label lobby_first:
     $ count = 0
+
+label lobby_first:
 
     # reply = INPUT
 
-    python:
-        reply = renpy.input("Describe what you do in front of the secretary.")
-        reply = reply.strip()
+    while count < 3 :
+        $ count +=1
 
-    $ prompt = """
-    Context: you are in the lobby of Grizley, an entertainment company.
-    There is a central desk with a secretary, some office doors, a lift, and the doors to the street.
-    Here are the possible actions:
-    1) ask the secretary for instructions
-    2) inspect the building
-    3) leave the building
-    4) act in a very suspicious or rude manner
-    5) something else
-    Here is a description of what the character did:
+        python:
+            reply = renpy.input("Describe what you do in front of the secretary.")
+            reply = reply.strip()
 
-    %s
+        $ prompt = """
+        Context: the main character is in the lobby of Grizley, an entertainment company.
+        There is a central desk with a secretary, some office doors, a lift, and the doors to the street.
+        Here are the possible actions:
+        1) ask the secretary for instructions
+        2) inspect the building
+        3) leave the building
+        4) act in a very suspicious or rude manner
+        5) something else
 
-    Evaluate what the answer may be among the previous options as a choice c.
-    Moreover, describe what happens as a result of this action as a sentence s.
-    Describe only the direct result of the action.
-    Give your answer as a json of the form {"choice": c, "result": s}.
-    """ % reply
+        Here is a description of what the character did:
 
-    $ schema = {"choice":  "integer:1<=i<=4", "result":  "string"}
-    
-    #python:
-    $ a = persistent.groq_api_key
-    $ answer = retry("lobby_first", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
-    $ choice = answer["choice"]
-    $ result = answer["result"]
-    $ jump_state = ["talk_secretary", "look_building", "bad_ending", "security"][choice - 1]
+        %s
 
-    # describe result  # maybe not depending on the transition?
-    $ renpy.say(narrator, result)
-    $ renpy.jump(jump_state)
+        Evaluate what the answer may be among the previous options as a choice c.
+        Be strict on the fact that for option 1), the answer must take decisive action to get this result; if the main character does not, the result should be 5.
+        Moreover, describe what happens as a result of this action as a sentence s.
+        Describe only the direct result of the action.
+        Give your answer as a json of the form {"choice": c, "result": s}.
+        """ % reply
 
-label welcome_secretary:
-menu:
+        $ schema = {"choice":  "integer:1<=i<=5", "result":  "string"}
 
-    "The secretary is in front of me. I decide..."
+        #python:
+        $ a = persistent.groq_api_key
+        $ answer = retry("lobby_first", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+        $ choice = answer["choice"]
+        $ result = answer["result"]
+        $ jump_state = ["talk_secretary", "look_building", "bad_ending", "security", "look_building"][choice - 1]
 
-    "To say something.":
+        # describe result  # maybe not depending on the transition?
+        $ renpy.say(narrator, result)
+        $ renpy.jump(jump_state)
 
-        $ count += 1
-        jump talk_secretary
-
-    "To pretend to look around.":
-        while count < 3:
-                $ count += 1
-                jump look_building
-
-        jump angry_boss
+    jump angry_boss
 
 label look_building:
 
     "What beautiful architecture."
     "Next time I'll definitely ask for help."
-    jump welcome_secretary
+    jump lobby_first
 
 label talk_secretary:
-    scene bg buildinghall
     show secretary at truecenter
 
     # s "Hi there! Welcome to Grizley, my name is Glora."
@@ -233,8 +223,6 @@ label security:
 
 label angry_boss:
 
-    hide s green normal
-    with dissolve
     "Oh no... Someone who looks angry appears."
 
     show ad angry at truecenter
@@ -247,6 +235,9 @@ label angry_boss:
 
         if not answer:
             answer = "Errr..."
+
+    hide secretary
+    with dissolve
 
     # first question
     # confidence between 0 and 1

@@ -4,7 +4,7 @@ define s = Character(_("Secretary"), color="#c8ffc8")
 define m = Character(_("Me"), color="#c8c8ff")
 define b = Character(_("Boss"), color="#ffc8ff")
 define g = Character(_("Guard"), color="#ffffaa")
-define f = Character(_("Friend"), color="#c8c8")
+define h = Character(_("Henk"), color="#c8c8")
 define j = Character(_("JOBifAI"), color="#ccc8c8")
 
 default persistent.game_first_time = True

@@ -5,28 +5,37 @@ label start:
         call screen config_menu
         $ persistent.game_first_time = False
 
-    scene bg bedroom
+    scene bg room
     with fade
 
 
     m "Gin...ious... I'm a gin...ious..."
-    show f green normal
+    show henk
     with dissolve
-    f "Ahem... If you're so... rhum...markeable... Hohoho... Why aren't you working for Grizley?"
+    h "Ahem... If you're so... rhum...markeable... Hohoho... Why aren't you working for Grizley?"
     m "Grizley... When I apply, I'll be there in no time. Watch me!"
-    f "Watching... With my Eyes... Wide...  OZzzzZZZzzzzz"
-    hide f green normal
+    h "Watching... With my Eyes... Wide...  OZzzzZZZzzzzz"
+    hide henk
     with dissolve
-    m "Finn, you never handled alcohol too well."
+    m "Henk, you never handled alcohol too well."
 
-    show j black normal
-    with fade
+    scene bg cyber
+
     m "JOBifAI, how do I become concept designer for Grizley?"
+
+    show j intro
+    with dissolve
+
     j "Complete these 4 steps to become concept designer for Grizley:"
     j "Step 1: Send this CV I made for you. It says you have a degree in Industrial Design from RISD."
+
+
     j "Add the link of your SinkedIN page I just made. I connected you to some notable concept designers."
     m "What is RISD? And who are these SinkedIN \'friends\' you connected me to? Their faces are weird."
     j "Step 2: Attach this portfolio I am generating for you, with the following description:"
+
+    show j cv
+
     j "I grew up in Videville, a small town known for its vertical lake..."
     j "At 10, while helping my grandfather build the town's cycle superhighway, a cyclist stopped by." 
     j "It was no other than Syd Meat. Listening to his encouraging words, my vocation became clear."
@@ -59,20 +68,16 @@ label init_series_job:
             series_cover_job = retry("init_series_job", generate_job, {"prompt": series_prompt, "api_key": persistent.prodia_api_key})
 
 label wake_up:
-    hide j black normal
-    with fade
+    scene bg room
 
-    m "Finn! Wake up!!! I got an interview with Grizley!"
-    show f green normal
+    m "Henk! Wake up!!! I got an interview with Grizley!"
+    show henk
     with dissolve
-    f "Wait... Wwwhat?"
+    h "Wait... Wwwhat?"
     m "Don't tell me... You forgot our conversation last night?"
-    f "I'm afraid I only remember not having a headache like now..."
+    h "I'm afraid I only remember not having a headache like now..."
     m "I got an interview! Tomorrow 10am, I'm meeting the CEO of Grizley!"
-    f "That's awesome, I'll be rooting for you!"
-
-    scene bg buildinghall
-    with fade
+    h "That's awesome, I'll be rooting for you!"
 
 label finish_series_job:
     $ renpy.checkpoint(hard=False)
@@ -82,11 +87,14 @@ label finish_series_job:
             retry("finish_series_job", download_job_image, {"job_id": series_cover_job, "file_path": img_full_path(series_cover), "api_key": persistent.prodia_api_key})
 
 label company_lobby:
+
+    scene bg lobby
+
     "Am I late? No one's there."
-    "Galactic walls, ice-cream statues, pink electric barbed wires, just what I'd expect from the job of my dreams."
+    # "Galactic walls, ice-cream statues, pink electric barbed wires, just what I'd expect from the job of my dreams."
     "I see someone coming, very slowly though..."
 
-    show s green normal
+    show secretary
     with dissolve
 
 label random_prompt_0:
@@ -119,7 +127,7 @@ label finish_portfolio_0:
     
 label dont_reload_image_here:
     $ renpy.checkpoint(hard=False)
-    "A woman. She's smiling. Should I go and talk to her?"
+    "Looks like it's the secretary approaching. Should I say something?"
     # $ im_portfolio_0 = im.Image(portfolio_0)
     # show expression im_portfolio_0
 
@@ -129,7 +137,7 @@ label lobby_first:
     # reply = INPUT
 
     python:
-        reply = renpy.input("Describe what you do in front of the lady.")
+        reply = renpy.input("Describe what you do in front of the secretary.")
         reply = reply.strip()
 
     $ prompt = """
@@ -167,9 +175,9 @@ label lobby_first:
 label welcome_secretary:
 menu:
 
-    "As soon as she catches my eye, I decide..."
+    "The secretary is in front of me. I decide..."
 
-    "To talk to her.":
+    "To say something.":
 
         $ count += 1
         jump talk_secretary
@@ -184,14 +192,14 @@ menu:
 label look_building:
 
     "What beautiful architecture."
-    "Next time I'll definitely ask the lady for help."
+    "Next time I'll definitely ask for help."
     jump welcome_secretary
 
 label talk_secretary:
     scene bg buildinghall
-    show s green normal at truecenter
+    show secretary at truecenter
 
-    s "Hi there!"
+    # s "Hi there! Welcome to Grizley, my name is Glora."
 
     python:
         answer = renpy.input("Is there any way I can help?")
@@ -212,7 +220,7 @@ label security:
     "Oh no... The nice lady is gone."
     "Someone who looks less nice appears."
 
-    show g blue normal
+    show guard
     g "You're being disruptive. Please exit"
 
     jump bad_ending
@@ -223,7 +231,7 @@ label angry_boss:
     with dissolve
     "Oh no... Someone who looks angry appears."
 
-    show b red angry at truecenter
+    show ad angry at truecenter
 
     b "What is it?"
 
@@ -254,7 +262,7 @@ label boss:
     scene bg office
     with dissolve
 
-    show b red normal at truecenter
+    show ad at truecenter
     "What a cool office."
 
     python:

@@ -151,15 +151,58 @@ label talk_secretary:
     show secretary at truecenter
 
     # s "Hi there! Welcome to Grizley, my name is Glora."
-
     python:
-        answer = renpy.input("Is there any way I can help?")
-        answer = answer.strip()
+        reply = renpy.input("Is there any way I can help?")
+        reply = reply.strip()
 
-        if not answer:
-            answer = "Errr..."
+    $ prompt = """
+    Context: the main character is in front of the secretary, a woman, of Grizley, an entertainment company.
+    The character is here for a job interview at 10 am, with the art director.
+    There is a central desk, some office doors, a lift, and the doors to the street.
+    Here are the possible actions:
+    1) say nothing or a confusing blurb
+    2) mention the interview at 10 am
+    3) leave the building
+    4) act in a very suspicious or rude manner
+    5) something else
+
+    Here is a description of what the character did:
+
+    %s
+
+    Evaluate what the answer may be among the previous options as a choice c.
+    Be strict on the fact that for option 1), the answer must take decisive action to get this result; if the main character does not, the result should be 5.
+    If the character takes no action, then the result should be 5).
+    If the character says "", nothing, then the result should be 5).
+    Moreover, describe what happens as a result of this action as a sentence s.
+    Describe only the direct result of the action.
+    Give your answer as a json of the form {"choice": c, "result": s}.
+    """ % reply
+
+    $ schema = {"choice":  "integer:1<=i<=5", "result":  "string"}
+
+    #python:
+    $ a = persistent.groq_api_key
+    $ answer = retry("lobby_first", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+    $ choice = answer["choice"]
+    $ result = answer["result"]
+    $ jump_state = ["look_building", "ready_interview", "bad_ending", "security", "look_building"][choice - 1]
+
+    # describe result  # maybe not depending on the transition?
+    $ renpy.say(narrator, result)
+    $ renpy.jump(jump_state)
+
+
+    # python:
+    #     answer = renpy.input("Is there any way I can help?")
+    #     answer = answer.strip()
+
+    #     if not answer:
+    #         answer = "Errr..."
 
     # options: rude/suspicious (security)
+
+label ready_interview:
     s "Sure! I'll take you to the art director's office."
 
     jump boss
@@ -208,29 +251,3 @@ label angry_boss:
     b "I see. Come with me."
 
     jump ending
-
-label boss:
-
-    scene bg office
-    with dissolve
-
-    show ad at truecenter
-    "What a cool office."
-
-    python:
-        answer = renpy.input("So, what brings you here?")
-        answer = answer.strip()
-
-        if not answer:
-            answer = "Errr..."
-
-    # jump angry_boss
-    # jump happy_boss
-
-    b "I see. Come with me."
-
-    jump ending
-
-label interview:
-    # $ im_portfolio_0 = im.Image(portfolio_0)
-    # show expression im_portfolio_0

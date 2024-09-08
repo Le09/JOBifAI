@@ -45,4 +45,37 @@ label start:
     j "Remember, this version of JOBifAI is experimental. It is not advised to use it in a real-life setting."
     m "Awesome. Now I just need to submit the CV and portfolio, and hope for the best. Let's wait a bit..."
 
-    jump init_series
+label init_series:
+    $ renpy.checkpoint(hard=False)
+    $ prompt = """
+    Generate a prompt p for Stable Diffusion.
+    That prompt should describe a main illustration for a new interesting anime series targeting a teen audience created by a big entertainment company.
+    Give a short description of that prompt s that a marketing department might use.
+    Give your answer in a json of the form {'prompt': p, 'sentence': s}.
+    """
+    $ schema = {"prompt":  "string", "sentence": "string"}
+    $ a = persistent.groq_api_key
+    $ result = retry("start", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+
+label init_series_job:
+    $ renpy.checkpoint(hard=False)
+    python:
+        series_idea = result["sentence"]
+        series_prompt = result["prompt"]
+        if not series_cover_job:
+            series_cover = get_random_object_name("portfolio/series.png")
+            series_cover_job = retry("init_series_job", generate_job, {"prompt": series_prompt, "api_key": persistent.prodia_api_key})
+
+label wake_up:
+    scene bg room
+
+    m "Henk! Wake up!!! I got an interview with Grizley!"
+    show henk
+    with dissolve
+    h "Wait... Wwwhat?"
+    m "Don't tell me... You forgot our conversation last night?"
+    h "I'm afraid I only remember not having a headache, whereas now..."
+    m "I got an interview! Tomorrow 10am, I'm meeting the CEO of Grizley!"
+    h "Tomorrow! Too late to Escape! I'll be rooting for you!"
+
+    jump street

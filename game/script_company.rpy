@@ -1,37 +1,4 @@
 # Part 2: company.
-label init_series:
-    $ renpy.checkpoint(hard=False)
-    $ prompt = """
-    Generate a prompt p for Stable Diffusion.
-    That prompt should describe a main illustration for a new interesting anime series targeting a teen audience created by a big entertainment company.
-    Give a short description of that prompt s that a marketing department might use.
-    Give your answer in a json of the form {'prompt': p, 'sentence': s}.
-    """
-    $ schema = {"prompt":  "string", "sentence": "string"}
-    $ a = persistent.groq_api_key
-    $ result = retry("start", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
-
-label init_series_job:
-    $ renpy.checkpoint(hard=False)
-    python:
-        series_idea = result["sentence"]
-        series_prompt = result["prompt"]
-        if not series_cover_job:
-            series_cover = get_random_object_name("portfolio/series.png")
-            series_cover_job = retry("init_series_job", generate_job, {"prompt": series_prompt, "api_key": persistent.prodia_api_key})
-
-label wake_up:
-    scene bg room
-
-    m "Henk! Wake up!!! I got an interview with Grizley!"
-    show henk
-    with dissolve
-    h "Wait... Wwwhat?"
-    m "Don't tell me... You forgot our conversation last night?"
-    h "I'm afraid I only remember not having a headache, whereas now..."
-    m "I got an interview! Tomorrow 10am, I'm meeting the CEO of Grizley!"
-    h "Tomorrow! Too late to Escape! I'll be rooting for you!"
-
 label street:
     scene bg street
     "Hope they won't ask any hard questions, I didn't have time to check out my CV and portfolio... The road is longer than I expected."
@@ -151,9 +118,9 @@ label talk_secretary:
     show secretary at truecenter
 
     # s "Hi there! Welcome to Grizley, my name is Glora."
-    python:
-        reply = renpy.input("Is there any way I can help?")
-        reply = reply.strip()
+    # python:
+    #     reply = renpy.input("Is there any way I can help?")
+    #     reply = reply.strip()
 
     $ prompt = """
     Context: the main character is in front of the secretary, a woman, of Grizley, an entertainment company.
@@ -203,7 +170,7 @@ label talk_secretary:
     # options: rude/suspicious (security)
 
 label ready_interview:
-    s "Sure! I'll take you to the art director's office."
+    s "The art director's office is this way."
 
     jump boss
 

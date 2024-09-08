@@ -48,7 +48,7 @@ label angry_boss_explain:
         %s
 
         Evaluate what the answer may be among the previous options as a choice c.
-        Be strict on the fact that for option 1), the answer must take decisive action to get this result; if the main character does not, the result should be 5.
+        Be strict on the fact that for option 2), the answer must take decisive action to get this result; if the main character does not, the result should be 5.
         If the character takes no action, then the result should be 5).
         If the character says "", nothing, then the result should be 5).
         Moreover, describe what happens as a result of this action as a sentence s.
@@ -60,7 +60,7 @@ label angry_boss_explain:
 
         #python:
         $ a = persistent.groq_api_key
-        $ answer = retry("lobby_first", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+        $ answer = retry("angry_boss_explain", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
         $ choice = answer["choice"]
         $ result = answer["result"]
         $ jump_state = ["boss_nervous", "boss_angry_interview", "bad_ending", "security", "boss_nervous"][choice - 1]
@@ -82,6 +82,6 @@ label angry_boss_explain:
     # ok: we may call you
 
 label boss_nervous:
-    "It's a stressful situation... Maybe next time tell him about the interview."
+    "It's a stressful situation... Say what seems the best for you."
 
     jump angry_boss_explain

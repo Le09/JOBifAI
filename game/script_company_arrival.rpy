@@ -57,10 +57,7 @@ label dont_reload_image_here:
     # $ im_portfolio_0 = im.Image(portfolio_0)
     # show expression im_portfolio_0
 
-    $ count_acknowledge_secretary = 0
-    $ count_ask_interview = 0
-    $ count_angry_boss = 0
-    $ count_interview_boss = 0
+
 
 label lobby_first:
 
@@ -88,7 +85,7 @@ label lobby_first:
         %s
 
         Evaluate what the answer may be among the previous options as a choice c.
-        Be strict on the fact that for option 1), the answer must take decisive action to get this result; if the main character does not, the result should be 5.
+        Be strict on the fact that for option 2), the answer must take decisive action to get this result; if the main character does not, the result should be 5.
         If the character takes no action, then the result should be 5).
         If the character says "", nothing, then the result should be 5).
         Moreover, describe what happens as a result of this action as a sentence s.

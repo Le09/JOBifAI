@@ -3,6 +3,8 @@ label talk_secretary:
     show secretary at truecenter
 
     # s "Hi there! Welcome to Grizley, my name is Glora."
+    # TODO prompt does not work
+
     python:
         reply = renpy.input("Is there any way I can help?")
         reply = reply.strip()
@@ -11,11 +13,10 @@ label talk_secretary:
         $ count_ask_interview+= 1
         $ prompt = """
         Context: the main character is in front of the secretary, a woman, of Grizley, an entertainment company.
-        The character is here for a job interview at 10 am, with the art director.
         There is a central desk, some office doors, a lift, and the doors to the street.
         Here are the possible actions:
         1) say nothing or a confusing blurb
-        2) mention the interview at 10 am
+        2) explicitly mention being there for a job interview (at 10 am), with the art director.
         3) leave the building
         4) act in a very suspicious or rude manner
         5) something else
@@ -25,9 +26,12 @@ label talk_secretary:
         %s
 
         Evaluate what the answer may be among the previous options as a choice c.
-        Be strict on the fact that for option 1), the answer must take decisive action to get this result; if the main character does not, the result should be 5.
-        If the character takes no action, then the result should be 5).
-        If the character says "", nothing, then the result should be 5).
+        Be strict on the following:
+        - If the character is polite but doesn't mention the interview, then the result should be 5.
+        - If the character takes no action, then the result should be 5.
+        - If the character says "", nothing, then the result should be 5.
+        - If the character is annoying, confusing, too shy, then the result should be 5.
+        - It should only be 2 when the character says something about the interview.
         Moreover, describe what happens as a result of this action as a sentence s.
         Describe only the direct result of the action.
         Give your answer as a json of the form {"choice": c, "result": s}.
@@ -37,7 +41,7 @@ label talk_secretary:
 
         #python:
         $ a = persistent.groq_api_key
-        $ answer = retry("lobby_first", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+        $ answer = retry("talk_secretary", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
         $ choice = answer["choice"]
         $ result = answer["result"]
         $ jump_state = ["secretary_nervous", "ready_interview", "bad_ending", "security", "secretary_nervous"][choice - 1]

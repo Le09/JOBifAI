@@ -40,7 +40,7 @@ label talk_secretary:
         $ answer = retry("lobby_first", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
         $ choice = answer["choice"]
         $ result = answer["result"]
-        $ jump_state = ["look_building", "ready_interview", "bad_ending", "security", "look_building"][choice - 1]
+        $ jump_state = ["secretary_nervous", "ready_interview", "bad_ending", "security", "secretary_nervous"][choice - 1]
 
         # describe result  # maybe not depending on the transition?
         $ renpy.say(narrator, result)
@@ -58,22 +58,27 @@ label talk_secretary:
 
     # options: rude/suspicious (security)
 
+label secretary_nervous:
+    "It's a stressful situation... Maybe next time tell her about the interview."
+
+    jump talk_secretary
+
 label ready_interview:
     s "The art director's office is this way."
 
     jump boss
 
 label security:
-    hide s green normal
+    hide secretary
     with dissolve
 
     "Oh no... The nice lady is gone."
+    show guard
     "Someone who looks less nice appears."
 
-    show guard
-    g "You're being disruptive. Please exit"
+    g "You're being disruptive. Please exit."
 
-    jump bad_ending
+    jump worst_ending
 
 label angry_boss:
 

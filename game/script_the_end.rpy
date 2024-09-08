@@ -1,5 +1,23 @@
 # Final part.
+
+label worst_ending:
+    scene bg street
+    show henk
+    with dissolve
+    h "Hey!!!! How did it go?"
+
+    m "They... they are not ready to hire, apparently."
+    h "They really don't know what they're missing. Let's go, you'll find a better job."
+    m "A better job than Grizley?"
+    h "Yeah I know. Was looking for something nice to say... Wanna try to beat me at Dario Dart?"
+    m "Definitely. I probably won't find a job for the next 5 years anyways."
+
+    "{b}Worst Ending{/b}"
+    
+    return
+
 label bad_ending:
+    scene bg street
     "\'You'll never know if you don't even try.\' - Orson Vanderbear, founder of Grizley Inc."
     "\'Next time, try harder and stay chill.\' - Henk Lamarre, shareholder of Red Gull GmbH"
     "{b}Bad Ending{/b}"

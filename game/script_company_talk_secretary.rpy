@@ -48,16 +48,6 @@ label talk_secretary:
 
     jump angry_boss
 
-
-    # python:
-    #     answer = renpy.input("Is there any way I can help?")
-    #     answer = answer.strip()
-
-    #     if not answer:
-    #         answer = "Errr..."
-
-    # options: rude/suspicious (security)
-
 label secretary_nervous:
     "It's a stressful situation... Maybe next time tell her about the interview."
 
@@ -67,48 +57,3 @@ label ready_interview:
     s "The art director's office is this way."
 
     jump boss
-
-label security:
-    hide secretary
-    with dissolve
-
-    "Oh no... The nice lady is gone."
-    show guard
-    "Someone who looks less nice appears."
-
-    g "You're being disruptive. Please exit."
-
-    jump worst_ending
-
-label angry_boss:
-
-    "Oh no... Someone who looks angry appears."
-
-    show ad angry at truecenter
-
-    b "What is it?"
-
-    python:
-        answer = renpy.input("Why are you staring at my hard working secretary?")
-        answer = answer.strip()
-
-        if not answer:
-            answer = "Errr..."
-
-    hide secretary
-    with dissolve
-
-    # first question
-    # confidence between 0 and 1
-    # <.33 : suspicious -> security, or maybe 1 warning if > .25 then security
-    # < .66: nothing
-    # > exhalted, almost weird
-
-    # 4 turns (questions?) to accept candidate
-    # very bad: blackliste
-    # ok: we may call you
-
-
-    b "I see. Come with me."
-
-    jump ending

@@ -59,6 +59,8 @@ label dont_reload_image_here:
 
     $ count_acknowledge_secretary = 0
     $ count_ask_interview = 0
+    $ count_angry_boss = 0
+    $ count_interview_boss = 0
 
 label lobby_first:
 

@@ -1,4 +1,4 @@
-
+# Final part.
 label bad_ending:
     "{b}Bad Ending{/b}"
 

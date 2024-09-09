@@ -10,7 +10,13 @@ label boss:
     b "I examined your portfolio with a lot of interest."
 
     $ im_portfolio_0 = im.Image(portfolio_0)
-    show expression im_portfolio_0
+    $ scaled_dim = int(renpy.image_size(portfolio_0)[1] / 3)
+    #$ im_portfolio_0_scaled = im.Scale(portfolio_0, 256, 256)  # also possible to do it like this
+    show expression im_portfolio_0 at truecenter:
+        xalign 0.95
+        yalign 0.3
+        xsize scaled_dim
+        ysize scaled_dim
     with dissolve 
 
     m "What the hell is this? How am I going to explain?"

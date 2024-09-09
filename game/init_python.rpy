@@ -6,8 +6,13 @@ init python:
     import uuid
     path_venv = "~/.virtualenvs/llenaige/lib/python3.9/site-packages/"
     sys.path.append(os.path.expanduser(path_venv))
+    import asyncio
+    import requests
+    import aiohttp
+    import ssl
+    import certifi
     from ai_lib.llm import ask_llm
-    from ai_lib.images import download_job_image, generate_job
+    from ai_lib.images import download_job_image, generate_job, get_job_image_url
 
     def escape_text(text):
         return text.replace("{", "{{").replace("[", "[[").replace("}", "}}").replace("]", "]]")
@@ -61,3 +66,21 @@ init python:
             name += ".png"
         file_path = os.path.join(dir_base, name)
         return file_path
+
+    def download_image(job_id, file_path, api_key):
+        if renpy.platform == "web":  # HTML5 does not support async
+            download_job_image(job_id=job_id, file_path=file_path, api_key=api_key)
+        else:
+            url = get_job_image_url(job_id=job_id, api_key=api_key)
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(download_image_async(url, file_path))
+            #renpy.run(renpy.loader.run_async(download_image_async(url, save_as)))
+
+    async def download_image_async(url, file_path):
+        # https://docs.aiohttp.org/en/stable/client_advanced.html
+        ssl_context = ssl.create_default_context(cafile=certifi.where())
+        conn = aiohttp.TCPConnector(ssl=ssl_context)
+        async with aiohttp.ClientSession(connector=conn) as session:
+            async with session.get(url) as response:
+                with open(file_path, 'wb') as file:
+                    file.write(await response.read())

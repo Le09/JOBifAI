@@ -1,6 +1,7 @@
 ﻿# Part 1: The game begins here.
 label start:
-
+    $ dir_session = get_random_object_name("session", folders=["images"])
+    $ create_folder(dir_session)
     if persistent.game_first_time:
         call screen config_menu
         $ persistent.game_first_time = False
@@ -63,7 +64,7 @@ label init_series_job:
         series_idea = result["sentence"]
         series_prompt = result["prompt"]
         if not series_cover_job:
-            series_cover = get_random_object_name("portfolio/series.png")
+            series_cover = get_random_object_name("series.png", [dir_session])
             series_cover_job = retry("init_series_job", generate_job, {"prompt": series_prompt, "api_key": persistent.prodia_api_key})
 
 label wake_up:

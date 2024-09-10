@@ -8,14 +8,11 @@ Names, characters, businesses, places, events, locales, and incidents are either
 ## Roadmap
 
 TODO:
-- Show the series image side by side with the portfolio!
-- Let the player have the good ending?
 - make the text input scrollable? (or bigger?)
 - maybe add a smoother transition for the secretary's arrival, or moving to the office?
 - Add music
-- fix sys path issues
-- Download the images asynchronously if possible (not in web)
 - Make an itch.io branch where API keys settings are removed and instead hardcoded
+- still some better error handling, also auto-retry on some errors
 
 Maybe?
 - add more configuration options to support local AI (ollama, comfyUI)

@@ -6,6 +6,12 @@ init python:
     from ai_lib.llm import ask_llm
     from ai_lib.images import download_job_image, generate_job
 
+    def download_image(job_id, file_path, api_key):
+        if renpy.platform == "web":
+            download_job_image(job_id, file_path, api_key)
+        else:
+            renpy.invoke_in_thread(download_job_image, job_id, file_path, api_key)
+
     def escape_text(text):
         return text.replace("{", "{{").replace("[", "[[").replace("}", "}}").replace("]", "]]")
 

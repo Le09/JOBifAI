@@ -50,7 +50,7 @@ label talk_secretary:
         $ renpy.say(narrator, result)
         $ renpy.jump(jump_state)
 
-    jump angry_boss
+    jump secretary_angry_boss
 
 label secretary_nervous:
     "It's a stressful situation... Maybe next time tell her about the interview."
@@ -60,4 +60,4 @@ label secretary_nervous:
 label ready_interview:
     s "The art director's office is this way."
 
-    jump boss
+    jump boss_normal

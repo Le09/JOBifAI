@@ -12,7 +12,7 @@ label security:
 
     jump worst_ending
 
-label angry_boss:
+label secretary_angry_boss:
 
     "Oh no... Someone who looks angry appears."
 
@@ -23,13 +23,13 @@ label angry_boss:
     hide secretary
     with dissolve
 
-label angry_boss_explain:
+label secretary_angry_boss_explain:
     python:
         reply = renpy.input("Explain yourself to the angry man.")
         reply = reply.strip()
 
-    while count_angry_boss < 3:
-        $ count_angry_boss+= 1
+    while count_secretary_angry_boss < 3:
+        $ count_secretary_angry_boss+= 1
         $ prompt = """
         Context: the main character is at the lobby of Grizley, an entertainment company.
         There is a central desk, some office doors, a lift, and the doors to the street.
@@ -60,10 +60,10 @@ label angry_boss_explain:
 
         #python:
         $ a = persistent.groq_api_key
-        $ answer = retry("angry_boss_explain", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+        $ answer = retry("secretary_angry_boss_explain", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
         $ choice = answer["choice"]
         $ result = answer["result"]
-        $ jump_state = ["boss_nervous", "boss_angry_interview", "bad_ending", "security", "boss_nervous"][choice - 1]
+        $ jump_state = ["secretary_boss_nervous", "boss_angry", "bad_ending", "security", "secretary_boss_nervous"][choice - 1]
 
         # describe result  # maybe not depending on the transition?
         $ renpy.say(narrator, result)
@@ -81,7 +81,7 @@ label angry_boss_explain:
     # very bad: blackliste
     # ok: we may call you
 
-label boss_nervous:
+label secretary_boss_nervous:
     "It's a stressful situation... Say what seems the best for you."
 
-    jump angry_boss_explain
+    jump secretary_angry_boss_explain

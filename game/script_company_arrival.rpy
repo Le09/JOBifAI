@@ -105,7 +105,7 @@ label lobby_first:
         $ renpy.say(narrator, result)
         $ renpy.jump(jump_state)
 
-    jump angry_boss
+    jump secretary_angry_boss
 
 label look_building:
 

@@ -34,10 +34,6 @@ default count_acknowledge_secretary = 0
 default count_ask_interview = 0
 default count_secretary_angry_boss = 0
 default count_warning = 0
-# default count_interview_boss = 0
-# default count_boss_angry = 0
-# default count_boss_normal = 0
-# default count_boss_happy = 0
 default count_boss_presentation = 0
 
 default ad_mood = None

@@ -53,14 +53,10 @@ label dont_reload_image_here:
     with dissolve
 
     "Looks like it's the secretary approaching. Should I say something?"
-    # $ im_portfolio_0 = im.Image(portfolio_0)
-    # show expression im_portfolio_0
 
 
 
 label lobby_first:
-
-    # reply = INPUT
 
     while count_acknowledge_secretary < 3 :
         $ count_acknowledge_secretary +=1

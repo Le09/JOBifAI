@@ -2,7 +2,6 @@
 label talk_secretary:
     show secretary at truecenter
 
-    # s "Hi there! Welcome to Grizley, my name is Glora."
     # TODO prompt does not work
 
     python:

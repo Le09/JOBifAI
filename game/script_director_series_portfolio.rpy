@@ -3,13 +3,11 @@
 label series_portfolio:
     b "I'm not going to go over all of the new series concept, you had all this information in the job posting that you read so diligently."
     b "So I'll just let you see the very private image that our main artist drew to showcase it."
-    # $ im_series_cover = im.Image(series_cover)
 
     $ im_series_cover_full = im.Scale(series_cover, 1080, 1080)
     $ im_series_cover_right = im.Scale(series_cover, 540, 540)
 
     window hide
-    # show expression im_series_cover at truecenter
     show expression im_series_cover_full at truecenter
     with dissolve
     pause

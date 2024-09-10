@@ -26,6 +26,7 @@ default prompt = None
 default schema = None
 default result = None
 default im_portfolio_0 = None
+default im_series_cover = None
 default answer = None
 default choice = None
 default jump_state = None

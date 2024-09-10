@@ -1,9 +1,13 @@
 import json
-import jsonschema
 import re
+import requests
 
-from groq import Groq
-
+str_to_types = {
+    "string": str,
+    "number": float,
+    "integer": int,
+    "boolean": bool,
+}
 
 def transform_json_schema(short_schema):
     """
@@ -32,8 +36,11 @@ def transform_json_schema(short_schema):
 
 
 def ask_llm(prompt, context=None, is_json=True, schema=None, model="llama3-8b-8192", full_schema=None, api_key=None):
-    # api_key = config["groq_api_key"]  # TODO
-    client = Groq(api_key=api_key)
+    url = "https://api.groq.com/openai/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
     messages = [{"role": "user", "content": prompt}]
     if context:
         messages = [{"role": "system", "content": context}] + messages
@@ -46,8 +53,8 @@ def ask_llm(prompt, context=None, is_json=True, schema=None, model="llama3-8b-81
         full_schema = transform_json_schema(schema)
     if full_schema:
         args["response_format"] = full_schema
-    chat_completion = client.chat.completions.create(**args)
-    result = chat_completion.choices[0].message.content
+    response = requests.post(url, headers=headers, data=json.dumps(args))
+    result = response.json()["choices"][0]["message"]["content"]
     if is_json:
         result = parse_json_answer(result)
     if full_schema:
@@ -75,7 +82,12 @@ def parse_json_answer(markdown_text):
 
 def validate_json(json_data, schema):
     # raises if invalid
-    jsonschema.validate(instance=json_data, schema=schema)
+    # normally we would to that...
+    # jsonschema.validate(instance=json_data, schema=schema)
+    # but that depends on pydantic so it's a no-go
+    for key, type_str in schema["properties"].items():
+        v = json_data[key]
+        assert isinstance(v, str_to_types[type_str["type"]])
 
 def relax_json_schema(json_dict, full_schema):
     props = full_schema["properties"]

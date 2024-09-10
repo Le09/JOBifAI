@@ -1,11 +1,8 @@
 
 init python:
-    # create venv called llenaige in 3.9, in game folder
     import os
     import sys
     import uuid
-    path_venv = "~/.virtualenvs/llenaige/lib/python3.9/site-packages/"
-    sys.path.append(os.path.expanduser(path_venv))
     from ai_lib.llm import ask_llm
     from ai_lib.images import download_job_image, generate_job
 

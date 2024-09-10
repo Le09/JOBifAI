@@ -6,6 +6,11 @@ init python:
     from ai_lib.llm import ask_llm
     from ai_lib.images import download_job_image, generate_job
 
+    # disable moving through history with the scroll wheel
+    # https://www.renpy.org/doc/html/keymap.html
+    config.keymap['rollback'].remove('mousedown_4')
+    config.keymap['rollforward'].remove('mousedown_5')
+
     def download_image(job_id, file_path, api_key):
         if renpy.platform == "web":
             download_job_image(job_id, file_path, api_key)

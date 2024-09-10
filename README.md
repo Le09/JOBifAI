@@ -11,7 +11,6 @@ TODO:
 - make the text input scrollable? (or bigger?)
 - maybe add a smoother transition for the secretary's arrival, or moving to the office?
 - Add music
-- Make an itch.io branch where API keys settings are removed and instead hardcoded
 - still some better error handling, also auto-retry on some errors
 
 Maybe?

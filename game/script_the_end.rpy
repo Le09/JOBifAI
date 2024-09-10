@@ -1,5 +1,21 @@
 # Final part.
 
+label ok_ending:
+    scene bg street
+    show henk
+    with dissolve
+
+    h "Hey!!!! How did it go?"
+
+    m "It went pretty well! They said they would call me back."
+    m "Though I'm afraid the number on my AI-generated CV is not accurate at all..."
+    h "Send them an email saying you just changed your number. It will be fine."
+    m "Definitely. It's a shame AIs can't be trusted yet."
+
+    "{b} OK Ending {/b}"
+
+    return
+
 label worst_ending:
     scene bg street
     show henk

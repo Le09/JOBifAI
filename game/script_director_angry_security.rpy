@@ -4,9 +4,9 @@ label security:
     hide secretary
     with dissolve
 
-    "Oh no... The nice lady is gone."
+    "Oh no..."
     show guard
-    "Someone who looks less nice appears."
+    "Someone who doesn't look happy appears."
 
     g "You're being disruptive. Please exit."
 
@@ -24,12 +24,13 @@ label secretary_angry_boss:
     with dissolve
 
 label secretary_angry_boss_explain:
-    python:
-        reply = renpy.input("Explain yourself to the angry man.")
-        reply = reply.strip()
-
     while count_secretary_angry_boss < 3:
         $ count_secretary_angry_boss+= 1
+
+        python:
+            reply = renpy.input("Explain yourself to the angry man.")
+            reply = reply.strip()
+
         $ prompt = """
         Context: the main character is at the lobby of Grizley, an entertainment company.
         There is a central desk, some office doors, a lift, and the doors to the street.
@@ -70,16 +71,6 @@ label secretary_angry_boss_explain:
         $ renpy.jump(jump_state)
 
     jump security
-
-    # first question
-    # confidence between 0 and 1
-    # <.33 : suspicious -> security, or maybe 1 warning if > .25 then security
-    # < .66: nothing
-    # > exhalted, almost weird
-
-    # 4 turns (questions?) to accept candidate
-    # very bad: blackliste
-    # ok: we may call you
 
 label secretary_boss_nervous:
     "It's a stressful situation... Say what seems the best for you."

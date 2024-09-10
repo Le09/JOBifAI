@@ -60,4 +60,4 @@ label secretary_nervous:
 label ready_interview:
     s "The art director's office is this way."
 
-    jump boss_normal
+    jump boss_neutral

@@ -68,7 +68,7 @@ label portfolio_presentation:
     while count_boss_presentation < 3 and count_warning < 2 :
         $ count_boss_presentation+=1
         python:
-            reply = renpy.input("Can you give a little presentation of your portfolio? Based on this picture?")
+            reply = renpy.input("Can you give a little presentation of your portfolio? Based on the concept, why did you make this choice?")
             reply = reply.strip()
 
         $ prompt = """

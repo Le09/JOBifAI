@@ -52,6 +52,8 @@ label talk_secretary:
     jump secretary_angry_boss
 
 label secretary_nervous:
+
+    "What beautiful architecture."
     "It's a stressful situation... Maybe next time tell her about the interview."
 
     jump talk_secretary

@@ -50,6 +50,9 @@ label boss_nervous_interview:
     jump portfolio_presentation
 
 label boss_ok_ending:
+
+    $ ad_mood = "neutral" # useless for now
+
     show ad
     b "You're an interesting candidate, you know."
     b "I must admit, if I could hire any interesting person, this company would be the size of a country."

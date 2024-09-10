@@ -1,5 +1,6 @@
 # Part 3: talking with Grizley secretary.
 label talk_secretary:
+    scene bg desk
     show secretary at truecenter
 
     # TODO prompt does not work
@@ -53,7 +54,6 @@ label talk_secretary:
 
 label secretary_nervous:
 
-    "What beautiful architecture."
     "It's a stressful situation... Maybe next time tell her about the interview."
 
     jump talk_secretary

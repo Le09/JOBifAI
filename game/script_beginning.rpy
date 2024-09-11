@@ -22,6 +22,7 @@ label start:
 
     scene bg cyber
 
+    $ sample_achievement.grant()
     m "JOBifAI, how do I become concept designer for Grizley?"
 
     show j intro

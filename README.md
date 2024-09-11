@@ -17,3 +17,11 @@ Maybe?
 - add more configuration options to support local AI (ollama, comfyUI)
 - distribute the function as ren'py libraries (?)
 - build a 'demo' version with hardcoded keys to show off the concept
+
+## Before building the game
+
+```bash
+mv game/images/session* tmp/
+```
+
+Otherwise, all these images will get packaged with it.

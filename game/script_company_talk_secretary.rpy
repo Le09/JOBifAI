@@ -41,7 +41,7 @@ label talk_secretary:
 
         #python:
         $ a = persistent.groq_api_key
-        $ answer = retry("talk_secretary", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+        $ answer = askllm("talk_secretary", prompt, schema)
         $ choice = answer["choice"]
         $ result = answer["result"]
         $ jump_state = ["secretary_nervous", "ready_interview", "bad_ending", "security", "secretary_nervous"][choice - 1]

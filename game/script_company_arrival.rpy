@@ -29,7 +29,7 @@ label random_prompt_0:
     """
     $ schema = {"prompt":  "string", "sentence": "string"}
     $ a = persistent.groq_api_key
-    $ result = retry("random_prompt_0", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+    $ result = askllm("random_prompt_0", prompt, schema)
 
 label before_portfolio_0:
     $ renpy.checkpoint(hard=False)
@@ -85,7 +85,7 @@ label lobby_first:
 
         #python:
         $ a = persistent.groq_api_key
-        $ answer = retry("lobby_first", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+        $ answer = askllm("lobby_first", prompt, schema)
         $ choice = answer["choice"]
         $ result = answer["result"]
         $ jump_state = ["look_building", "talk_secretary", "bad_ending", "security", "look_building"][choice - 1]

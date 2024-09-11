@@ -56,7 +56,7 @@ label init_series:
     """
     $ schema = {"prompt":  "string", "sentence": "string"}
     $ a = persistent.groq_api_key
-    $ result = retry("start", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+    $ result = askllm("start", prompt, schema)
 
 label init_series_job:
     $ renpy.checkpoint(hard=False)

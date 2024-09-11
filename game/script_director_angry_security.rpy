@@ -63,7 +63,7 @@ label secretary_angry_boss_explain:
 
         #python:
         $ a = persistent.groq_api_key
-        $ answer = retry("secretary_angry_boss_explain", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+        $ answer = askllm("secretary_angry_boss_explain", prompt, schema)
         $ choice = answer["choice"]
         $ result = answer["result"]
         $ jump_state = ["secretary_boss_nervous", "boss_angry", "bad_ending", "security", "secretary_boss_nervous"][choice - 1]

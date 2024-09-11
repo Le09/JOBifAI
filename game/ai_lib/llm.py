@@ -9,6 +9,9 @@ str_to_types = {
     "boolean": bool,
 }
 
+class RetryableError(Exception):
+    pass
+
 def transform_json_schema(short_schema):
     """
     Transform a JSON schema written in short notation to the standard JSON schema
@@ -35,7 +38,20 @@ def transform_json_schema(short_schema):
     return standard_schema
 
 
-def ask_llm(prompt, context=None, is_json=True, schema=None, model="llama3-8b-8192", full_schema=None, api_key=None):
+def ask_llm(*args, retries=3, **kwargs):
+    result = None
+    while not result:
+        try:
+            result = ask_llm_once(*args, **kwargs)
+        except RetryableError:
+            if retries:
+                retries -= 1
+            else:
+                raise
+    return result
+
+
+def ask_llm_once(prompt, context=None, is_json=True, schema=None, model="llama3-8b-8192", full_schema=None, api_key=None):
     url = "https://api.groq.com/openai/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -54,13 +70,22 @@ def ask_llm(prompt, context=None, is_json=True, schema=None, model="llama3-8b-81
     if full_schema:
         args["response_format"] = full_schema
     response = requests.post(url, headers=headers, data=json.dumps(args))
-    result = response.json()["choices"][0]["message"]["content"]
-    if is_json:
-        result = parse_json_answer(result)
-    if full_schema:
-        full_schema["type"] = "object"  # yeah this is stupid
-        # to check maximum and minimum constraints
-        validate_json(relax_json_schema(result, full_schema), full_schema)
+    status = response.status_code
+    if status != 200:
+        if response.status_code not in [400, 401]:
+            raise RetryableError()
+        else:
+            response.raise_for_status()  # Raise an exception for HTTP errors
+    try:
+        result = response.json()["choices"][0]["message"]["content"]
+        if is_json:
+            result = parse_json_answer(result)
+        if full_schema:
+            full_schema["type"] = "object"  # yeah this is stupid
+            # to check maximum and minimum constraints
+            validate_json(relax_json_schema(result, full_schema), full_schema)
+    except Exception as e:
+        raise RetryableError(str(e))
     return result
 
 

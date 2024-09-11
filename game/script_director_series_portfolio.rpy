@@ -91,7 +91,7 @@ label portfolio_presentation:
         $ schema = {"confidence":  "number:0<=i<=1", "ad_answer":  "string"}
         #python:
         $ a = persistent.groq_api_key
-        $ answer = retry("portfolio_presentation", ask_llm, {"prompt": prompt, "schema":schema, "api_key": a})
+        $ answer = askllm("portfolio_presentation", prompt, schema)
         $ confidence = answer["confidence"]
         $ ad_answer = answer["ad_answer"]
 

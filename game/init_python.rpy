@@ -11,11 +11,11 @@ init python:
     config.keymap['rollback'].remove('mousedown_4')
     config.keymap['rollforward'].remove('mousedown_5')
 
+    def askllm(state, prompt, schema):
+        return retry(state, ask_llm, {"api_key":persistent.groq_api_key, "prompt": prompt, "schema": schema})
+
     def download_image(job_id, file_path, api_key):
-        if renpy.platform == "web":
-            download_job_image(job_id, file_path, api_key)
-        else:
-            renpy.invoke_in_thread(download_job_image, job_id, file_path, api_key)
+        renpy.invoke_in_thread(download_job_image, job_id, file_path, api_key)
 
     def escape_text(text):
         return text.replace("{", "{{").replace("[", "[[").replace("}", "}}").replace("]", "]]")

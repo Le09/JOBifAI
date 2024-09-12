@@ -16,6 +16,7 @@ style default:
 style input:
     properties gui.text_properties("input", accent=True)
     adjust_spacing False
+    color "#d3c50b"
 
 style hyperlink_text:
     properties gui.text_properties("hyperlink", accent=True)
@@ -196,6 +197,35 @@ style input:
     xalign gui.dialogue_text_xalign
     xmaximum gui.dialogue_width
 
+screen viewport_llm(prompt):
+    style_prefix "input"
+    add "gui/viewport.png" xalign 0.5 yalign 1.0
+    side "c":
+        area (000, 800, 1920, 277)
+
+        viewport id "vp":
+            draggable True
+            mousewheel True
+            scrollbars "vertical"
+
+            # if prompt[0]:
+                # window:
+                    # style "namebox"
+                    # text prompt[0]
+                    # xfill True
+
+            # Description
+            vbox:
+                xfill True
+                pos (0.01, 0.0005)
+
+                text prompt[1] style "input_prompt"
+
+            # Input
+            vbox:
+                pos (0.01, 0.005)
+                # this field with this specific id is necessary for the custom input screen
+                input id "input"
 
 ## Choice screen ###############################################################
 ##

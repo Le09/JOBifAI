@@ -5,9 +5,12 @@ label talk_secretary:
 
     # TODO prompt does not work
 
-    python:
-        reply = renpy.input("Is there any way I can help?")
-        reply = reply.strip()
+    # python:
+        # reply = renpy.input("Is there any way I can help?")
+        # reply = reply.strip()
+    $ reply = renpy.input(["Secretary","Is there any way I can help?"], screen="viewport_llm")
+    # hack that doesn't look nice in the history.
+    "Me: [reply]"
 
     while count_ask_interview < 3:
         $ count_ask_interview+= 1

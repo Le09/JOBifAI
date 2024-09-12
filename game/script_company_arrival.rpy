@@ -54,9 +54,9 @@ label lobby_first:
     while count_first_move < 3 :
         $ count_first_move +=1
 
-        python:
-            reply = renpy.input("Describe what you do.")
-            reply = reply.strip()
+        $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
+        # hack that doesn't look nice in the history.
+        "Me: [reply]"
 
         $ prompt = """
         Context: the main character is in the lobby of Grizley, an entertainment company.

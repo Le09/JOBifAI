@@ -21,6 +21,7 @@ TODO:
 If this key is abused, it will cease working for all players.
 In that case you can set up your own keys, for free, in the settings. If you run your own AI, this is also supported! 
 "
+- add a persistent user id that is passed to the LLM calls
 
 Maybe?
 - add more configuration options to be able to use comfyUI instead or Prodia

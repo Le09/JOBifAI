@@ -75,6 +75,10 @@ label secretary_angry_boss_explain:
         $ renpy.say(narrator, result)
         $ renpy.jump(jump_state)
 
+        # show screen say_scroll("Boss: ", result)
+        # pause
+        # hide screen say_scroll
+
     jump security
 
 label secretary_boss_nervous:

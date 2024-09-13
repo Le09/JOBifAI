@@ -53,6 +53,10 @@ label talk_secretary:
         $ renpy.say(narrator, result)
         $ renpy.jump(jump_state)
 
+        # show screen say_scroll("", result)
+        # pause
+        # hide screen say_scroll
+
     jump secretary_angry_boss
 
 label secretary_nervous:

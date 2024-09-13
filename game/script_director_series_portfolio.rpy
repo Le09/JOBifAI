@@ -121,7 +121,14 @@ label portfolio_presentation:
             $ jump_state = "boss_happy_ending"
 
         # describe result  # maybe not depending on the transition?
-        $ renpy.say(narrator, ad_answer)
+
+        # $ boss_reply = renpy.say(narrator, ad_answer)
+        # $ reply = renpy.input(["","Explain yourself to the angry man."], screen="say_scroll")
+
+        show screen say_scroll("Boss: ", ad_answer)
+        pause
+        hide screen say_scroll
+
         $ renpy.jump(jump_state)
 
     jump sad_boss

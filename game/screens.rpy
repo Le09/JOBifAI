@@ -99,6 +99,11 @@ style frame:
 screen say(who, what):
     style_prefix "say"
 
+    # viewport:
+        # draggable True
+        # mousewheel True
+        # scrollbars "vertical"
+
     window:
         id "window"
 
@@ -110,6 +115,39 @@ screen say(who, what):
                 text who id "who"
 
         text what id "what"
+
+
+    ## If there's a side image, display it above the text. Do not display on the
+    ## phone variant - there's no room.
+    if not renpy.variant("small"):
+        add SideImage() xalign 0.0 yalign 1.0
+
+screen say_scroll(who, what):
+    style_prefix "say"
+    zorder 100 #on top of other screens
+
+    add "gui/viewport.png" xalign 0.5 yalign 1.0
+
+    side "c":
+        area (000, 800, 1920, 277)
+
+        viewport id "vp2":
+            draggable True
+            mousewheel True
+            scrollbars "vertical"
+
+            if who is not None:
+
+                vbox:
+                    pos (0.01, 0.0005)
+                    text who id "who"
+
+                vbox:
+                    xfill True
+                    pos (0.01, 0.002)
+                    id "namebox"
+                    style "namebox"
+                    text what id "what"
 
 
     ## If there's a side image, display it above the text. Do not display on the

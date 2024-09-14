@@ -91,7 +91,8 @@ label portfolio_presentation:
 
         Given this answer, evaluate how convinced the art director might be?
         Give your answer as json, with a number r between 0 and 1, and the direct answer a of the director to the applicant in the form {"confidence": r, "ad_answer": a}
-        If r is above 0.33, the director should describe a bit what the original subject was about.
+        If r is above 0.67, the director is convinced and will give a positive answer.
+        If r is below 0.5, the director should describe a bit what the original subject was about to get the applicant to explain the link with the portfolio.
 
         """%(series_idea, portfolio_idea, ad_intro, ad_mood_string, reply)
 

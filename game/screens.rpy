@@ -134,17 +134,19 @@ screen say_scroll(who, what):
         viewport id "vp2":
             draggable True
             mousewheel True
+            # scrollbar thumb size
+            child_size 1900, 1000
             scrollbars "vertical"
 
             if who is not None:
 
                 vbox:
-                    pos (0.01, 0.0005)
+                    pos (0.01, 0.02)
                     text who id "who"
 
                 vbox:
                     xfill True
-                    pos (0.01, 0.002)
+                    pos (0.01, 0.08)
                     id "namebox"
                     style "namebox"
                     text what id "what"
@@ -242,6 +244,7 @@ screen viewport_llm(prompt):
         area (000, 800, 1920, 277)
 
         viewport id "vp":
+            child_size 1900, 1000
             draggable True
             mousewheel True
             scrollbars "vertical"
@@ -255,13 +258,13 @@ screen viewport_llm(prompt):
             # Description
             vbox:
                 xfill True
-                pos (0.01, 0.0005)
+                pos (0.01, 0.02)
 
                 text prompt[1] style "input_prompt"
 
             # Input
             vbox:
-                pos (0.01, 0.005)
+                pos (0.01, 0.2)
                 # this field with this specific id is necessary for the custom input screen
                 input id "input"
 

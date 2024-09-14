@@ -40,3 +40,7 @@ default ad_mood = None
 default ad_mood_string = None
 default confidence = None
 default ad_answer = None
+
+default earring_got = False
+default earring_given = False
+default secretary_happy = False

@@ -3,18 +3,13 @@ label talk_secretary:
     scene bg desk
     show secretary at truecenter
 
-    # TODO prompt does not work
-
-    # python:
-        # reply = renpy.input("Is there any way I can help?")
-        # reply = reply.strip()
     $ reply = renpy.input(["Secretary","Is there any way I can help?"], screen="viewport_llm")
-    # hack that doesn't look nice in the history.
-    # "Me: [reply]"
 
     $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 
     while count_ask_interview < 3:
+        $ earring_can_give = earring_got and not earring_given
+        $ earring_choice = "6) talk about the earring" if earring_can_give else ""
         $ count_ask_interview+= 1
         $ prompt = """
         Context: the main character is in front of the secretary, a woman, of Grizley, an entertainment company.
@@ -25,6 +20,7 @@ label talk_secretary:
         3) leave the building
         4) act in a very suspicious or rude manner
         5) something else
+        %s
 
         Here is a description of what the character did:
 
@@ -40,30 +36,34 @@ label talk_secretary:
         Moreover, describe what happens as a result of this action as a sentence s.
         Describe only the direct result of the action.
         Give your answer as a json of the form {"choice": c, "result": s}.
-        """ % reply
+        """ % (earring_choice, reply)
 
-        $ schema = {"choice":  "integer:1<=i<=5", "result":  "string"}
+        $ schema = {"choice":  "integer:1<=i<=6" if earring_can_give else "integer:1<=i<=5", "result":  "string"}
 
         #python:
         $ a = persistent.groq_api_key
         $ answer = askllm("talk_secretary", prompt, schema)
         $ choice = answer["choice"]
         $ result = answer["result"]
-        $ jump_state = ["secretary_nervous", "ready_interview", "bad_ending", "security", "secretary_nervous"][choice - 1]
+        $ jump_state = ["secretary_nervous", "ready_interview", "bad_ending", "security", "secretary_nervous", "earring_give"][choice - 1]
 
-        # describe result  # maybe not depending on the transition?
         $ renpy.say(narrator, result)
         $ renpy.jump(jump_state)
-
-        # show screen say_scroll("", result)
-        # pause
-        # hide screen say_scroll
 
     jump secretary_angry_boss
 
 label secretary_nervous:
 
     "It's a stressful situation... Maybe next time tell her about the interview."
+
+    jump talk_secretary
+
+label earring_give:
+    "I found this earring between the couch's cushions."
+    s "Oh, thank you! I was looking for it everywhere."
+    s "It's an earring with the logo of my favourite band, OKF."
+    $ earring_given = True
+    $ secretary_happy = True
 
     jump talk_secretary
 

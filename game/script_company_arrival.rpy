@@ -53,6 +53,8 @@ label lobby_first:
 
     while count_first_move < 3 :
         $ count_first_move +=1
+        $ couch = "comfy" if earring_got else "disorderly"
+        $ couch_choice = "6) inspect couch" if not earring_got else ""
 
         $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
         # hack that doesn't look nice in the history.
@@ -62,12 +64,14 @@ label lobby_first:
         $ prompt = """
         Context: the main character is in the lobby of Grizley, an entertainment company.
         There is a central desk with a secretary, some office doors, a lift, and the doors to the street.
+        There are also some plants and a %s couch.
         Here are the possible actions:
         1) inspect the building
         2) go towards the secretary
         3) leave the building
         4) act in a very suspicious or rude manner
         5) something else
+        %s
 
         Here is a description of what the character did:
 
@@ -80,28 +84,31 @@ label lobby_first:
         Moreover, describe what happens as a result of this action as a sentence s.
         Describe only the direct result of the action.
         Give your answer as a json of the form {"choice": c, "result": s}.
-        """ % reply
+        """ % (couch, couch_choice, reply)
 
-        $ schema = {"choice":  "integer:1<=i<=5", "result":  "string"}
+        $ schema = {"choice":  "integer:1<=i<=5" if earring_got else "integer:1<=i<=6", "result":  "string"}
 
         #python:
         $ a = persistent.groq_api_key
         $ answer = askllm("lobby_first", prompt, schema)
         $ choice = answer["choice"]
         $ result = answer["result"]
-        $ jump_state = ["look_building", "talk_secretary", "bad_ending", "security", "look_building"][choice - 1]
+        $ jump_state = ["look_building", "talk_secretary", "bad_ending", "security", "look_building", "earring_got"][choice - 1]
 
         # describe result  # maybe not depending on the transition?
         $ renpy.say(narrator, result)
         $ renpy.jump(jump_state)
-
-        # show screen say_scroll("", result)
-        # pause
-        # hide screen say_scroll
 
     jump secretary_angry_boss
 
 label look_building:
     "What beautiful architecture."
     "Next time I'll definitely do something."
+    jump lobby_first
+
+label earring_got:
+    $ earring_got = True
+    "The cushions are a mess. Reminds me of home."
+    "What's this, a feather? Oh, it's an earring. I'll keep it."
+    "Ok, I feel ready know. I should move on."
     jump lobby_first

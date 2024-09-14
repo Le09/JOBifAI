@@ -10,7 +10,9 @@ label talk_secretary:
         # reply = reply.strip()
     $ reply = renpy.input(["Secretary","Is there any way I can help?"], screen="viewport_llm")
     # hack that doesn't look nice in the history.
-    "Me: [reply]"
+    # "Me: [reply]"
+
+    $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 
     while count_ask_interview < 3:
         $ count_ask_interview+= 1

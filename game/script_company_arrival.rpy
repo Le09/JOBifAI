@@ -56,7 +56,8 @@ label lobby_first:
 
         $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
         # hack that doesn't look nice in the history.
-        "Me: [reply]"
+        # Don't display reply again but add it to history.
+        $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 
         $ prompt = """
         Context: the main character is in the lobby of Grizley, an entertainment company.

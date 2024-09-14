@@ -73,7 +73,9 @@ label portfolio_presentation:
 
         $ reply = renpy.input(["Boss","Can you give a little presentation of your portfolio? Based on the concept, why did you make this choice?"], screen="viewport_llm")
         # hack that doesn't look nice in the history.
-        "Me: [reply]"
+        # "Me: [reply]"
+
+        $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 
         $ prompt = """
 
@@ -89,6 +91,7 @@ label portfolio_presentation:
 
         Given this answer, evaluate how convinced the art director might be?
         Give your answer as json, with a number r between 0 and 1, and the direct answer a of the director to the applicant in the form {"confidence": r, "ad_answer": a}
+        If r is above 0.33, the director should describe a bit what the original subject was about.
 
         """%(series_idea, portfolio_idea, ad_intro, ad_mood_string, reply)
 
@@ -123,6 +126,7 @@ label portfolio_presentation:
         # describe result  # maybe not depending on the transition?
 
         # $ boss_reply = renpy.say(narrator, ad_answer)
+        $ b.add_history(kind="adv", who=b.name, what=ad_answer)
         # $ reply = renpy.input(["","Explain yourself to the angry man."], screen="say_scroll")
 
         show screen say_scroll("Boss: ", ad_answer)

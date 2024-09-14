@@ -34,7 +34,8 @@ label secretary_angry_boss_explain:
             # reply = reply.strip()
         $ reply = renpy.input(["","Explain yourself to the angry man."], screen="viewport_llm")
         # hack that doesn't look nice in the history.
-        "Me: [reply]"
+        # "Me: [reply]"
+        $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 
         $ prompt = """
         Context: the main character is at the lobby of Grizley, an entertainment company.

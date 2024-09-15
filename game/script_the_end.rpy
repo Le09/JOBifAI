@@ -13,6 +13,7 @@ label ok_ending:
     h "Send them an email saying you just changed your number. It will be fine."
     m "Definitely. It's a shame AIs can't be trusted yet."
 
+    $ achievement_ending_okay.grant()
     "{b} OK Ending {/b}"
 
     return
@@ -30,8 +31,9 @@ label worst_ending:
     h "Yeah I know. Was looking for something nice to say... Wanna try to beat me at Dario Dart?"
     m "Definitely. I probably won't find a job for the next 5 years anyways."
 
+    $ achievement_ending_worst.grant()
     "{b}Worst Ending{/b}"
-    
+
     return
 
 label bad_ending:
@@ -40,6 +42,7 @@ label bad_ending:
     "\'You'll never know if you don't even try.\' - Orson Vanderbear, co-founder of Grizley Inc."
     "\'Next time, try harder and stay chill.\' - Henk Lamarre, shareholder of Red Gull GmbH"
     "{b}Bad Ending{/b}"
+    $ achievement_ending_bad.grant()
 
     return
 
@@ -52,6 +55,7 @@ label ending:
     "They gave me a brochure to read before I start..."
     "\'There is no such thing as too much hard work, no matter what people say.\' - Orson Vanderbear, co-founder of Grizley Inc."
     "Nice. I can't wait."
+    $ achievement_ending_good.grant()
     "{b}Good Ending{/b}."
 
     return

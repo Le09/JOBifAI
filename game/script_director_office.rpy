@@ -34,10 +34,20 @@ label boss_happy:
     with dissolve
     "What a cool office."
 
-    b "Our wonderful secretary just made some delicious coffee, would you like some?"
     show ad happy at truecenter
-    m "Thank you, but I'm trying to quit caffeine."
-    b "More for me then!"
+    b "So... This morning I got a call from our CCO."
+    b "{i}My dearest art director, you took Grizley to new heights with your vision.{/i}"
+    b "{i}With your latest submission... You might have been too high.{/i}"
+    b "Pretty insulting, am I correct? Well, I needed to relax, so I asked the secretary for coffee."
+    b "But what I got instead, was some tonka bean-infused cream melting into the velvety and delicate liquid, a concentrate of the most precious beans."
+    menu:
+        "Do you want some?"
+
+        "No thank you, I'm trying to quit caffeine.":
+            "You look at the art director slowly appreciating his coffee."
+
+        "Thank you very much! I'd love that:":
+            "You wait for the coffee, listening to the director's extended rant about the CCO. Coffee arrives, served in a custom ceramic cup. It has a chocolatey rich color, and a delicious nutty scent. Forget the interview, the coffee alone was worth the trip."
 
     jump series_portfolio
 

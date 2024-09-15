@@ -51,7 +51,7 @@ label boss_nervous_interview:
 
 label boss_ok_ending:
 
-    $ ad_mood = "neutral" # useless for now
+    $ ad_mood = "neutral"
 
     show ad
     b "You're an interesting candidate, you know."

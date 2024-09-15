@@ -14,7 +14,6 @@ label company_lobby:
     scene bg lobby
 
     "Am I late? No one's there."
-    # "Galactic walls, ice-cream statues, pink electric barbed wires, just what I'd expect from the job of my dreams."
     "I see someone at the desk. Maybe I should check. I'll take my time though."
 
 

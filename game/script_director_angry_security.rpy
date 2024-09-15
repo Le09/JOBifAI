@@ -20,8 +20,6 @@ label secretary_angry_boss:
 
     b "What are you doing? Don't you know there are people working hard here."
 
-    # TODO, if secretary wasn't there in the first place, does it still work
-
     hide secretary
     with dissolve
 

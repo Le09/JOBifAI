@@ -99,11 +99,6 @@ style frame:
 screen say(who, what):
     style_prefix "say"
 
-    # viewport:
-        # draggable True
-        # mousewheel True
-        # scrollbars "vertical"
-
     window:
         id "window"
 
@@ -248,12 +243,6 @@ screen viewport_llm(prompt):
             draggable True
             mousewheel True
             scrollbars "vertical"
-
-            # if prompt[0]:
-                # window:
-                    # style "namebox"
-                    # text prompt[0]
-                    # xfill True
 
             # Description
             vbox:

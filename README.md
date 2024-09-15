@@ -9,11 +9,11 @@ Names, characters, businesses, places, events, locales, and incidents are either
 
 TODO:
 - add black border behind navigation
-- worst ending: band blocking the path, what do you do? they put a hat waiting for tip (give or leave). If give they sing (play song)
+- worst ending: band blocking the path, what do you do? they put a hat waiting for tip (give or leave). If give they sing (play song) (add achievement for it)
 - improve scrollable screen
 - Add music
 - with music changes, in the loop, change the AD sprite depending on confidence (angry: <=.33, happy >=.66, neutral in between)
-- achievements
+- achievements: waking up? 
 - advanced configuration options (url, model) for the LLM
 - improve title screen
 - add explanation page for the advanced settings "To simplify things, the AI calls are made using a demo key.

@@ -76,7 +76,7 @@ label portfolio_presentation:
 
         $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 
-        $ prompt_add = count_boss_presentation == 2 and confidence < .5
+        $ prompt_add = count_boss_presentation == 2
         $ prompt_direct = "The director should describe a bit what the original subject was about to get the applicant to explain the link with the portfolio" if prompt_add else ""
         $ prompt = """
         Context: the initial subject was: %s

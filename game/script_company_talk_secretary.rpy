@@ -40,8 +40,6 @@ Return the result in JSON format as follows:  {"choice": c, "result": s}
 
         $ schema = {"choice":  "integer:1<=i<=6" if earring_can_give else "integer:1<=i<=5", "result":  "string"}
 
-        #python:
-        $ a = persistent.groq_api_key
         $ answer = askllm("talk_secretary", prompt, schema)
         $ choice = answer["choice"]
         $ result = answer["result"]

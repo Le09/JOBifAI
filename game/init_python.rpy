@@ -16,9 +16,21 @@ init python:
             renpy.say("DEBUG", msg)
 
     def askllm(state, prompt, schema):
-        return retry(state, ask_llm, {"api_key":persistent.groq_api_key, "prompt": prompt, "schema": schema})
+        api_key = persistent.groq_api_key
+        if "demo" in api_key:
+            api_key = persistent.groq_api_key_demo
+        return retry(state, ask_llm, {"api_key": api_key, "prompt": prompt, "schema": schema})
 
-    def download_image(job_id, file_path, api_key):
+    def generate_image(state, prompt):
+        api_key = persistent.prodia_api_key
+        if "demo" in api_key:
+            api_key = persistent.prodia_api_key_demo
+        return retry(state, generate_job, {"prompt": prompt, "api_key": api_key})
+
+    def download_image(job_id, file_path):
+        api_key = persistent.prodia_api_key
+        if "demo" in api_key:
+            api_key = persistent.prodia_api_key_demo
         renpy.invoke_in_thread(download_job_image, job_id, file_path, api_key)
 
     def escape_text(text):

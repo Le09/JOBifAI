@@ -55,7 +55,6 @@ label init_series:
     Give your answer in a json of the form {'prompt': p, 'sentence': s}.
     """
     $ schema = {"prompt":  "string", "sentence": "string"}
-    $ a = persistent.groq_api_key
     $ result = askllm("start", prompt, schema)
 
 label init_series_job:
@@ -65,7 +64,7 @@ label init_series_job:
         series_prompt = result["prompt"]
         if not series_cover_job:
             series_cover = get_random_object_name("series.png", [dir_session])
-            series_cover_job = retry("init_series_job", generate_job, {"prompt": series_prompt, "api_key": persistent.prodia_api_key})
+            series_cover_job = generate_image("init_series_job", series_prompt)
 
 label wake_up:
     scene bg room

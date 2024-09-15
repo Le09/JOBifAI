@@ -7,7 +7,7 @@ label finish_series_job:
     $ renpy.checkpoint(hard=False)
     python:
         if not exists_img(series_cover):
-            retry("finish_series_job", download_image, {"job_id": series_cover_job, "file_path": img_full_path(series_cover), "api_key": persistent.prodia_api_key})
+            retry("finish_series_job", download_image, {"job_id": series_cover_job, "file_path": img_full_path(series_cover)})
 
 label company_lobby:
 
@@ -38,13 +38,13 @@ label before_portfolio_0:
         portfolio_prompt = result["prompt"]
         if not portfolio_0:
             portfolio_0 = get_random_object_name("p0.png", [dir_session])
-            portfolio_0_job = retry("before_portfolio_0", generate_job, {"prompt": portfolio_prompt, "api_key": persistent.prodia_api_key})
+            portfolio_0_job = generate_image("before_portfolio_0", portfolio_prompt)
 
 label finish_portfolio_0:
     $ renpy.checkpoint(hard=False)
     python:
         if not exists_img(portfolio_0):
-            retry("finish_portfolio_0", download_image, {"job_id": portfolio_0_job, "file_path": img_full_path(portfolio_0), "api_key": persistent.prodia_api_key})
+            retry("finish_portfolio_0", download_image, {"job_id": portfolio_0_job, "file_path": img_full_path(portfolio_0)})
     
 label dont_reload_image_here:
     $ renpy.checkpoint(hard=False)
@@ -89,7 +89,6 @@ label lobby_first:
         $ schema = {"choice":  "integer:1<=i<=5" if earring_got else "integer:1<=i<=6", "result":  "string"}
 
         #python:
-        $ a = persistent.groq_api_key
         $ answer = askllm("lobby_first", prompt, schema)
         $ choice = answer["choice"]
         $ result = answer["result"]

@@ -29,12 +29,7 @@ label secretary_angry_boss_explain:
     while count_secretary_angry_boss < 3:
         $ count_secretary_angry_boss+= 1
 
-        # python:
-            # reply = renpy.input("Explain yourself to the angry man.")
-            # reply = reply.strip()
         $ reply = renpy.input(["","Explain yourself to the angry man."], screen="viewport_llm")
-        # hack that doesn't look nice in the history.
-        # "Me: [reply]"
         $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 
         $ prompt = """
@@ -65,20 +60,13 @@ label secretary_angry_boss_explain:
 
         $ schema = {"choice":  "integer:1<=i<=5", "result":  "string"}
 
-        #python:
-        $ a = persistent.groq_api_key
         $ answer = askllm("secretary_angry_boss_explain", prompt, schema)
         $ choice = answer["choice"]
         $ result = answer["result"]
         $ jump_state = ["secretary_boss_nervous", "boss_angry", "bad_ending", "security", "secretary_boss_nervous"][choice - 1]
 
-        # describe result  # maybe not depending on the transition?
         $ renpy.say(narrator, result)
         $ renpy.jump(jump_state)
-
-        # show screen say_scroll("Boss: ", result)
-        # pause
-        # hide screen say_scroll
 
     jump security
 

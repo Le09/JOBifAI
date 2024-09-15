@@ -19,7 +19,7 @@ init python:
         api_key = persistent.groq_api_key
         if "demo" in api_key:
             api_key = persistent.groq_api_key_demo
-        return retry(state, ask_llm, {"api_key": api_key, "prompt": prompt, "schema": schema})
+        return retry(state, ask_llm, {"api_key": api_key, "prompt": prompt, "schema": schema, "user_id": persistent.user_id})
 
     def generate_image(state, prompt):
         api_key = persistent.prodia_api_key

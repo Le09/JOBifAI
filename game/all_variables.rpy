@@ -7,6 +7,7 @@ define g = Character(_("Guard"), color="#ffffaa")
 define h = Character(_("Henk"), color="#c8c8")
 define j = Character(_("JOBifAI"), color="#ccc8c8")
 
+default persistent.user_id = None
 default persistent.game_first_time = True
 default persistent.config = {"groq_api_key": persistent.groq_api_key}
 

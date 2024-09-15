@@ -2,6 +2,8 @@
 label start:
     $ dir_session = get_random_object_name("session", folders=["images"])
     $ create_folder(dir_session)
+    if not persistent.user_id:
+        $ persistent.user_id = get_random_object_name("user_id_")
     if persistent.game_first_time:
         call screen config_menu
         $ persistent.game_first_time = False

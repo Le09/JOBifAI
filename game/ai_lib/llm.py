@@ -51,7 +51,7 @@ def ask_llm(*args, retries=3, **kwargs):
     return result
 
 
-def ask_llm_once(prompt, context=None, is_json=True, schema=None, model="llama3-8b-8192", full_schema=None, api_key=None):
+def ask_llm_once(prompt, context=None, is_json=True, schema=None, model="llama3-8b-8192", full_schema=None, api_key=None, user_id="user"):
     url = "https://api.groq.com/openai/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -64,6 +64,7 @@ def ask_llm_once(prompt, context=None, is_json=True, schema=None, model="llama3-
         "messages": messages,
         "model": model,
         "stream": False,
+        "user": user_id,
     }
     if schema:
         full_schema = transform_json_schema(schema)

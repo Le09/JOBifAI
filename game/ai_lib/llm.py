@@ -72,7 +72,7 @@ def ask_llm_once(prompt, context=None, is_json=True, schema=None, model="llama3-
     response = requests.post(url, headers=headers, data=json.dumps(args))
     status = response.status_code
     if status != 200:
-        if response.status_code not in [400, 401]:
+        if response.status_code not in [401, 403, 404]:
             raise RetryableError()
         else:
             response.raise_for_status()  # Raise an exception for HTTP errors

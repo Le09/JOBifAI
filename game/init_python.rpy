@@ -11,6 +11,10 @@ init python:
     config.keymap['rollback'].remove('mousedown_4')
     config.keymap['rollforward'].remove('mousedown_5')
 
+    def debug_log(msg):
+        if config.developer:
+            renpy.say("DEBUG", msg)
+
     def askllm(state, prompt, schema):
         return retry(state, ask_llm, {"api_key":persistent.groq_api_key, "prompt": prompt, "schema": schema})
 

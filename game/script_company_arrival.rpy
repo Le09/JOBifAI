@@ -108,5 +108,6 @@ label earring_got:
     $ earring_got = True
     "The cushions are a mess. Reminds me of home."
     "What's this, a feather? Oh, it's an earring. I'll keep it."
+    $ achievement_earring_found.grant()
     "Ok, I feel ready know. I should move on."
     jump lobby_first

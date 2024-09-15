@@ -48,6 +48,7 @@ label boss_happy:
 
         "Thank you very much! I'd love that:":
             "You wait for the coffee, listening to the director's extended rant about the CCO. Coffee arrives, served in a custom ceramic cup. It has a chocolatey rich color, and a delicious nutty scent. Forget the interview, the coffee alone was worth the trip."
+            $ achievement_coffee.grant()
 
     jump series_portfolio
 

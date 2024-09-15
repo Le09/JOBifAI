@@ -63,6 +63,7 @@ label earring_give:
     s "Oh, thank you! I was looking for it everywhere."
     s "It's an earring with the logo of my favourite band, OKF."
     "Maybe her smile was worth this earring weight in gold."
+    $ achievement_earring_given.grant()
     $ earring_given = True
     $ secretary_happy = True
 

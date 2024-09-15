@@ -47,6 +47,8 @@ label series_portfolio:
 
     m "What the hell is this? How am I going to explain?"
 
+    b "Can you give a little presentation of your portfolio? Based on the concept, why did you make this choice?"
+
     jump portfolio_presentation
 
 label portfolio_presentation:
@@ -58,32 +60,29 @@ label portfolio_presentation:
     }
     $ ad_mood_string = ad_mood_string_prompts[ad_mood]
 
-    $ ad_intro = """
+    $ ad_answer = """
     Your portfolio is absolutely stunning.
     It has this human touch and sensibility that we are really looking for here at Grizley.
     However, I can't help but be perplexed by the choices you made in expressing this subject.
     Can you explain to me why you made these choices? How can the viewer understand?
     """
 
-    while count_boss_presentation < 3 and count_warning < 2 :
+    while count_boss_presentation < 5 and count_warning < 3 :
         $ count_boss_presentation+=1
-        # python:
-            # reply = renpy.input("Can you give a little presentation of your portfolio? Based on the concept, why did you make this choice?")
-            # reply = reply.strip()
 
-        $ reply = renpy.input(["Boss","Can you give a little presentation of your portfolio? Based on the concept, why did you make this choice?"], screen="viewport_llm")
-        # hack that doesn't look nice in the history.
-        # "Me: [reply]"
+        $ reply = renpy.input(["Boss","Time to convince the Art Director!"], screen="viewport_llm")
 
         $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 
+        $ prompt_add = count_boss_presentation == 2 and confidence < .5
+        $ prompt_direct = "The director should describe a bit what the original subject was about to get the applicant to explain the link with the portfolio" if prompt_add else ""
         $ prompt = """
-
         Context: the initial subject was: %s
         The applicant submitted a portfolio that showed the following idea: %s
-        The art director is evaluating the potential new designer for the show. Here is what the art director asked: %s
+        The art director is evaluating the potential new designer for the show. Here is what the art director said last: %s
 
         %s
+        The current confidence level of the art director is at %s
 
         Here is the applicant answer:
 
@@ -91,49 +90,40 @@ label portfolio_presentation:
 
         Given this answer, evaluate how convinced the art director might be?
         Give your answer as json, with a number r between 0 and 1, and the direct answer a of the director to the applicant in the form {"confidence": r, "ad_answer": a}
-        If r is above 0.67, the director is convinced and will give a positive answer.
-        If r is below 0.5, the director should describe a bit what the original subject was about to get the applicant to explain the link with the portfolio.
+        If r is above 0.67, the director is convinced and will give a positive answer otherwise, he should press the candidate.
+        %s
 
-        """%(series_idea, portfolio_idea, ad_intro, ad_mood_string, reply)
+        """%(series_idea, portfolio_idea, ad_answer, ad_mood_string, str(confidence), reply, prompt_direct)
 
         $ schema = {"confidence":  "number:0<=i<=1", "ad_answer":  "string"}
-        #python:
-        $ a = persistent.groq_api_key
+
         $ answer = askllm("portfolio_presentation", prompt, schema)
         $ confidence = answer["confidence"]
         $ ad_answer = answer["ad_answer"]
 
-        # TODO
-        # first question
-        # confidence between 0 and 1
-        # <.33 : suspicious -> security, or maybe 1 warning if > .25 then security
-        # < .66: nothing
-        # > exhalted, almost weird
-
-        # 4 turns (questions?) to accept candidate
-        # very bad: blackliste
-        # ok: we may call you
-
-        if confidence < 0.10:
+        if confidence < 0.10:  # must be a really bad answer
             $ jump_state = "security"
-        elif confidence < 0.33:
-            $ count_warning+=1
-            $ jump_state = "portfolio_presentation"
-        elif confidence < 0.67:
-            $ jump_state = "boss_ok_ending"
-        else:
+        elif confidence >= 0.85:
             $ jump_state = "boss_happy_ending"
+        else:
+            if confidence < 0.33:
+                $ count_warning+=1
+            $ jump_state = "portfolio_presentation"
 
-        # describe result  # maybe not depending on the transition?
-
-        # $ boss_reply = renpy.say(narrator, ad_answer)
         $ b.add_history(kind="adv", who=b.name, what=ad_answer)
-        # $ reply = renpy.input(["","Explain yourself to the angry man."], screen="say_scroll")
 
-        show screen say_scroll("Boss: ", ad_answer)
+        if count_boss_presentation < 5:
+            show screen say_scroll("Boss: ", ad_answer)
+        else:
+            show screen say_scroll("Boss: ", "This conversation has been interesting, to say the least. But time is running out.")
         pause
         hide screen say_scroll
 
         $ renpy.jump(jump_state)
 
-    jump sad_boss
+    if confidence < 0.6:
+        jump sad_boss
+    elif confidence >= 0.8:
+        jump boss_happy_ending
+    else:
+        jump boss_ok_ending

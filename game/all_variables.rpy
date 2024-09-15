@@ -38,7 +38,7 @@ default count_boss_presentation = 0
 
 default ad_mood = None
 default ad_mood_string = None
-default confidence = None
+default confidence = 0.34
 default ad_answer = None
 
 default earring_got = False

@@ -72,5 +72,7 @@ label earring_give:
 
 label ready_interview:
     s "The art director's office is this way."
+    if secretary_happy:
+        jump boss_happy
 
-    jump boss_happy
+    jump boss_neutral

@@ -34,8 +34,8 @@ label boss_happy:
     with dissolve
     "What a cool office."
 
-    b "Would you like some coffee?"
-    show ad at truecenter
+    b "Our wonderful secretary just made some delicious coffee, would you like some?"
+    show ad happy at truecenter
     m "Thank you, but I'm trying to quit caffeine."
     b "More for me then!"
 

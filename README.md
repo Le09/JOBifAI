@@ -10,12 +10,14 @@ Names, characters, businesses, places, events, locales, and incidents are either
 TODO:
 - add black border behind navigation
 - worst ending: band blocking the path, what do you do? they put a hat waiting for tip (give or leave). If give they sing (play song)
-- make the text input scrollable? (or bigger?)
+- improve scrollable screen
 - Add music
+- with music changes, in the loop, change the AD sprite depending on confidence (angry: <=.33, happy >=.66, neutral in between)
 - achievements
 - advanced configuration options (url, model) for the LLM
+- improve title screen
 - add explanation page for the advanced settings "To simplify things, the AI calls are made using a demo key.
-If this key is abused, it will cease working for all players.
+  If this key is abused, it will cease working for all players.
 In that case you can set up your own keys, for free, in the settings. If you run your own AI, this is also supported!"
 
 Maybe?

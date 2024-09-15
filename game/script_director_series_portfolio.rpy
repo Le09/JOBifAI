@@ -53,6 +53,8 @@ label series_portfolio:
 
 label portfolio_presentation:
 
+    play music "loop1.mp3" loop volume 1.0
+
     $ ad_mood_string_prompts = {
             "angry": "Because the applicant was late, the art director is in a bad mood already.",
             "neutral": "The art director wants to be very professional.",

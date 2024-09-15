@@ -1,6 +1,7 @@
 # Final part.
 
 label ok_ending:
+    stop music fadeout 1.0
     scene bg street
     show henk
     with dissolve
@@ -17,6 +18,7 @@ label ok_ending:
     return
 
 label worst_ending:
+    stop music fadeout 1.0
     scene bg street
     show henk
     with dissolve
@@ -33,6 +35,7 @@ label worst_ending:
     return
 
 label bad_ending:
+    stop music fadeout 1.0
     scene bg street
     "\'You'll never know if you don't even try.\' - Orson Vanderbear, co-founder of Grizley Inc."
     "\'Next time, try harder and stay chill.\' - Henk Lamarre, shareholder of Red Gull GmbH"
@@ -41,6 +44,7 @@ label bad_ending:
     return
 
 label ending:
+    stop music fadeout 1.0
     scene bg street
     m "Hello? Henk, can you hear me? I got the job!!!! They loved my portfolio and said my CV was impressive!!!"
     h "I knew it!!! You're always the best at making up stories."

@@ -8,6 +8,8 @@ Names, characters, businesses, places, events, locales, and incidents are either
 ## Roadmap
 
 TODO:
+- add black border behind navigation
+- worst ending: band blocking the path, what do you do? they put a hat waiting for tip (give or leave). If give they sing (play song)
 - make the text input scrollable? (or bigger?)
 - Add music
 - achievements

@@ -101,6 +101,8 @@ label portfolio_presentation:
         $ confidence = answer["confidence"]
         $ ad_answer = answer["ad_answer"]
 
+        $ debug_log("Confidence: %s" % str(confidence))
+
         if confidence < 0.10:  # must be a really bad answer
             $ jump_state = "security"
         elif confidence >= 0.85:

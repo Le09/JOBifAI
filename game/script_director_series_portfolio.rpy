@@ -73,6 +73,7 @@ label portfolio_presentation:
         $ count_boss_presentation+=1
 
         $ reply = renpy.input(["Boss","Time to convince the Art Director!"], screen="viewport_llm")
+        $ reply = reply.strip() or "huuuuuh..."
 
         $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 

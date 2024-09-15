@@ -40,3 +40,13 @@ mv $dir_tmp/* game/images/
 ```
 
 Otherwise, all these images will get packaged with it.
+
+## Credits
+
+- [Ren'Py](https://www.renpy.org/)
+- [Prodia](https://prodia.ai/)
+- [Groq](https://groq.com/)
+
+### Achievement system [Ren'Py Achievements](https://github.com/shawna-p/RenPy-Achievements/)
+
+The history has been pulled into this repository for ease of use.

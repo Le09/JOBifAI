@@ -70,6 +70,7 @@ label init_series_job:
 
 label wake_up:
     scene bg room
+    $ achievement_woke_up.grant()
 
     m "Henk! Wake up!!! I got an interview with Grizley!"
     show henk

@@ -86,6 +86,15 @@ init python:
 ## for a locked achievement.
 image locked_achievement = Text("?")
 
+define achievement_woke_up = Achievement(
+    name=_("Woke Up"),
+    id="woke_up",
+    description=_("Modern gaming achievement."),
+    unlocked_image="gui/window_icon.png",
+    locked_image="locked_achievement",
+    hide_description=True,
+)
+
 define achievement_earring_found = Achievement(
     name=_("Golden Feather"),
     id="earring_found",

@@ -34,7 +34,7 @@ label worst_ending:
     $ achievement_ending_worst.grant()
     "{b}Worst Ending{/b}"
 
-    return
+    jump band_starts
 
 label bad_ending:
     stop music fadeout 1.0

@@ -149,6 +149,15 @@ define achievement_ending_good = Achievement(
     hidden=False,
 )
 
+define achievement_flora = Achievement(
+    name=_("Flora"),
+    id="flora",
+    description=_("Listened to some pretty cool band."),
+    unlocked_image="gui/window_icon.png",
+    locked_image="locked_achievement",
+    hide_description=True,
+)
+
 ## Example 6 ###################################################################
 ## This -2 makes sure it's declared before the other achievements. This is
 ## so it shows up first in the list even though it's defined all the way down

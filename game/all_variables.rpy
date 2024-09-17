@@ -6,6 +6,7 @@ define b = Character(_("Boss"), color="#ffc8ff")
 define g = Character(_("Guard"), color="#ffffaa")
 define h = Character(_("Henk"), color="#c8c8")
 define j = Character(_("JOBifAI"), color="#ccc8c8")
+define r = Character(_("Rambling Man"), color="#99c888")
 
 default persistent.user_id = None
 default persistent.game_first_time = True

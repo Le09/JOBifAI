@@ -11,6 +11,9 @@ init python:
     config.keymap['rollback'].remove('mousedown_4')
     config.keymap['rollforward'].remove('mousedown_5')
 
+    def path_join(*args):
+        return "/".join(args)
+
     def debug_log(msg):
         if config.developer:
             renpy.say("DEBUG", msg)
@@ -56,11 +59,11 @@ init python:
                 renpy.jump(fallback)
 
     def exists_img(image_name):
-        return renpy.exists(os.path.join("images", image_name))
+        return renpy.exists(path_join("images", image_name))
 
     def create_folder(*args):
         dir_base = renpy.config.basedir
-        full_path = os.path.join(dir_base, "game", *args)
+        full_path = path_join(dir_base, "game", *args)
         if not os.path.exists(full_path):
             os.makedirs(full_path)
 
@@ -74,14 +77,14 @@ init python:
         new_name = name + salt
         new_name = new_name + ext  # ext would be "" or ".ext"
         if folders:
-            new_name = os.path.join(*folders, new_name)
+            new_name = path_join(*folders, new_name)
         return new_name
 
     def img_full_path(name, images=True):
-        dir_base = os.path.join(renpy.config.basedir, "game")
+        dir_base = path_join(renpy.config.basedir, "game")
         if not images:
-            dir_base = os.path.join(dir_base, "images")
+            dir_base = path_join(dir_base, "images")
         if ".png" not in name:
             name += ".png"
-        file_path = os.path.join(dir_base, name)
+        file_path = path_join(dir_base, name)
         return file_path

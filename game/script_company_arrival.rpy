@@ -1,7 +1,28 @@
 # Part 2: arriving at company Grizley.
 label street:
     scene bg street
-    "Hope they won't ask any hard questions, I didn't have time to check out my CV and portfolio... The road is longer than I expected."
+    "Hope they won't ask any hard questions, I didn't have time to check out my CV and portfolio... The road was longer than I expected."
+
+label rambling:
+    "I see a man with a barely hanging fake moustache.
+    Oh no, there he comes...
+    I don't want to be late for my interview."
+
+    r "Let me introduce myself, my name is Rem Blingman.
+    I see you are walking towards Grizley building.
+    I am conducting a small survey for my... ahem... PhD.
+    Have you noticed any disappearances, suspicious lay-offs lately?"
+
+    m "Rambling Man? PhD? You?"
+
+    r "A secret agent! That's who I am!"
+
+    m "I'm in a hurry, goodbye."
+
+    r "Noooo, danger zone!"
+
+    "As you run towards the building, you wonder about this man.
+    Did he work for Grizley before? Did something happen to him there?"
 
 label finish_series_job:
     $ renpy.checkpoint(hard=False)

@@ -1,7 +1,9 @@
 # After the end.
 
 label band_starts:
-    play music "meow-lilac.mp3"
+    # play music "meow-lilac.mp3"
+    play music "meow-bassguitar.mp3" noloop
+
     scene bg street
     hide henk
     with dissolve

@@ -122,6 +122,15 @@ define achievement_coffee = Achievement(
     hide_description=True,
 )
 
+define achievement_rambling = Achievement(
+    name=_("Rambling"),
+    id="rambling",
+    description=_("Made a strange encounter."),
+    unlocked_image="gui/window_icon.png",
+    locked_image="locked_achievement",
+    hidden=False,
+)
+
 define achievement_ending_bad = Achievement(
     name=_("COWARD!"),
     id="ending_bad",

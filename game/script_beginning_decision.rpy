@@ -79,6 +79,8 @@ label random:
     "As you run towards the building, you wonder about this man.
     Did he work for Grizley before? Did something happen to him there?"
 
+    $ achievement_rambling.grant()
+
     jump at_the_door
 
 label street_map:

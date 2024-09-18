@@ -2,8 +2,11 @@
     hide henk
     with dissolve
 
+    stop music fadeout 1.0
     m "Reading the job posting, checking my own application, looking up the itinerary on the map..."
     m "So many things to do and so little time. Which one should I do before I go?"
+
+    play music "eyeswideopen-walking.mp3"
 
     $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
     $ reply = reply.strip() or "Browse on 4chan for the latest memes."

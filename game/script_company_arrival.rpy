@@ -11,10 +11,13 @@ label finish_series_job:
 
 label company_lobby:
 
+    stop music fadeout 1.0
     scene bg lobby
 
     "Am I late? No one's there."
     "I see someone at the desk. Maybe I should check. I'll take my time though."
+
+    play music "meow-lobby.mp3" loop
 
 label finish_portfolio_0:
     $ renpy.checkpoint(hard=False)

@@ -1,5 +1,6 @@
 # Part 3: talking with Grizley secretary.
 label talk_secretary:
+    stop music fadeout 1.0
     scene bg desk
     show secretary at truecenter
 

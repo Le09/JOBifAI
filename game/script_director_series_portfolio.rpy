@@ -1,6 +1,7 @@
 # Part 6: Portfolio presentation.
 
 label series_portfolio:
+    play music "meow-bossenter.mp3" loop
     b "I'm not going to go over all of the new series concept, you had all this information in the job posting that you read so diligently."
     b "So I'll just let you see the very private image that our main artist drew to showcase it."
 
@@ -38,22 +39,25 @@ label series_portfolio:
     b "I'll put it on the right for reference."
     hide expression im_portfolio_0_full
 
+    stop music fadeout 1.0
+    pause
+
     show expression im_portfolio_0 at truecenter:
         xalign 0.95
         yalign 0.3
         xsize scaled_dim
         ysize scaled_dim
-    with dissolve 
+    with dissolve
 
     m "What the hell is this? How am I going to explain?"
+
+    play music "meow-bossinterview.mp3"
 
     b "Can you give a little presentation of your portfolio? Based on the concept, why did you make this choice?"
 
     jump portfolio_presentation
 
 label portfolio_presentation:
-
-    play music "loop1.mp3" loop volume 1.0
 
     $ ad_mood_string_prompts = {
             "angry": "Because the applicant was late, the art director is in a bad mood already.",

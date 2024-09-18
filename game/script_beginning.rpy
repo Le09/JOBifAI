@@ -10,7 +10,7 @@ label start:
 
     scene bg room
     with fade
-
+    play music "eyeswideopen-intro.mp3"
 
     m "Gin...ious... I'm a gin...ious..."
     show henk

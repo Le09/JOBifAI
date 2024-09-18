@@ -1,7 +1,7 @@
 # After the end.
 
 label band_starts:
-    # TODO: play band starts music
+    play music "meow-lilac.mp3"
     scene bg street
     hide henk
     with dissolve
@@ -15,6 +15,7 @@ label band_starts:
     h "They even put a hat for donations... as if we have any money."
     h "There's no way around them... what do we do?"
 
+    stop music fadeout 1.0
     $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
     $ reply = reply.strip() or "Walk away."
     $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
@@ -47,13 +48,15 @@ label band_starts:
 
 
 label band_plays:
+    play music "meow-gardenia.mp3"
     m "I got a few coins that I... found in the lobby's couch, I guess."
     h "You guess?"
     m "Right? So anyway, let's listen to them. They look like they need some support."
 
-    # TODO: play band music
 
     $ achievement_flora.grant()
+
+    "{b}Stop the song and return to main screen?{/b}"
 
     return
 

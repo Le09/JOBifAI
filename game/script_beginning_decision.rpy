@@ -57,6 +57,9 @@ label random:
     Oh no, there he comes...
     I don't want to be late for my interview."
 
+    show randle
+    with dissolve
+
     r "Let me introduce myself, my name is Ran Doman.
     I see you are walking towards Grizley building.
     I am conducting a small survey for my... ahem... PhD.
@@ -69,6 +72,9 @@ label random:
     m "I'm in a hurry, goodbye."
 
     r "Noooo, danger zone!"
+
+    hide randle
+    with dissolve
 
     "As you run towards the building, you wonder about this man.
     Did he work for Grizley before? Did something happen to him there?"

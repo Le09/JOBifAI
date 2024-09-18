@@ -28,7 +28,31 @@ label start:
 
     show j intro
     with dissolve
+    j "......"
 
+label random_prompt_0:
+    $ renpy.checkpoint(hard=False)
+    $ prompt = """
+    Generate a random prompt p for Stable Diffusion.
+    Its subject should be appealing to people, yet mash different ideas in
+    a very unexpected way.
+    Give a short human-readable description of that prompt s.
+    Give your answer in a json of the form {'prompt': p, 'sentence': s}.
+    """
+    $ schema = {"prompt":  "string", "sentence": "string"}
+    $ a = persistent.groq_api_key
+    $ result = askllm("random_prompt_0", prompt, schema)
+
+label before_portfolio_0:
+    $ renpy.checkpoint(hard=False)
+    python:
+        portfolio_idea = result["sentence"]
+        portfolio_prompt = result["prompt"]
+        if not portfolio_0:
+            portfolio_0 = get_random_object_name("p0.png", [dir_session])
+            portfolio_0_job = generate_image("before_portfolio_0", portfolio_prompt)
+
+label jobifai_instructions:
     j "Complete these 4 steps to become concept designer for Grizley:"
     j "Step 1: Send this CV I made for you. It says you have a degree in Industrial Design from RISD."
 

@@ -1,28 +1,7 @@
 # Part 2: arriving at company Grizley.
-label street:
+label at_the_door:
     scene bg street
-    "Hope they won't ask any hard questions, I didn't have time to check out my CV and portfolio... The road was longer than I expected."
-
-label rambling:
-    "I see a man with a barely hanging fake moustache.
-    Oh no, there he comes...
-    I don't want to be late for my interview."
-
-    r "Let me introduce myself, my name is Rem Blingman.
-    I see you are walking towards Grizley building.
-    I am conducting a small survey for my... ahem... PhD.
-    Have you noticed any disappearances, suspicious lay-offs lately?"
-
-    m "Rambling Man? PhD? You?"
-
-    r "A secret agent! That's who I am!"
-
-    m "I'm in a hurry, goodbye."
-
-    r "Noooo, danger zone!"
-
-    "As you run towards the building, you wonder about this man.
-    Did he work for Grizley before? Did something happen to him there?"
+    "This is it. These big glass doors, the cute bear logo... I'm at the door of Grizley."
 
 label finish_series_job:
     $ renpy.checkpoint(hard=False)
@@ -36,29 +15,6 @@ label company_lobby:
 
     "Am I late? No one's there."
     "I see someone at the desk. Maybe I should check. I'll take my time though."
-
-
-label random_prompt_0:
-    $ renpy.checkpoint(hard=False)
-    $ prompt = """
-    Generate a random prompt p for Stable Diffusion.
-    Its subject should be appealing to people, yet mash different ideas in 
-    a very unexpected way.
-    Give a short human-readable description of that prompt s.
-    Give your answer in a json of the form {'prompt': p, 'sentence': s}.
-    """
-    $ schema = {"prompt":  "string", "sentence": "string"}
-    $ a = persistent.groq_api_key
-    $ result = askllm("random_prompt_0", prompt, schema)
-
-label before_portfolio_0:
-    $ renpy.checkpoint(hard=False)
-    python:
-        portfolio_idea = result["sentence"]
-        portfolio_prompt = result["prompt"]
-        if not portfolio_0:
-            portfolio_0 = get_random_object_name("p0.png", [dir_session])
-            portfolio_0_job = generate_image("before_portfolio_0", portfolio_prompt)
 
 label finish_portfolio_0:
     $ renpy.checkpoint(hard=False)

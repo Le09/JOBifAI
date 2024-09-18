@@ -49,17 +49,17 @@ label street_lost:
     scene bg street
     "Hope they won't ask any hard questions, I didn't have time to check out my CV and portfolio... The road was longer than I expected. How many buildings are even here?"
 
-label rambling:
+label random:
     "I see a man with a barely hanging fake moustache.
     Oh no, there he comes...
     I don't want to be late for my interview."
 
-    r "Let me introduce myself, my name is Rem Blingman.
+    r "Let me introduce myself, my name is Ran Doman.
     I see you are walking towards Grizley building.
     I am conducting a small survey for my... ahem... PhD.
     Have you noticed any disappearances, suspicious lay-offs lately?"
 
-    m "Rambling Man? PhD? You?"
+    m "Random Man? PhD? You?"
 
     r "A secret agent! That's who I am!"
 

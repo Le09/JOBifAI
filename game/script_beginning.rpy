@@ -81,4 +81,4 @@ label wake_up:
     m "I got an interview! Tomorrow 10am, I'm meeting the CEO of Grizley!"
     h "Tomorrow! Too late to Escape! I'll be rooting for you!"
 
-    jump street
+    jump before_going

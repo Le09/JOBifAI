@@ -130,7 +130,7 @@ label portfolio_presentation:
 
         $ renpy.jump(jump_state)
 
-    if confidence < 0.6:
+    if confidence < 0.5:
         jump sad_boss
     elif confidence >= 0.8:
         jump boss_happy_ending

@@ -37,6 +37,7 @@ default count_ask_interview = 0
 default count_secretary_angry_boss = 0
 default count_warning = 0
 default count_boss_presentation = 0
+default count_waiting_time = 0
 
 default ad_mood = None
 default ad_mood_string = None

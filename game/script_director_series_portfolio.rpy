@@ -1,5 +1,21 @@
 # Part 6: Portfolio presentation.
 
+label start_series_portfolio:
+    if not exists_img(series_cover) or not exists_img(portfolio_0):
+        $ count_waiting_time+=1
+        if count_waiting_time > 4:
+            b "I'm sorry, I'm called urgently. We'll reschedule our meeting."
+            b "We've had a lot of submissions lately. We'll do a reference check before calling you back."
+            b "The secretary told me we cannot find your portfolio. Did you configure everything correctly?"
+            jump bad_ending
+
+        b "I'm sorry, I've got an urgent call. Let me answer it, and we can start the interview."
+        b "......"
+        m "They talk so fast, I'm not sure I understand most of it... that's a professional studio for you."
+        $ renpy.pause(count_waiting_time * 10, hard=True)
+
+        jump start_series_portfolio
+
 label series_portfolio:
     play music "meow-bossenter.mp3" loop
     b "I'm not going to go over all of the new series concept, you had all this information in the job posting that you read so diligently."

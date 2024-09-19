@@ -11,7 +11,7 @@ label boss_neutral:
     show ad at truecenter
     with dissolve
 
-    jump series_portfolio
+    jump start_series_portfolio
 
 label boss_angry:
 
@@ -24,7 +24,7 @@ label boss_angry:
     show ad angry
     with dissolve
 
-    jump series_portfolio
+    jump start_series_portfolio
 
 label boss_happy:
 
@@ -50,7 +50,7 @@ label boss_happy:
             "You wait for the coffee, listening to the director's extended rant about the CCO. Coffee arrives, served in a custom ceramic cup. It has a chocolatey rich color, and a delicious nutty scent. Forget the interview, the coffee alone was worth the trip."
             $ achievement_coffee.grant()
 
-    jump series_portfolio
+    jump start_series_portfolio
 
 
 label boss_nervous_interview:

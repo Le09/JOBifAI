@@ -17,7 +17,8 @@ Here are the possible actions:
 1) read the job posting
 2) check their own application
 3) look up the itinerary on the map
-4) something else, or multiple things
+4) multiple things
+5) something else
 Here is a description of what the character did:
 
 %s
@@ -27,11 +28,11 @@ Here is the series idea: %s
 Here is the portfolio idea: %s
 
 Instructions:
-- Always check first if the character attempts to do more than one thing (e.g., both reading the series and checking the portfolio). In such cases, the result must always be 4.
-- If the character performs only one action, match that action accordingly (1, 2, or 3).
+- Always check first if the character attempts to do more than one thing (e.g., both reading the series and checking the portfolio). In such cases, the result must always be 4. If the character tries to read both the job posting and the portfolio, the result must be 4.
+- If the character performs only one action, match that action accordingly (1, 2, 3, 5).
 - If the choice is 1, describe reading the series idea in the job posting.
 - If the choice is 2, describe checking the portfolio.
-- If the choice is 4, describe the character trying to multitask but getting distracted by a browser tab, losing time.
+- If the choice is 4 or 5, describe the character getting distracted by a browser tab, wasting time.
 
 Evaluate what the answer may be among the previous options as a choice c.
 Moreover, describe what happens as a result of this action as a sentence s.

@@ -301,6 +301,8 @@ screen quick_menu():
     ## Ensure this appears on top of other screens.
     zorder 100
 
+    add "gui/menu_background.png" xalign 0.5
+
     if quick_menu:
 
         hbox:

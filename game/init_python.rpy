@@ -3,6 +3,7 @@ init python:
     import os
     import sys
     import uuid
+    from datetime import datetime
     from ai_lib.llm import ask_llm
     from ai_lib.images import download_job_image, generate_job
 
@@ -10,6 +11,32 @@ init python:
     # https://www.renpy.org/doc/html/keymap.html
     config.keymap['rollback'].remove('mousedown_4')
     config.keymap['rollforward'].remove('mousedown_5')
+
+    def stringify_h(h):
+        return "%s:\n %s" % (h.who, h.what)
+
+    def stringify_history(full=False):
+        if full:
+            s_list = [stringify_h(h) for h in _history_list]
+        else:
+            s_list = [stringify_h(h) for h in _history_list if h.what_args["style"] != "say_dialogue"]
+        return "\n\n".join(s_list)
+
+    def save_transcript():
+        # I don't see a way to open a file dialog for the user to choose the path...
+        # So let's default to the desktop. Hopefully it works on all platforms.
+        # will it work with steam?
+        transcript = stringify_history()
+        path_home = os.path.expanduser("~/")
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+        filename =  "%s_transcript_%s.txt" % (persistent.user_id, timestamp)
+        file_path = path_join(path_home, "Desktop", filename)
+        try:
+            with open(file_path, "w") as f:
+                f.write(transcript)
+            renpy.notify("Transcript saved successfully on your Desktop!")
+        except Exception as e:
+            renpy.notify("Transcript save failed. Error: %s" % e)
 
     def path_join(*args):
         return "/".join(args)

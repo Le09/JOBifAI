@@ -321,6 +321,7 @@ screen quick_menu():
             textbutton _("Q.Load") action QuickLoad()
             textbutton _("Prefs") action ShowMenu('preferences')
             textbutton _("Trophies") action ShowMenu("achievement_gallery")
+            textbutton _("Transcript") action Function(save_transcript)
 
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever

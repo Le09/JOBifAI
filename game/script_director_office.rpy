@@ -14,9 +14,8 @@ label boss_neutral:
     jump start_series_portfolio
 
 label boss_angry:
-
+    stop music
     $ ad_mood = "angry"
-
     scene bg office
 
     b "Look, I have a lot of meetings today so you'd better be quick."
@@ -24,6 +23,7 @@ label boss_angry:
     show ad angry
     with dissolve
 
+    play music "meow-bossinterviewtension.mp3"
     jump start_series_portfolio
 
 label boss_happy:
@@ -46,7 +46,7 @@ label boss_happy:
         "No thank you, I'm trying to quit caffeine.":
             "You look at the art director slowly appreciating his coffee."
 
-        "Thank you very much! I'd love that:":
+        "Thank you very much! I'd love that.":
             "You wait for the coffee, listening to the director's extended rant about the CCO. Coffee arrives, served in a custom ceramic cup. It has a chocolatey rich color, and a delicious nutty scent. Forget the interview, the coffee alone was worth the trip."
             $ achievement_coffee.grant()
 

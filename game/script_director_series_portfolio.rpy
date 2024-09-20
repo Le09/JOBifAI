@@ -127,12 +127,20 @@ label portfolio_presentation:
         $ debug_log("Confidence: %s" % str(confidence))
 
         if confidence < 0.10:  # must be a really bad answer
+            show ad angry
+            # $ ad_mood = "angry"
             $ jump_state = "security"
         elif confidence >= 0.85:
+            show ad happy
+            # $ ad_mood = "happy"
             $ jump_state = "boss_happy_ending"
         else:
             if confidence < 0.33:
+                show ad angry
+                # $ ad_mood = "angry"
+                stop music
                 $ count_warning+=1
+                play music "meow-bossinterviewtension.mp3"
             $ jump_state = "portfolio_presentation"
 
         $ b.add_history(kind="adv", who=b.name, what=ad_answer)

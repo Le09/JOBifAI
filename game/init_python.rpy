@@ -59,7 +59,7 @@ init python:
                 renpy.jump(fallback)
 
     def exists_img(image_name):
-        return renpy.exists(path_join("images", image_name))
+        return renpy.exists(image_name)
 
     def create_folder(*args):
         dir_base = renpy.config.basedir

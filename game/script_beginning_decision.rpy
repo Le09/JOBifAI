@@ -43,7 +43,7 @@ Give your answer as a json of the form {"choice": c, "result": s}.
     $ result = askllm("before_going", prompt, {"choice": "integer:1<=i<=5", "result": "string"})
     $ choice = result["choice"]
     $ result = result["result"]
-    $ jump_state = ["street", "street", "street_map", "street_lost"][choice - 1]
+    $ jump_state = ["street", "street", "street_map", "street_lost", "street_lost"][choice - 1]
     $ renpy.say(narrator, result)
 
     $ renpy.jump(jump_state)

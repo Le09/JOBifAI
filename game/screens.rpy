@@ -57,6 +57,7 @@ style scrollbar:
     thumb Frame("gui/scrollbar/horizontal_[prefix_]thumb.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
 
 style vscrollbar:
+    unscrollable "hide"
     xsize gui.scrollbar_size
     base_bar Frame("gui/scrollbar/vertical_[prefix_]bar.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
     thumb Frame("gui/scrollbar/vertical_[prefix_]thumb.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
@@ -979,38 +980,89 @@ screen history():
 
     tag menu
 
-    ## Avoid predicting this screen, as it can be very large.
     predict False
 
-    use game_menu(_("History"), scroll=("vpgrid" if gui.history_height else "viewport"), yinitial=1.0, spacing=gui.history_spacing):
+    frame:
 
         style_prefix "history"
 
-        for h in _history_list:
+        ## Style this as needed in the style definitions
+        label _("History")
 
-            window:
+        ## If you have a custom image you want to use for the screen, you can set it as
+        ## a Frame below.
+        # background Frame(["gui/frame.png"], gui.history_frame_borders, tile=True)
 
-                ## This lays things out properly if history_height is None.
-                has fixed:
-                    yfit True
+        ## Using margin properties will allow the screen to automatically adjust should
+        ## you choose to use a different resolution than 1080p, and will always be centered.
+        ## You can also resize the screen using "xmaximum", "ymaximum", or "maximum(x,y)"
+        ## if desired, but you will need to use "align(x,y)" to manually position it.
 
-                if h.who:
+        ## xmargin essentially combines the left_margin and right_margin properties
+        ## and sets them to the same value
+        xmargin 200
 
-                    label h.who:
-                        style "history_name"
-                        substitute False
+        ## ymargin essentially combines the top_margin and bottom_margin properties
+        ## and sets them to the same value
+        ymargin 50
 
-                        ## Take the color of the who text from the Character, if
-                        ## set.
-                        if "color" in h.who_args:
-                            text_color h.who_args["color"]
+        ## xpadding essentially combines the left_padding and right_padding properties
+        ## and sets them to the same value
+        xpadding 50
 
-                $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
-                text what:
-                    substitute False
+        ## ypadding essentially combines the top_padding and bottom_padding properties
+        ## and sets them to the same value
+        ypadding 150
 
-        if not _history_list:
-            label _("The dialogue history is empty.")
+        vpgrid:
+
+            cols 1
+            yinitial 1.0
+
+            draggable True
+            mousewheel True
+            scrollbars "vertical"
+
+            vbox:
+
+                for h in _history_list:
+
+                    window:
+
+                        ## This lays things out properly if history_height is None.
+                        has fixed:
+                            yfit True
+
+                        if h.who:
+
+                            label h.who:
+                                style "history_name"
+                                substitute False
+
+                                ## Take the color of the who text from the Character, if
+                                ## set.
+                                if "color" in h.who_args:
+                                    text_color h.who_args["color"]
+
+                        $ what = renpy.filter_text_tags(h.what, allow=gui.history_allow_tags)
+                        text what:
+                            line_spacing 5
+                            substitute False
+
+                    ## This puts some space between entries so it's easier to read
+                    null height 20
+
+                if not _history_list:
+
+                    text "The text log is empty." line_spacing 10
+                    ## Adding line_spacing prevents the bottom of the text
+                    ## from getting cut off. Adjust when replacing the
+                    ## default fonts.
+
+        textbutton "Return":
+            style "history_return_button"
+            action Return()
+            alt _("Return")
 
 
 ## This determines what tags are allowed to be displayed on the history screen.

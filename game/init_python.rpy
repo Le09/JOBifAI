@@ -3,7 +3,7 @@ init python:
     import os
     import sys
     import uuid
-    from datetime import datetime
+    import datetime
     from ai_lib.llm import ask_llm
     from ai_lib.images import download_job_image, generate_job
 
@@ -28,7 +28,7 @@ init python:
         # will it work with steam?
         transcript = stringify_history()
         path_home = os.path.expanduser("~/")
-        timestamp = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         filename =  "%s_transcript_%s.txt" % (persistent.user_id, timestamp)
         file_path = path_join(path_home, "Desktop", filename)
         try:

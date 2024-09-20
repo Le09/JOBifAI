@@ -988,7 +988,7 @@ screen history():
         style_prefix "history"
 
         ## Style this as needed in the style definitions
-        label _("History")
+        label _("History") ypos -0.1
 
         ## If you have a custom image you want to use for the screen, you can set it as
         ## a Frame below.
@@ -1061,6 +1061,7 @@ screen history():
                     ## default fonts.
 
         textbutton "Return":
+            ypos 1.1
             style "history_return_button"
             action Return()
             alt _("Return")

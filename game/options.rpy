@@ -30,6 +30,10 @@ define config.version = "1.0"
 ## triple-quotes, and leave a blank line between paragraphs.
 
 define gui.about = _p("""
+Made by Aves Panterra, with Woolion and Flora Lin on the code, Mr Meowsickles and George Alexander on the music.
+
+This is a work of fiction.
+Names, characters, businesses, places, events, locales, and incidents are either the products of the author’s imagination or used in a fictitious manner. Any resemblance to actual persons, living or dead, or actual events is purely coincidental.
 """)
 
 

@@ -14,13 +14,15 @@ init python:
     config.keymap['rollforward'].remove('mousedown_5')
 
     def stringify_h(h):
-        return "%s:\n %s" % (h.who, h.what)
+        prefix = "_   " if h.what_args["style"] == "say_transcript" else "    "
+        result = "%s%s" % (prefix, h.what)
+        return "%s:\n%s" % (h.who, result) if h.who else result
 
-    def stringify_history(full=False):
+    def stringify_history(full=True):
         if full:
             s_list = [stringify_h(h) for h in _history_list]
         else:
-            s_list = [stringify_h(h) for h in _history_list if h.what_args["style"] != "say_dialogue"]
+            s_list = [stringify_h(h) for h in _history_list if h.what_args["style"] == "say_transcript"]
         return "\n\n".join(s_list)
 
     def save_transcript():

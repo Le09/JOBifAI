@@ -29,7 +29,7 @@ label secretary_angry_boss_explain:
 
         $ reply = renpy.input(["","Explain yourself to the angry man."], screen="viewport_llm")
         $ reply = reply.strip() or "stammer for way too long"
-        $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
+        $ mm.add_history(kind="adv", who=narrator.name, what=reply)
 
         $ prompt = """
         Context: the main character is at the lobby of Grizley, an entertainment company.
@@ -64,7 +64,7 @@ label secretary_angry_boss_explain:
         $ result = answer["result"]
         $ jump_state = ["secretary_boss_nervous", "boss_angry", "bad_ending", "security", "secretary_boss_nervous"][choice - 1]
 
-        $ renpy.say(narrator, result)
+        $ renpy.say(narrator, result, what_style="say_transcript")
         $ renpy.jump(jump_state)
 
     jump security

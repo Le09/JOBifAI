@@ -97,7 +97,7 @@ label portfolio_presentation:
         $ reply = renpy.input(["Boss","Time to convince the Art Director!"], screen="viewport_llm")
         $ reply = reply.strip() or "huuuuuh..."
 
-        $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
+        $ mm.add_history(kind="adv", who=narrator.name, what=reply)
 
         $ prompt_add = count_boss_presentation == 2
         $ prompt_direct = "The director should describe a bit what the original subject was about to get the applicant to explain the link with the portfolio" if prompt_add else ""
@@ -145,7 +145,7 @@ label portfolio_presentation:
                 play music "meow-bossinterviewtension.mp3"
             $ jump_state = "portfolio_presentation"
 
-        $ b.add_history(kind="adv", who=b.name, what=ad_answer)
+        $ bb.add_history(kind="adv", who=b.name, what=ad_answer)
 
         if count_boss_presentation < 5:
             show screen say_scroll("Boss: ", ad_answer)

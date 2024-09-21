@@ -20,7 +20,7 @@ label band_starts:
     stop music fadeout 1.0
     $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
     $ reply = reply.strip() or "Walk away."
-    $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
+    $ mm.add_history(kind="adv", who=narrator.name, what=reply)
     $ prompt = """
     Context: the main character is in the street, where some musicians are setting up their gear to play.
     They have put down a hat for donations.
@@ -45,7 +45,7 @@ label band_starts:
     $ result = answer["result"]
     $ jump_state = ["band_plays", "band_escape"][choice - 1]
 
-    $ renpy.say(narrator, result)
+    $ renpy.say(narrator, result, what_style="say_transcript")
     $ renpy.jump(jump_state)
 
 

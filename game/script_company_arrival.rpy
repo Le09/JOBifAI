@@ -37,7 +37,7 @@ label lobby_first:
 
         $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
         $ reply = reply.strip() or "look around somewhat nervously"
-        $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
+        $ mm.add_history(kind="adv", who=narrator.name, what=reply)
 
         $ prompt = """
         Context: the main character is in the lobby of Grizley, an entertainment company.
@@ -73,7 +73,7 @@ label lobby_first:
         $ jump_state = ["look_building", "talk_secretary", "bad_ending", "security", "look_building", "earring_got"][choice - 1]
 
         # describe result  # maybe not depending on the transition?
-        $ renpy.say(narrator, result)
+        $ renpy.say(narrator, result, what_style="say_transcript")
         $ renpy.jump(jump_state)
 
     jump secretary_angry_boss

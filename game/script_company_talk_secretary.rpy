@@ -6,7 +6,7 @@ label talk_secretary:
 
     $ reply = renpy.input(["Secretary","Is there any way I can help?"], screen="viewport_llm")
     $ reply = reply.strip() or "babble incoherently"
-    $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
+    $ mm.add_history(kind="adv", who=narrator.name, what=reply)
 
     while count_ask_interview < 3:
         $ earring_can_give = earring_got and not earring_given
@@ -48,7 +48,7 @@ Return the result in JSON format as follows:  {"choice": c, "result": s}
 
         if choice == 6:  # this way we skip the reply that may not make sense with our dialogue
             jump earring_give
-        $ renpy.say(narrator, result)
+        $ renpy.say(narrator, result, what_style="say_transcript")
         $ renpy.jump(jump_state)
 
     jump secretary_angry_boss

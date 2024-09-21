@@ -10,7 +10,7 @@
 
     $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
     $ reply = reply.strip() or "Browse on 4chan for the latest memes."
-    $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
+    $ mm.add_history(kind="adv", who=narrator.name, what=reply)
     $ prompt = """
 Context: the main character is preparing to leave for a job interview with only a limited time.
 Here are the possible actions:
@@ -44,7 +44,7 @@ Give your answer as a json of the form {"choice": c, "result": s}.
     $ choice = result["choice"]
     $ result = result["result"]
     $ jump_state = ["street", "street", "street_map", "street_lost", "street_lost"][choice - 1]
-    $ renpy.say(narrator, result)
+    $ renpy.say(narrator, result, what_style="say_transcript")
 
     $ renpy.jump(jump_state)
     with fade

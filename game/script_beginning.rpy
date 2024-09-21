@@ -50,6 +50,7 @@ label before_portfolio_0:
         portfolio_prompt = result["prompt"]
         if not portfolio_0:
             portfolio_0 = get_random_object_name("p0.png", [dir_session])
+        if not portfolio_0_job:
             portfolio_0_job = generate_image("before_portfolio_0", portfolio_prompt)
 
 label jobifai_instructions:
@@ -90,6 +91,7 @@ label init_series_job:
         series_prompt = result["prompt"]
         if not series_cover_job:
             series_cover = get_random_object_name("series.png", [dir_session])
+        if not series_cover_job:
             series_cover_job = generate_image("init_series_job", series_prompt)
 
 label wake_up:

@@ -30,8 +30,8 @@ init python:
         # So let's default to the desktop. Hopefully it works on all platforms.
         # will it work with steam?
         transcript = stringify_history()
-        path_home = os.path.expanduser("~/")
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+        path_home = os.path.expanduser("~")
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename =  "%s_transcript_%s.txt" % (persistent.user_id, timestamp)
         file_path = os.path.join(path_home, "Desktop", filename)
         try:

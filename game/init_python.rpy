@@ -33,7 +33,7 @@ init python:
         path_home = os.path.expanduser("~/")
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         filename =  "%s_transcript_%s.txt" % (persistent.user_id, timestamp)
-        file_path = path_join(path_home, "Desktop", filename)
+        file_path = os.path.join(path_home, "Desktop", filename)
         try:
             with open(file_path, "w") as f:
                 f.write(transcript)

@@ -5,7 +5,7 @@ label talk_secretary:
     show secretary at truecenter
 
     $ reply = renpy.input(["Secretary","Is there any way I can help?"], screen="viewport_llm")
-
+    $ reply = reply.strip() or "babble incoherently"
     $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 
     while count_ask_interview < 3:

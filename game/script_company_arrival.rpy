@@ -36,8 +36,7 @@ label lobby_first:
         $ couch_choice = "6) inspect couch" if not earring_got else ""
 
         $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
-        # hack that doesn't look nice in the history.
-        # Don't display reply again but add it to history.
+        $ reply = reply.strip() or "look around somewhat nervously"
         $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 
         $ prompt = """

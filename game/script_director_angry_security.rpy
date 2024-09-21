@@ -28,6 +28,7 @@ label secretary_angry_boss_explain:
         $ count_secretary_angry_boss+= 1
 
         $ reply = renpy.input(["","Explain yourself to the angry man."], screen="viewport_llm")
+        $ reply = reply.strip() or "stammer for way too long"
         $ narrator.add_history(kind="adv", who=narrator.name, what=reply)
 
         $ prompt = """

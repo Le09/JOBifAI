@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# File to check
+CONFIG_FILE="game/config.rpy"
+
+if grep -q 'default persistent.prodia_api_key_demo = "PRODIA_DEMO_KEY"' "$CONFIG_FILE"; then
+    echo "The Prodia API key in $CONFIG_FILE is still set to the placeholder key."
+else
+    echo "Error: The Prodia API key in $CONFIG_FILE has been replaced with a valid key. Please reset it to PRODIA_DEMO_KEY."
+    exit 1
+fi
+
+if grep -q 'default persistent.groq_api_key_demo = "LLM_DEMO_KEY"' "$CONFIG_FILE"; then
+    echo "The LLM API key in $CONFIG_FILE is still set to the placeholder key."
+else
+    echo "Error: The LLM API key in $CONFIG_FILE has been replaced with a valid key. Please reset it to LLM_DEMO_KEY."
+    exit 1
+fi
+
+exit 0
+

@@ -21,7 +21,7 @@ label series_portfolio:
     b "I'm not going to go over all of the new series concept, you had all this information in the job posting that you read so diligently."
     b "So I'll just let you see the very private image that our main artist drew to showcase it."
 
-    $ im_series_cover_full = im.Scale(series_cover, 1080, 1080)
+    $ im_series_cover_full = im.Scale(series_cover, 1000, 1000)
     $ im_series_cover_right = im.Scale(series_cover, 540, 540)
 
     window hide
@@ -42,8 +42,8 @@ label series_portfolio:
 
 
     $ im_portfolio_0 = im.Image(portfolio_0)
-    $ im_portfolio_0_full = im.Scale(portfolio_0, 1080, 1080)
-    $ scaled_dim = int(renpy.image_size(portfolio_0)[1] / 3)
+    $ im_portfolio_0_full = im.Scale(portfolio_0, 1000, 1000)
+    $ scaled_dim = 420
     #$ im_portfolio_0_scaled = im.Scale(portfolio_0, 256, 256)  # also possible to do it like this
     window hide
     show expression im_portfolio_0_full at truecenter
@@ -56,14 +56,15 @@ label series_portfolio:
     hide expression im_portfolio_0_full
 
     stop music fadeout 1.0
-    pause
 
     show expression im_portfolio_0 at truecenter:
-        xalign 0.95
+        xalign 0.98
         yalign 0.3
         xsize scaled_dim
         ysize scaled_dim
     with dissolve
+
+    pause
 
     m "What the hell is this? How am I going to explain?"
 

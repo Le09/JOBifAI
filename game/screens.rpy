@@ -981,7 +981,7 @@ screen history():
                     ## default fonts.
 
         textbutton "Return":
-            ypos 1.1
+            ypos 1.2
             style "history_return_button"
             action Return()
             alt _("Return")

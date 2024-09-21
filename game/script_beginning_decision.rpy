@@ -12,7 +12,7 @@
     $ reply = reply.strip() or "Browse on 4chan for the latest memes."
     $ mm.add_history(kind="adv", who=narrator.name, what=reply)
     $ prompt = """
-Context: the main character is preparing to leave for a job interview with only a limited time.
+Context: the unnamed main character is preparing to leave for a job interview with only a limited time.
 Here are the possible actions:
 1) read the job posting
 2) check their own application
@@ -35,7 +35,7 @@ Instructions:
 - If the choice is 4 or 5, describe the character getting distracted by a browser tab, wasting time.
 
 Evaluate what the answer may be among the previous options as a choice c.
-Moreover, describe what happens as a result of this action as a sentence s.
+Moreover, narrate what happens as a result of this action as a sentence s.
 Describe only the direct result of the action.
 
 Give your answer as a json of the form {"choice": c, "result": s}.

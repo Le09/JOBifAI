@@ -10,7 +10,8 @@ define r = Character(_("Random Man"), color="#99c888")
 
 default persistent.user_id = None
 default persistent.game_first_time = True
-default persistent.config = {"groq_api_key": persistent.groq_api_key}
+default persistent.llm_url = "https://api.groq.com/openai/v1/chat/completions"
+default persistent.llm_model = "llama3-8b-8192"
 
 default dir_session = None
 

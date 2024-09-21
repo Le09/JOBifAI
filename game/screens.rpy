@@ -259,6 +259,7 @@ screen quick_menu():
                 textbutton _("Q.Save") action QuickSave()
                 textbutton _("Q.Load") action QuickLoad()
                 textbutton _("Prefs") action ShowMenu('preferences')
+                textbutton _("AI") action ShowMenu('config_menu')
                 textbutton _("Trophies") action ShowMenu("achievement_gallery")
                 textbutton _("Transcript") action Function(save_transcript)
 
@@ -314,6 +315,7 @@ screen navigation():
         textbutton _("Load") action ShowMenu("load")
 
         textbutton _("Preferences") action ShowMenu("preferences")
+        textbutton _("AI Configuration") action ShowMenu("config_menu")
 
         if _in_replay:
 

@@ -79,8 +79,10 @@ init python:
         try:
             return function(**kwargs)
         except Unauthorized as u:
-            s = "The API key for the %s service was refused. You should configure it in the AI settings before retrying." % u.service_name
-            renpy.say("SYSTEM", s)  # TODO: alert screen, and or give direct button to settings
+            if "LLM" in u.service_name:
+                renpy.call_screen("error_llm_menu")
+            else:
+                renpy.call_screen("error_prodia_menu")
             renpy.jump(fallback)
         except Exception as e:
             # TODO: more robust error handling

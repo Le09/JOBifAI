@@ -13,7 +13,7 @@ label start_series_portfolio:
         b "......"
         m "They talk so fast, I'm not sure I understand most of it... that's a professional studio for you."
         # a renpy.pause(10, hard=True) is still skipped if skip is enabled, whereas this will always force to wait
-        $ time.sleep(count_waiting_time * 10)
+        $ time.sleep(10)
 
         jump start_series_portfolio
 

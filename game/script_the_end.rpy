@@ -41,8 +41,8 @@ label bad_ending:
     scene bg street
     "\'You'll never know if you don't even try.\' - Orson Vanderbear, co-founder of Grizley Inc."
     "\'Next time, try harder and stay chill.\' - Henk Lamarre, shareholder of Red Gull GmbH"
-    "{b}Bad Ending{/b}"
     $ achievement_ending_bad.grant()
+    "{b}Bad Ending{/b}"
 
     return
 

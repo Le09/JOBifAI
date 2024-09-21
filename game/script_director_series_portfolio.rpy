@@ -143,6 +143,10 @@ label portfolio_presentation:
                 stop music
                 $ count_warning+=1
                 play music "meow-bossinterviewtension.mp3"
+            elif confidence < 0.6:
+                show ad
+            else:
+                show ad happy
             $ jump_state = "portfolio_presentation"
 
         $ bb.add_history(kind="adv", who=b.name, what=ad_answer)

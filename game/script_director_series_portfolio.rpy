@@ -101,6 +101,8 @@ label portfolio_presentation:
 
         $ prompt_add = count_boss_presentation == 2
         $ prompt_direct = "The director should describe a bit what the original subject was about to get the applicant to explain the link with the portfolio" if prompt_add else ""
+        if count_boss_presentation == 5:
+            $ prompt_direct = "There is no time left for the interview, so the director should simply conclude, giving a very vague description of his general feeling on the interview, unless confidence is above .8, and he can be really positive."
         $ prompt = """
         Context: the initial subject was: %s
         The applicant submitted a portfolio that showed the following idea: %s
@@ -151,9 +153,8 @@ label portfolio_presentation:
 
         $ bb.add_history(kind="adv", who=b.name, what=ad_answer)
 
-        if count_boss_presentation < 5:
-            show screen say_scroll("Boss: ", ad_answer)
-        else:
+        show screen say_scroll("Boss: ", ad_answer)
+        if count_boss_presentation > 5:
             show screen say_scroll("Boss: ", "This conversation has been interesting, to say the least. But time is running out.")
         pause
         hide screen say_scroll

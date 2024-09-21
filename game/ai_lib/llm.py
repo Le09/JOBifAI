@@ -2,15 +2,14 @@ import json
 import re
 import requests
 
+from .exceptions import Unauthorized, RetryableError
+
 str_to_types = {
     "string": str,
     "number": float,
     "integer": int,
     "boolean": bool,
 }
-
-class RetryableError(Exception):
-    pass
 
 def transform_json_schema(short_schema):
     """
@@ -51,8 +50,7 @@ def ask_llm(*args, retries=3, **kwargs):
     return result
 
 
-def ask_llm_once(prompt, context=None, is_json=True, schema=None, model="llama3-8b-8192", full_schema=None, api_key=None, user_id="user"):
-    url = "https://api.groq.com/openai/v1/chat/completions"
+def ask_llm_once(prompt, context=None, is_json=True, schema=None, model="llama3-8b-8192", full_schema=None, api_key=None, user_id="user", url=None):
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
@@ -73,8 +71,10 @@ def ask_llm_once(prompt, context=None, is_json=True, schema=None, model="llama3-
     response = requests.post(url, headers=headers, data=json.dumps(args))
     status = response.status_code
     if status != 200:
-        if response.status_code not in [401, 403, 404]:
-            raise RetryableError()
+        if response.status_code == 401:
+            raise Unauthorized("LLM/Groq", "Invalid API key")
+        elif response.status_code not in [403, 404]:
+            raise RetryableError(response.text)
         else:
             response.raise_for_status()  # Raise an exception for HTTP errors
     try:

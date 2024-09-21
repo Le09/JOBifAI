@@ -3,10 +3,10 @@
     with dissolve
 
     stop music fadeout 1.0
-    m "Reading the job posting, checking my own application, looking up the itinerary on the map..."
-    m "So many things to do and so little time. Which one should I do before I go?"
 
     play music "eyeswideopen-walking.mp3"
+    m "Reading the job posting, checking my own application, looking up the itinerary on the map..."
+    m "So many things to do and so little time. Which one should I do before I go?"
 
     $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
     $ reply = reply.strip() or "Browse on 4chan for the latest memes."
@@ -54,10 +54,12 @@ label street_lost:
     "Hope they won't ask any hard questions, I didn't have time to check out my CV and portfolio... The road was longer than I expected. How many buildings are even here?"
 
 label random:
+    stop music fadeout 1.0
     "I see a man with a barely hanging fake moustache.
     Oh no, there he comes...
     I don't want to be late for my interview."
 
+    play music "randoman-demo.mp3"
     show randle
     with dissolve
 
@@ -80,6 +82,7 @@ label random:
     "As you run towards the building, you wonder about this man.
     Did he work for Grizley before? Did something happen to him there?"
 
+    stop music fadeout 1.0
     $ achievement_rambling.grant()
 
     jump at_the_door

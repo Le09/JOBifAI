@@ -65,7 +65,9 @@ label boss_ok_ending:
     $ ad_mood = "neutral"
 
     show ad
+    stop music fadeout 1.0
     b "You're an interesting candidate, you know."
+    play music "randoman-full-demo.mp3"
     b "I must admit, if I could hire any interesting person, this company would be the size of a country."
     b "You see what I mean? Well, I have your contact info on your CV, so I'll call you back."
 
@@ -73,15 +75,19 @@ label boss_ok_ending:
 
 label boss_happy_ending:
     show ad happy
+    stop music fadeout 1.0
     b "I must say I'm really surprised."
+    play music "randoman-full-demo.mp3"
     b "In a good way. We can give you a trial."
 
     jump ending
 
 label sad_boss:
     show ad at truecenter
+    stop music fadeout 1.0
 
     b "I think it's better if we stop here."
+    play music "randoman-full-demo.mp3"
     m "I see. I'm sorry I couldn't do my best today. I'll leave immediately."
     b "Wwait!!! I..."
     b "I have some change in my pocket. Buy yourself a good sandwich with that. Good luck."

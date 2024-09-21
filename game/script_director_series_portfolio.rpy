@@ -65,8 +65,8 @@ label series_portfolio:
         ysize scaled_dim
     with dissolve
 
-    pause
 
+    m "..."
     m "What the hell is this? How am I going to explain?"
 
     play music "meow-bossinterviewbass.mp3"

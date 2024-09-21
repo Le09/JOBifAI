@@ -6,6 +6,7 @@ init python:
     import datetime
     from ai_lib.llm import ask_llm
     from ai_lib.images import download_job_image, generate_job
+    from ai_lib.exceptions import Unauthorized
 
     # disable moving through history with the scroll wheel
     # https://www.renpy.org/doc/html/keymap.html
@@ -69,6 +70,10 @@ init python:
     def retry(fallback, function, kwargs):
         try:
             return function(**kwargs)
+        except Unauthorized as u:
+            s = "The API key for the %s service was refused. You should configure it in the AI settings before retrying." % u.service_name
+            renpy.say("SYSTEM", s)  # TODO: alert screen, and or give direct button to settings
+            renpy.jump(fallback)
         except Exception as e:
             # TODO: more robust error handling
             if "body" in dir(e) and "error" in e.body:

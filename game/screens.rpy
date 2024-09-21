@@ -239,28 +239,29 @@ style choice_button_text is default:
 screen quick_menu():
 
     ## Ensure this appears on top of other screens.
-    zorder 100
-
-    add "gui/menu_background.png" xalign 0.5
+    zorder 90
 
     if quick_menu:
-
-        hbox:
-            style_prefix "quick"
-
+        frame:
+            style "bblack"
             xalign 0.5
-            yalign 1.0
+            yalign .999
+            xpadding 22
+            top_padding 0
+            bottom_padding 9
+            hbox:
+                style_prefix "quick"
 
-            textbutton _("Back") action Rollback()
-            textbutton _("History") action ShowMenu('history')
-            textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Save") action ShowMenu('save')
-            textbutton _("Q.Save") action QuickSave()
-            textbutton _("Q.Load") action QuickLoad()
-            textbutton _("Prefs") action ShowMenu('preferences')
-            textbutton _("Trophies") action ShowMenu("achievement_gallery")
-            textbutton _("Transcript") action Function(save_transcript)
+                textbutton _("Back") action Rollback()
+                textbutton _("History") action ShowMenu('history')
+                textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
+                textbutton _("Auto") action Preference("auto-forward", "toggle")
+                textbutton _("Save") action ShowMenu('save')
+                textbutton _("Q.Save") action QuickSave()
+                textbutton _("Q.Load") action QuickLoad()
+                textbutton _("Prefs") action ShowMenu('preferences')
+                textbutton _("Trophies") action ShowMenu("achievement_gallery")
+                textbutton _("Transcript") action Function(save_transcript)
 
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
@@ -269,6 +270,8 @@ init python:
     config.overlay_screens.append("quick_menu")
 
 default quick_menu = True
+style bblack:
+    background Solid("#00000080")  # Black color with 50% transparency
 
 style quick_button is default
 style quick_button_text is button_text

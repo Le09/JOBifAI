@@ -737,36 +737,12 @@ style slot_button_text:
 
 screen preferences():
 
-    default pak_value = VariableInputValue("persistent.prodia_api_key", returnable=True)
-    default ck2_value = VariableInputValue("persistent.groq_api_key", returnable=True)
-    
     tag menu
 
     use game_menu(_("Preferences"), scroll="viewport"):
 
         vbox:
 
-            hbox:
-                box_wrap True
-                vbox:
-                    style_prefix "input"
-                    label _("Prodia API Key")
-                    button:
-                        action pak_value.Toggle()
-                        input:
-                            value pak_value
-                            copypaste True
-
-            hbox:
-                box_wrap True
-                vbox:
-                    style_prefix "input"
-                    label _("Groq Key")
-                    button:
-                        action ck2_value.Toggle()
-                        input:
-                            value ck2_value
-                            copypaste True
             hbox:
                 box_wrap True
 

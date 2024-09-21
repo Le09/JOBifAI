@@ -24,20 +24,36 @@ Maybe?
 
 ## Building the game
 
-Final build script, once demo keys have been set:
+The game use "demo keys" variable to make builds directly usable without the need to create new accounts or keys.
+To make this work, the build script replaces the demo keys placeholders by the actual values in the file `.keys.rc`, expecting to give a value to `groq_api_key` and `prodia_api_key`.
+The build script reverts this change after the build is done.
+
+To avoid the risk of committing the keys, the `.keys.rc` file is ignored by git, and you should install the commit hook to ensure that the project is not commited while the keys have been changed.
+
+To set up the Git hooks in your local environment, run the following command after cloning the repository:
 
 ```bash
-source .keys.rc
-sed -i "s/PRODIA_DEMO_KEY/$prodia_api_key/" game/config.rpy
-sed -i "s/LLM_DEMO_KEY/$groq_api_key/" game/config.rpy
-dir_tmp=$(mktemp -d "tmp/dirXXXX")
-mkdir -p $dir_tmp
-mv game/images/session* $dir_tmp
-./renpy.sh launcher distribute JOBifAI
-mv $dir_tmp/* game/images/
+./setup-hooks.sh
+```
+This will ensure that if you use
+
+The makefile assumes that the Ren'Py SDK has been downloaded in the same folder as the parent directory of this file. If it is not, you can change the `RENPY` variable at the top of  the makefile to point to the correct location. Then you can build the game by running:
+
+```bash
+make
 ```
 
-Otherwise, all these images will get packaged with it.
+If you want to build the game without bundling it with demo keys, you can simply run:
+
+```bash
+make no_demo
+```
+
+If you intend to distribute the game, make sure to update the disclaimer.
+
+The makefile also ensure that the session images that are created in the `game/images/session*` folder are moved to a temporary directory before building the game.
+Otherwise, the images would be included in the build, which bloating it for no reason.
+Images are moved back after the build is done, since otherwise that would break the corresponding save files.
 
 ## Credits
 

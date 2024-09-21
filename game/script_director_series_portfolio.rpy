@@ -12,6 +12,7 @@ label start_series_portfolio:
         b "I'm sorry, I've got an urgent call. Let me answer it, and we can start the interview."
         b "......"
         m "They talk so fast, I'm not sure I understand most of it... that's a professional studio for you."
+        m "I'm waiting for so long... and I can't leave now. Hopefully just a few more seconds..."
         # a renpy.pause(10, hard=True) is still skipped if skip is enabled, whereas this will always force to wait
         $ time.sleep(10)
 

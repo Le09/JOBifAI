@@ -48,9 +48,15 @@ init python:
 
     def askllm(state, prompt, schema):
         api_key = persistent.groq_api_key
+        if not persistent.llm_url.strip():
+            persistent.llm_url = "https://api.groq.com/openai/v1/chat/completions"
+        if not persistent.llm_model.strip():
+            persistent.llm_model = "llama3-8b-8192"
+        url = persistent.llm_url.strip()
+        model = persistent.llm_model.strip()
         if "demo" in api_key:
             api_key = persistent.groq_api_key_demo
-        return retry(state, ask_llm, {"api_key": api_key, "prompt": prompt, "schema": schema, "user_id": persistent.user_id})
+        return retry(state, ask_llm, {"api_key": api_key, "prompt": prompt, "schema": schema, "user_id": persistent.user_id, "url": url, "model": model})
 
     def generate_image(state, prompt):
         api_key = persistent.prodia_api_key

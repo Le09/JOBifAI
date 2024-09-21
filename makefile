@@ -6,6 +6,8 @@ FOLDER := $(shell pwd)
 
 all: config_prepare move_images build move_images_back config_undo
 
+no_demo: move_images build move_images_back
+
 # Load environment variables from .keys.rc
 config_prepare:
 	@source ".keys.rc" && \

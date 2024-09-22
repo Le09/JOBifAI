@@ -10,6 +10,7 @@ define r = Character(_("Random Man"), color="#99c888")
 define bb = Character(_("Boss"), color="#ffc8ff", what_style="say_transcript")
 define mm = Character(_("Me"), color="#c8c8ff", what_style="say_transcript")
 
+default persistent.touch = "dynamic"
 default persistent.user_id = None
 default persistent.game_first_time = True
 default persistent.llm_url = "https://api.groq.com/openai/v1/chat/completions"

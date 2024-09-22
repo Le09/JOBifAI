@@ -241,12 +241,16 @@ screen quick_menu():
 
     ## Ensure this appears on top of other screens.
     zorder 90
+    $ on_top = touch_variant()
 
     if quick_menu:
         frame:
+            if on_top:
+                yalign 0
+            else:
+                yalign .999
             style "bblack"
             xalign 0.5
-            yalign .999
             xpadding 22
             top_padding 0
             bottom_padding 9
@@ -744,7 +748,14 @@ screen preferences():
     use game_menu(_("Preferences"), scroll="viewport"):
 
         vbox:
-
+            vbox:
+                hbox:
+                    spacing 20
+                    label "Virtual Keyboard screens: [persistent.touch]"
+                    textbutton "Dynamic" action SetField(persistent, "touch", "dynamic")
+                    textbutton "Yes" action SetField(persistent, "touch", "yes")
+                    textbutton "No" action SetField(persistent, "touch", "no")
+                text _("Dynamic uses the virtual keyboard screen for Steam Deck or phone device.")
             hbox:
                 box_wrap True
 

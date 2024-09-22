@@ -13,6 +13,14 @@ init python:
     config.keymap['rollback'].remove('mousedown_4')
     config.keymap['rollforward'].remove('mousedown_5')
 
+    def touch_variant():
+        result = renpy.variant("touch") or renpy.variant("steam_deck")
+        if persistent.touch == "yes":
+            result = True
+        elif persistent.touch == "no":
+            result = False
+        return result
+
     def stringify_h(h):
         prefix = "_   " if h.what_args["style"] == "say_transcript" else "    "
         result = "%s%s" % (prefix, h.what)

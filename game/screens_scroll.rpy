@@ -24,11 +24,14 @@ screen say_scroll(who, what):
 screen viewport_llm(prompt):
     style_prefix "input"
     zorder 99
-
+    $ on_top = touch_variant()
     frame:
-        xmargin 200
+        if on_top:
+            yoffset 50
+        else:
+            yoffset 720
         ysize 320
-        yoffset 720
+        xmargin 200
         xpadding 20
 
         vbox:

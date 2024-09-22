@@ -69,7 +69,7 @@ label boss_ok_ending:
     show ad
     stop music fadeout 1.0
     b "You're an interesting candidate, you know."
-    play music "randoman-full-demo.mp3"
+    play music "randoman-full.mp3"
     b "I must admit, if I could hire any interesting person, this company would be the size of a country."
     b "You see what I mean? Well, I have your contact info on your CV, so I'll call you back."
 
@@ -79,7 +79,7 @@ label boss_happy_ending:
     show ad happy
     stop music fadeout 1.0
     b "I must say I'm really surprised."
-    play music "randoman-full-demo.mp3"
+    play music "randoman-full.mp3"
     b "In a good way. We can give you a trial."
 
     jump ending

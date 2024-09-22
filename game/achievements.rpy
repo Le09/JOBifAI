@@ -90,8 +90,8 @@ define achievement_woke_up = Achievement(
     name=_("Woke Up"),
     id="woke_up",
     description=_("Modern gaming achievement."),
-    unlocked_image="gui/window_icon.png",
-    locked_image="locked_achievement",
+    unlocked_image="images/achievements/woke_up.png",
+    locked_image="images/achievements/locked.png",
     hide_description=True,
 )
 
@@ -99,8 +99,8 @@ define achievement_earring_found = Achievement(
     name=_("Golden Feather"),
     id="earring_found",
     description=_("Found the earring in the lobby."),
-    unlocked_image="gui/window_icon.png",
-    locked_image="locked_achievement",
+    unlocked_image="images/achievements/feather.png",
+    locked_image="images/achievements/locked.png",
     hide_description=True,
 )
 
@@ -108,8 +108,8 @@ define achievement_earring_given = Achievement(
     name=_("Golden Heart"),
     id="earring_given",
     description=_("Gave the earring back to the secretary."),
-    unlocked_image="gui/window_icon.png",
-    locked_image="locked_achievement",
+    unlocked_image="images/achievements/heart.png",
+    locked_image="images/achievements/locked.png",
     hide_description=True,
 )
 
@@ -117,8 +117,8 @@ define achievement_coffee = Achievement(
     name=_("Pure Bliss"),
     id="ending_bad",
     description=_("Drank the best coffee of your life."),
-    unlocked_image="gui/window_icon.png",
-    locked_image="locked_achievement",
+    unlocked_image="images/achievements/bliss.png",
+    locked_image="images/achievements/locked.png",
     hide_description=True,
 )
 
@@ -126,8 +126,8 @@ define achievement_rambling = Achievement(
     name=_("Rambling"),
     id="rambling",
     description=_("Made a strange encounter."),
-    unlocked_image="gui/window_icon.png",
-    locked_image="locked_achievement",
+    unlocked_image="images/achievements/random.png",
+    locked_image="images/achievements/locked.png",
     hidden=False,
 )
 
@@ -135,8 +135,8 @@ define achievement_ending_bad = Achievement(
     name=_("COWARD!"),
     id="ending_bad",
     description=_("Got the bad ending!"),
-    unlocked_image="gui/window_icon.png",
-    locked_image="locked_achievement",
+    unlocked_image="images/achievements/ending_bad.png",
+    locked_image="images/achievements/locked.png",
     hidden=False,
 )
 
@@ -144,8 +144,8 @@ define achievement_ending_worst = Achievement(
     name=_("NEET"),
     id="ending_worst",
     description=_("Got the worst ending!"),
-    unlocked_image="gui/window_icon.png",
-    locked_image="locked_achievement",
+    unlocked_image="images/achievements/ending_worst.png",
+    locked_image="images/achievements/locked.png",
     hidden=False,
 )
 
@@ -153,8 +153,8 @@ define achievement_ending_okay = Achievement(
     name=_("Maybe?"),
     id="ending_okay",
     description=_("Got the okay ending. They will surely call back..."),
-    unlocked_image="gui/window_icon.png",
-    locked_image="locked_achievement",
+    unlocked_image="images/achievements/ending_maybe.png",
+    locked_image="images/achievements/locked.png",
     hidden=False,
 )
 
@@ -162,8 +162,8 @@ define achievement_ending_good = Achievement(
     name=_("Got it!"),
     id="ending_good",
     description=_("Got the good ending. You just need to do the job now..."),
-    unlocked_image="gui/window_icon.png",
-    locked_image="locked_achievement",
+    unlocked_image="images/achievements/ending_good.png",
+    locked_image="images/achievements/locked.png",
     hidden=False,
 )
 
@@ -171,8 +171,8 @@ define achievement_flora = Achievement(
     name=_("Flora"),
     id="flora",
     description=_("Listened to some pretty cool band."),
-    unlocked_image="gui/window_icon.png",
-    locked_image="locked_achievement",
+    unlocked_image="images/achievements/daisy.png",
+    locked_image="images/achievements/locked.png",
     hide_description=True,
 )
 
@@ -184,7 +184,8 @@ define -2 all_achievements = Achievement(
     name=_("Platinum Achievement"),
     id="platinum_achievement",
     description=_("Congrats! You unlocked every achievement!"),
-    unlocked_image=Transform("gui/window_icon.png", matrixcolor=BrightnessMatrix(1.0)),
+    unlocked_image="images/achievements/platinum.png",
+    locked_image="images/achievements/locked.png",
     hide_description=_("Get all other achievements."),
 )
 

@@ -1,6 +1,7 @@
 # Part 2: arriving at company Grizley.
 label at_the_door:
     scene bg street
+    play music "meow-bassline.mp3"
     "This is it. These big glass doors, the cute bear logo... I'm at the door of Grizley."
 
 label finish_series_job:
@@ -11,7 +12,7 @@ label finish_series_job:
 
 label company_lobby:
 
-    stop music fadeout 1.0
+    # stop music fadeout 1.0
     scene bg lobby
 
     "Am I late? No one's there."

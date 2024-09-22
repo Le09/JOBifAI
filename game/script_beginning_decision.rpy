@@ -36,7 +36,7 @@ Instructions:
 - If the choice is 4 or 5, describe the character getting distracted by a browser tab, wasting time.
 
 Evaluate what the answer may be among the previous options as a choice c.
-Moreover, narrate what happens as a result of this action as a sentence s.
+Moreover, narrate what happens at the second person as a result of this action using the second-person point of view as a sentence s.
 Describe only the direct result of the action.
 
 Give your answer as a json of the form {"choice": c, "result": s}.

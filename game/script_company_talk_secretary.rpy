@@ -1,14 +1,14 @@
 # Part 3: talking with Grizley secretary.
 label talk_secretary:
-    stop music fadeout 1.0
+    # stop music fadeout 1.0
     scene bg desk
     show secretary at truecenter
 
     $ reply = renpy.input(["Secretary","Is there any way I can help?"], screen="viewport_llm")
+    play sound "validate.mp3"
     $ reply = reply.strip() or "babble incoherently"
     $ mm.add_history(kind="adv", who=narrator.name, what=reply)
 
-    play sound "validate.mp3"
 
     while count_ask_interview < 3:
         $ earring_can_give = earring_got and not earring_given

@@ -96,10 +96,10 @@ label portfolio_presentation:
         $ count_boss_presentation+=1
 
         $ reply = renpy.input(["Boss","Time to convince the Art Director!"], screen="viewport_llm")
+        play sound "validate.mp3"
         $ reply = reply.strip() or "huuuuuh..."
 
         $ mm.add_history(kind="adv", who=narrator.name, what=reply)
-        play sound "validate.mp3"
 
         $ prompt_add = count_boss_presentation == 2
         $ prompt_direct = "The director should describe a bit what the original subject was about to get the applicant to explain the link with the portfolio" if prompt_add else ""

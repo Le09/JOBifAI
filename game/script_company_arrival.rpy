@@ -37,10 +37,10 @@ label lobby_first:
         $ couch_choice = "6) inspect couch" if not earring_got else ""
 
         $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
+        play sound "validate.mp3"
         $ reply = reply.strip() or "look around somewhat nervously"
         $ mm.add_history(kind="adv", who=narrator.name, what=reply)
 
-        play sound "validate.mp3"
 
         $ prompt = """
         Context: the main character is in the lobby of Grizley, an entertainment company.

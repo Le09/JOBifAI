@@ -3,12 +3,16 @@
 screen say_scroll(who, what):
     style_prefix "say"
     zorder 99
+    $ on_top = touch_variant()
 
     frame:
         xmargin 200
         ysize 320
-        yoffset 720
         xpadding 20
+        if on_top:
+            yoffset 50
+        else:
+            yoffset 720
 
         vbox:
             spacing 20

@@ -1588,21 +1588,20 @@ style pref_vbox:
 ## that uses fewer and bigger buttons that are easier to touch.
 screen quick_menu():
     variant "touch"
-
     zorder 100
-
-    if quick_menu:
-
-        hbox:
-            style_prefix "quick"
-
-            xalign 0.5
-            yalign 1.0
-
-            textbutton _("Back") action Rollback()
-            textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Menu") action ShowMenu()
+    frame:
+        style "bblack"
+        xalign 0.5
+        yalign 0
+        xpadding 15
+        ypadding 6
+        if quick_menu:
+            hbox spacing 60:
+                style_prefix "quick"
+                textbutton _("Back") action Rollback()
+                textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
+                textbutton _("Auto") action Preference("auto-forward", "toggle")
+                textbutton _("Menu") action ShowMenu()
 
 
 style window:

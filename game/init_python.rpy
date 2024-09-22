@@ -74,11 +74,14 @@ init python:
             api_key = persistent.prodia_api_key_demo
         return retry(state, generate_job, {"prompt": prompt, "api_key": api_key})
 
-    def download_image(job_id, file_path):
+    def download_image(job_id, file_path, force=False):
         api_key = persistent.prodia_api_key
         if "demo" in api_key:
             api_key = persistent.prodia_api_key_demo
-        renpy.invoke_in_thread(download_job_image, job_id, file_path, api_key)
+        if force:
+            return download_job_image(job_id, file_path, api_key)
+        else:
+            renpy.invoke_in_thread(download_job_image, job_id, file_path, api_key)
 
     def escape_text(text):
         return text.replace("{", "{{").replace("[", "[[").replace("}", "}}").replace("]", "]]")

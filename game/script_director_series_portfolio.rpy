@@ -13,10 +13,17 @@ label start_series_portfolio:
         b "......"
         m "They talk so fast, I'm not sure I understand most of it... that's a professional studio for you."
         m "I'm waiting for so long... and I can't leave now. Hopefully just a few more seconds..."
-        # a renpy.pause(10, hard=True) is still skipped if skip is enabled, whereas this will always force to wait
-        $ time.sleep(10)
+        $ retry("start_series_portfolio", download_image, {"job_id": series_cover_job, "file_path": img_full_path(series_cover), "force": True})
+        b "Sorry for the wait, you know how it is, there's always a multi-million dollar project cooking."
 
-        jump start_series_portfolio
+label start_check_portfolio:
+    if not exists_img(portfolio_0):
+        b "Oh, I'm sorry, your portfolio isn't in your file."
+        b "We've had a lot of submissions lately, so we got an assistant who does a reference check."
+        b "I'll call in the secretary to bring your submissions back, please wait a minute..."
+        m "Are these people supposed to be professional? Unbelievable."
+        $ retry("finish_portfolio_0", download_image, {"job_id": portfolio_0_job, "file_path": img_full_path(portfolio_0), "force": True})
+        b "Alright, thank you for your patience. It's one of the most important virtues."
 
 label series_portfolio:
     play music "meow-bossenter.mp3" loop

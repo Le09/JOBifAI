@@ -56,11 +56,11 @@ label street_lost:
 
 label random:
     stop music fadeout 1.0
+    play music "randoman-demo.mp3"
     "I see a man with a barely hanging fake moustache.
     Oh no, there he comes...
     I don't want to be late for my interview."
 
-    play music "randoman-demo.mp3"
     show randle
     with dissolve
 

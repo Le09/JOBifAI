@@ -2,7 +2,7 @@
 label boss_neutral:
 
     $ ad_mood = "neutral"
-    play music "intro_boss_stock.mp3"
+    play music "intro_boss.mp3"
     scene bg office
     with dissolve
 
@@ -15,7 +15,7 @@ label boss_neutral:
 
 label boss_angry:
     stop music
-    play music "intro_boss_angry_stock.mp3"
+    play music "intro_boss_angry.mp3"
     $ ad_mood = "angry"
     scene bg office
 
@@ -31,7 +31,7 @@ label boss_happy:
 
     $ ad_mood = "happy"
 
-    play music "intro_boss_happy_stock.mp3"
+    play music "intro_boss_happy.mp3"
     scene bg office
     with dissolve
     "What a cool office."

@@ -99,7 +99,7 @@ label portfolio_presentation:
         $ reply = reply.strip() or "huuuuuh..."
 
         $ mm.add_history(kind="adv", who=narrator.name, what=reply)
-        play sound "validate_slap_bass_stock.mp3"
+        play sound "validate.mp3"
 
         $ prompt_add = count_boss_presentation == 2
         $ prompt_direct = "The director should describe a bit what the original subject was about to get the applicant to explain the link with the portfolio" if prompt_add else ""
@@ -134,18 +134,18 @@ label portfolio_presentation:
 
         if confidence < 0.10:  # must be a really bad answer
             show ad angry
-            play sound "bad_cancel_stock.mp3"
+            play sound "bad_cancel.mp3"
             # $ ad_mood = "angry"
             $ jump_state = "security"
         elif confidence >= 0.85:
             show ad happy
-            play sound "good_jingle_bass_stock.mp3"
+            play sound "good.mp3"
             # $ ad_mood = "happy"
             $ jump_state = "boss_happy_ending"
         else:
             if confidence < 0.33:
                 show ad angry
-                play sound "weird_bass_stock.mp3"
+                play sound "weird.mp3"
                 # $ ad_mood = "angry"
                 stop music
                 $ count_warning+=1
@@ -154,7 +154,7 @@ label portfolio_presentation:
                 show ad
             else:
                 show ad happy
-                play sound "good_jingle_bass_stock.mp3"
+                play sound "ok.mp3"
             $ jump_state = "portfolio_presentation"
 
         $ bb.add_history(kind="adv", who=b.name, what=ad_answer)
@@ -162,17 +162,18 @@ label portfolio_presentation:
         show screen say_scroll("Boss: ", ad_answer)
         if count_boss_presentation > 5:
             show screen say_scroll("Boss: ", "This conversation has been interesting, to say the least. But time is running out.")
-            play sound "weird_bass_stock.mp3"
+            play sound "weird.mp3"
         pause
         hide screen say_scroll
 
         $ renpy.jump(jump_state)
 
     if confidence < 0.5:
-        play sound "weird_bass_stock.mp3"
+        play sound "weird.mp3"
         jump sad_boss
     elif confidence >= 0.8:
-        play sound "good_jingle_bass_stock.mp3"
+        play sound "good.mp3"
         jump boss_happy_ending
     else:
+        play sound "ok.mp3"
         jump boss_ok_ending

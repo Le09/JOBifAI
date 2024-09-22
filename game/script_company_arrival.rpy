@@ -40,6 +40,8 @@ label lobby_first:
         $ reply = reply.strip() or "look around somewhat nervously"
         $ mm.add_history(kind="adv", who=narrator.name, what=reply)
 
+        play sound "validate_slap_bass_stock.mp3"
+
         $ prompt = """
         Context: the main character is in the lobby of Grizley, an entertainment company.
         There is a central desk with a secretary, some office doors, a lift, and the doors to the street.
@@ -88,6 +90,7 @@ label earring_got:
     $ earring_got = True
     "The cushions are a mess. Reminds me of home."
     "What's this, a feather? Oh, it's an earring. I'll keep it."
+    play sound "good_jingle_bass_stock.mp3"
     $ achievement_earring_found.grant()
     "Ok, I feel ready know. I should move on."
     jump lobby_first

@@ -8,6 +8,8 @@ label talk_secretary:
     $ reply = reply.strip() or "babble incoherently"
     $ mm.add_history(kind="adv", who=narrator.name, what=reply)
 
+    play sound "validate_slap_bass_stock.mp3"
+
     while count_ask_interview < 3:
         $ earring_can_give = earring_got and not earring_given
         $ earring_choice = "6) talk about the earring" if earring_can_give else ""
@@ -54,6 +56,7 @@ Return the result in JSON format as follows:  {"choice": c, "result": s}
     jump secretary_angry_boss
 
 label secretary_nervous:
+    play sound "stress_heartbeat_stock.mp3"
 
     "It's a stressful situation... Maybe next time tell her about the interview."
 
@@ -63,6 +66,7 @@ label earring_give:
     "I found this earring between the couch's cushions."
     s "Oh, thank you! I was looking for it everywhere."
     s "It's an earring with the logo of my favourite band, OKF."
+    play sound "good_jingle_bass_stock.mp3"
     "Maybe her smile was worth this earring weight in gold."
     $ achievement_earring_given.grant()
     $ earring_given = True
@@ -71,6 +75,7 @@ label earring_give:
     jump talk_secretary
 
 label ready_interview:
+    play sound "good_jingle_bass_stock.mp3"
     s "The art director's office is this way."
     if secretary_happy:
         jump boss_happy

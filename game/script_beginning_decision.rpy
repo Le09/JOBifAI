@@ -11,6 +11,7 @@
     $ reply = renpy.input(["","Describe what you do."], screen="viewport_llm")
     $ reply = reply.strip() or "Browse on 4chan for the latest memes."
     $ mm.add_history(kind="adv", who=narrator.name, what=reply)
+    play sound "validate_slap_bass_stock.mp3"
     $ prompt = """
 Context: the unnamed main character is preparing to leave for a job interview with only a limited time.
 Here are the possible actions:

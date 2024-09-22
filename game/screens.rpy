@@ -317,6 +317,7 @@ screen navigation():
 
         textbutton _("Preferences") action ShowMenu("preferences")
         textbutton _("AI Configuration") action ShowMenu("config_menu")
+        textbutton _("Achievements") action ShowMenu("achievement_gallery")
 
         if _in_replay:
 

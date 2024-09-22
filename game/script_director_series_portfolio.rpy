@@ -168,6 +168,7 @@ label portfolio_presentation:
         $ bb.add_history(kind="adv", who=b.name, what=ad_answer)
 
         show screen say_scroll("Boss: ", ad_answer)
+        pause  # otherwise the screen instantly disappears!
         hide screen say_scroll
 
         $ renpy.jump(jump_state)

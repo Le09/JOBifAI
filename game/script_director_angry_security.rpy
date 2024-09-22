@@ -5,7 +5,7 @@ label security:
     with dissolve
     stop music fadeout 1.0
     "Oh no..."
-    play music "randoman-full-demo.mp3"
+    play music "meow-endingtension.mp3"
     show guard
     "Someone who doesn't look happy appears."
 

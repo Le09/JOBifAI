@@ -87,7 +87,7 @@ label sad_boss:
     stop music fadeout 1.0
 
     b "I think it's better if we stop here."
-    play music "randoman-full-demo.mp3"
+    play music "meow-endingtension.mp3"
     m "I see. I'm sorry I couldn't do my best today. I'll leave immediately."
     b "Wwait!!! I..."
     b "I have some change in my pocket. Buy yourself a good sandwich with that. Good luck."

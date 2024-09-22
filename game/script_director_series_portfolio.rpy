@@ -27,6 +27,7 @@ label start_check_portfolio:
 
 label series_portfolio:
     play music "meow-bossenter.mp3" loop
+    b "I don't need introductions, so we can begin the interview."
     b "I'm not going to go over all of the new series concept, you had all this information in the job posting that you read so diligently."
     b "So I'll just let you see the very private image that our main artist drew to showcase it."
 
@@ -168,8 +169,9 @@ label portfolio_presentation:
 
         show screen say_scroll("Boss: ", ad_answer)
         if count_boss_presentation > 5:
-            show screen say_scroll("Boss: ", "This conversation has been interesting, to say the least. But time is running out.")
             play sound "weird.mp3"
+            b "Oh, but I didn't see the time... we have to move on."
+            b "This conversation has been interesting, to say the least."
         pause
         hide screen say_scroll
 

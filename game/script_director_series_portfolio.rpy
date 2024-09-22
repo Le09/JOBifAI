@@ -168,14 +168,13 @@ label portfolio_presentation:
         $ bb.add_history(kind="adv", who=b.name, what=ad_answer)
 
         show screen say_scroll("Boss: ", ad_answer)
-        if count_boss_presentation > 5:
-            play sound "weird.mp3"
-            b "Oh, but I didn't see the time... we have to move on."
-            b "This conversation has been interesting, to say the least."
-        pause
         hide screen say_scroll
 
         $ renpy.jump(jump_state)
+    if count_boss_presentation >= 5:
+        play sound "weird.mp3"
+        b "Oh, but I didn't see the time... we have to move on."
+        b "This conversation has been interesting, to say the least."
 
     if confidence < 0.5:
         play sound "weird.mp3"

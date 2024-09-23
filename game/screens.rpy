@@ -756,6 +756,15 @@ screen preferences():
                     textbutton "Yes" action SetField(persistent, "touch", "yes")
                     textbutton "No" action SetField(persistent, "touch", "no")
                 text _("Dynamic uses the virtual keyboard screen for Steam Deck or phone device.")
+                null height 10
+                hbox:
+                    spacing 20
+                    label "Font:"
+                    textbutton "{font=VCRosdNEUE.ttf}VCRosdNEUE" action [gui.SetPreference("font", "VCRosdNEUE.ttf"),SelectedIf(gui.text_font == "VCRosdNEUE.ttf")]
+                    textbutton "{font=DejaVuSans.ttf}DejaVuSans" action [gui.SetPreference("font",  "DejaVuSans.ttf"), SelectedIf(gui.text_font == "DejaVuSans.ttf")]
+                    textbutton "{font=OpenDyslexic.otf}OpenDyslexic" action [gui.SetPreference("font",  "OpenDyslexic.otf"), SelectedIf(gui.text_font == "OpenDyslexic.otf")]
+                label "Font size:"
+                bar value Preference("font size")
             hbox:
                 box_wrap True
 

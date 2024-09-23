@@ -751,10 +751,10 @@ screen preferences():
             vbox:
                 hbox:
                     spacing 20
-                    label "Virtual Keyboard screens: [persistent.touch]"
-                    textbutton "Dynamic" action SetField(persistent, "touch", "dynamic")
-                    textbutton "Yes" action SetField(persistent, "touch", "yes")
-                    textbutton "No" action SetField(persistent, "touch", "no")
+                    label "Virtual Keyboard screens:"
+                    textbutton "Dynamic" action [SetField(persistent, "touch", "dynamic"), SelectedIf(persistent.touch == "dynamic")]
+                    textbutton "Yes" action [SetField(persistent, "touch", "yes"), SelectedIf(persistent.touch == "yes")]
+                    textbutton "No" action [SetField(persistent, "touch", "no"), SelectedIf(persistent.touch == "no")]
                 text _("Dynamic uses the virtual keyboard screen for Steam Deck or phone device.")
                 null height 10
                 hbox:

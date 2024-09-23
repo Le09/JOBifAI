@@ -25,6 +25,7 @@ label boss_angry:
     with dissolve
 
     play music "meow-bossinterviewtension.mp3"
+    queue music "meow-lagrangianfull.mp3"
     jump start_series_portfolio
 
 label boss_happy:

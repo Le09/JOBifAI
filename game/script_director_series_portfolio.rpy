@@ -64,9 +64,6 @@ label series_portfolio:
     window show
     b "I'll put it on the right for reference."
     hide expression im_portfolio_0_full
-
-    stop music fadeout 1.0
-
     show expression im_portfolio_0 at truecenter:
         xalign 0.98
         yalign 0.3
@@ -78,8 +75,9 @@ label series_portfolio:
     m "..."
     m "What the hell is this? How am I going to explain?"
 
+    stop music fadeout 1.0
     play music "meow-bossinterviewbass.mp3"
-
+    queue music "meow-lagrangianfull.mp3"
     b "Can you give a little presentation of your portfolio? Based on the concept, why did you make this choice?"
 
     jump portfolio_presentation
@@ -158,6 +156,7 @@ label portfolio_presentation:
                 stop music
                 $ count_warning+=1
                 play music "meow-bossinterviewtension.mp3"
+                queue music "meow-lagrangianfull.mp3"
             elif confidence < 0.6:
                 show ad
             else:

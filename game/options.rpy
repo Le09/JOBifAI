@@ -12,6 +12,10 @@
 ##
 ## The _() surrounding the string marks it as eligible for translation.
 
+# see https://github.com/renpy/steam-deck-guide?tab=readme-ov-file
+define _renpysteam.keyboard_mode = "always"
+define _renpysteam.keyboard_shift = False
+
 define config.name = _("JOBifAI")
 
 

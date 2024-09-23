@@ -79,6 +79,8 @@ The history has been pulled into this repository for ease of use.
 
 The screen history has been copied from [tofurocks](https://tofurocks.itch.io/renpy-history).
 
+Fonts are [VCR OSD Neue](https://www.dafont.com/vcrosdneue.font) by Elli Sho and [OpenDyslexic](https://opendyslexic.org/).
+
 ### Development team
 
 Program, script: Woolion & Flora Lin.

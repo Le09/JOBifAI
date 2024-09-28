@@ -16,7 +16,7 @@ config_prepare:
 
 # Create a temporary directory and move session images
 move_images:
-	@dir_tmp=$$(mktemp -d "tmp/dirmakeXXXX") && \
+	@mkdir -p tmp && dir_tmp=$$(mktemp -d "tmp/dirmakeXXXX") && \
 	mkdir -p $${dir_tmp} && \
 	mv game/images/session* $${dir_tmp} 2>/dev/null || true
 

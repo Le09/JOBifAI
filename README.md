@@ -26,6 +26,11 @@ The game use "demo keys" variable to make builds directly usable without the nee
 To make this work, the build script replaces the demo keys placeholders by the actual values in the file `.keys.rc`, expecting to give a value to `groq_api_key` and `prodia_api_key`.
 The build script reverts this change after the build is done.
 
+Example in '.keys.rc':
+```bash
+export groq_api_key="demokey"
+```
+
 To avoid the risk of committing the keys, the `.keys.rc` file is ignored by git, and you should install the commit hook to ensure that the project is not commited while the keys have been changed.
 
 To set up the Git hooks in your local environment, run the following command after cloning the repository:

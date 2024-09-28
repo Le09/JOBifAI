@@ -1,8 +1,8 @@
 default persistent.prodia_api_key = "demo_key_value_1_a45ohopps7z"
 default persistent.groq_api_key = "demo_key_value_2_yuzegfa8ert"
 
-default persistent.prodia_api_key_demo = "PRODIA_DEMO_KEY"
-default persistent.groq_api_key_demo = "LLM_DEMO_KEY"
+define prodia_api_key_demo = "PRODIA_DEMO_KEY"
+define groq_api_key_demo = "LLM_DEMO_KEY"
 
 screen config_menu():
     tag menu

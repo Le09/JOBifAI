@@ -15,6 +15,7 @@
 # see https://github.com/renpy/steam-deck-guide?tab=readme-ov-file
 define _renpysteam.keyboard_mode = "always"
 define _renpysteam.keyboard_shift = False
+define config.steam_appid = 3248650
 
 define config.name = _("JOBifAI")
 

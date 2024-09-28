@@ -49,8 +49,8 @@ screen config_menu():
             textbutton "Advanced Configuration" action ShowMenu("advanced_config_menu")
             textbutton "Privacy" action ShowMenu("privacy")
             textbutton "Demo Disclaimer" action ShowMenu("demo_disclaimer")
-        if not on_top:
-            textbutton "Return" action Return()
+            if not on_top:
+                textbutton "Return" action Return()
 
 screen advanced_config_menu():
     tag menu

@@ -115,7 +115,7 @@ define achievement_earring_given = Achievement(
 
 define achievement_coffee = Achievement(
     name=_("Pure Bliss"),
-    id="ending_bad",
+    id="coffee",
     description=_("Drank the best coffee of your life."),
     unlocked_image="images/achievements/bliss.png",
     locked_image="images/achievements/locked.png",

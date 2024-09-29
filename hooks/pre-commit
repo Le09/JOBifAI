@@ -2,19 +2,20 @@
 
 # File to check
 CONFIG_FILE="game/config.rpy"
+prodia_line='prodia_api_key_demo = "PRODIA_DEMO_KEY"'
+groq_line='groq_api_key_demo = "LLM_DEMO_KEY"'
 
-if grep -q 'default persistent.prodia_api_key_demo = "PRODIA_DEMO_KEY"' "$CONFIG_FILE"; then
-    echo "The Prodia API key in $CONFIG_FILE is still set to the placeholder key."
-else
-    echo "Error: The Prodia API key in $CONFIG_FILE has been replaced with a valid key. Please reset it to PRODIA_DEMO_KEY."
-    exit 1
-fi
-
-if grep -q 'default persistent.groq_api_key_demo = "LLM_DEMO_KEY"' "$CONFIG_FILE"; then
-    echo "The LLM API key in $CONFIG_FILE is still set to the placeholder key."
-else
-    echo "Error: The LLM API key in $CONFIG_FILE has been replaced with a valid key. Please reset it to LLM_DEMO_KEY."
-    exit 1
+if git diff --cached --name-only | grep -q "$CONFIG_FILE"; then
+    if ! git show :$CONFIG_FILE | grep -q "$prodia_line"; then
+        echo "Error: The line defining the prodia_api_key_demo should contain 'prodia_api_key_demo = \"PRODIA_DEMO_KEY\"'"
+        echo "You can automatically undo the key switch using make config_undo"
+        exit 1
+    fi
+    if ! git show :$CONFIG_FILE | grep -q "$groq_line"; then
+        echo "Error: The line defining the groq_api_key_demo should contain 'groq_api_key_demo = \"LLM_DEMO_KEY\"'"
+        echo "You can automatically undo the key switch using make config_undo"
+        exit 1
+    fi
 fi
 
 exit 0

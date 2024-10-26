@@ -5,7 +5,7 @@
 ### Modified for use in Ren'py by CoolerMudkip/Zach Coleman from Lemmasoft Fourms
 ############################################################################################
 
-init python:
+init -12 python:
 
     #Needed Libraries for use. If this is being imported into your project, do not forget to copy over the pydub folder!
     import pydub
@@ -101,5 +101,8 @@ init python:
 
     #Speeds up the playback to make it sound more garbled and less decipherable.
     def change_playback_speed(sound, speed_change):
-        export = sound.speedup(6.0, 200, 30)
+        try:  # this might break if the text it too short
+            export = sound.speedup(5.0, 200, 30)
+        except Exception:
+            export = sound
         return export

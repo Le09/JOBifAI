@@ -144,17 +144,17 @@ init -11 python:
 
     renpy.music.register_channel(name='beeps', mixer='voice')
 
-    def voice_e(event, **kwargs):
-        if event == "show": #When the text is shown
-            build_sentence(_last_say_what, "eileen")
-            renpy.sound.play("audio/output.wav", channel="beeps", loop=False)
-        elif event == "slow_done" or event == "end": #When the text is finished displaying or you open a menu.
-            renpy.sound.stop(channel="beeps")
+    def voice_text(text, preset):
+        build_sentence(text, preset)
+        renpy.sound.play("audio/output.wav", channel="beeps", loop=False)
 
-    #Example of an alternate character callback
-    def voice_e2(event, **kwargs):
-        if event == "show": #When the text is shown
-            build_sentence(_last_say_what, "eileen2")
-            renpy.sound.play("audio/output.wav", channel="beeps", loop=False)
-        elif event == "slow_done" or event == "end": #When the text is finished displaying or you open a menu.
-            renpy.sound.stop(channel="beeps")
+    def stop_voice():
+        renpy.sound.stop(channel="beeps")
+
+    def make_voice(preset):  # preset is the name of the audio folder
+        def voice(event, **kwargs):
+            if event == "show":
+                voice_text(_last_say_what, preset)
+            elif event == "slow_done" or event == "end":
+                stop_voice()
+        return voice

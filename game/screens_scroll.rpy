@@ -38,8 +38,7 @@ screen viewport_llm(prompt):
 
         vbox:
             spacing 20
-            text prompt[1] style "input_prompt":
-                justify True
+            text prompt[1] style "input_prompt"
             viewport:
                 draggable True
                 scrollbars "vertical"

@@ -22,6 +22,8 @@ screen say_scroll(who, what):
                     justify True
 
 screen viewport_llm(prompt):
+    if len(prompt)>2:
+       on "begin" action voice_text(prompt[1], prompt[2])
     style_prefix "input"
     zorder 99
     $ on_top = touch_variant()

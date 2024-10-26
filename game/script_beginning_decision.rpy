@@ -62,7 +62,7 @@ label random:
     I don't want to be late for my interview."
 
     show randle
-    with dissolve
+    # with dissolve  # with voice, it's better without
 
     r "Let me introduce myself, my name is Ran Doman.
     I see you are walking towards Grizley building.

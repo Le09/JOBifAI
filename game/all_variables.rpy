@@ -1,14 +1,14 @@
 
 # Declare characters used by this game.
-define s = Character(_("Secretary"), color="#c8ffc8")
-define m = Character(_("Me"), color="#c8c8ff")
-define b = Character(_("Boss"), color="#ffc8ff")
-define g = Character(_("Guard"), color="#ffffaa")
-define h = Character(_("Henk"), color="#c8c8")
-define j = Character(_("JOBifAI"), color="#ccc8c8")
-define r = Character(_("Random Man"), color="#99c888")
-define bb = Character(_("Boss"), color="#ffc8ff", what_style="say_transcript")
-define mm = Character(_("Me"), color="#c8c8ff", what_style="say_transcript")
+define s = Character(_("Secretary"), color="#c8ffc8", callback=voice_e)
+define m = Character(_("Me"), color="#c8c8ff", callback=voice_e2)
+define b = Character(_("Boss"), color="#ffc8ff", callback=voice_e)
+define g = Character(_("Guard"), color="#ffffaa", callback=voice_e)
+define h = Character(_("Henk"), color="#c8c8", callback=voice_e)
+define j = Character(_("JOBifAI"), color="#ccc8c8", callback=voice_e)
+define r = Character(_("Random Man"), color="#99c888", callback=voice_e)
+define bb = Character(_("Boss"), color="#ffc8ff", what_style="say_transcript", callback=voice_e)
+define mm = Character(_("Me"), color="#c8c8ff", what_style="say_transcript", callback=voice_e2)
 
 default persistent.touch = "dynamic"
 default persistent.user_id = None

@@ -1,5 +1,5 @@
 
-init python:
+init -11 python:
     import os
     import sys
     import uuid
@@ -141,3 +141,20 @@ init python:
             name += ".png"
         file_path = path_join(dir_base, name)
         return file_path
+
+    renpy.music.register_channel(name='beeps', mixer='voice')
+
+    def voice_e(event, **kwargs):
+        if event == "show": #When the text is shown
+            build_sentence(_last_say_what, "eileen")
+            renpy.sound.play("audio/output.wav", channel="beeps", loop=False)
+        elif event == "slow_done" or event == "end": #When the text is finished displaying or you open a menu.
+            renpy.sound.stop(channel="beeps")
+
+    #Example of an alternate character callback
+    def voice_e2(event, **kwargs):
+        if event == "show": #When the text is shown
+            build_sentence(_last_say_what, "eileen2")
+            renpy.sound.play("audio/output.wav", channel="beeps", loop=False)
+        elif event == "slow_done" or event == "end": #When the text is finished displaying or you open a menu.
+            renpy.sound.stop(channel="beeps")

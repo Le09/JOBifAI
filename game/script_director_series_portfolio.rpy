@@ -166,6 +166,7 @@ label portfolio_presentation:
 
         $ bb.add_history(kind="adv", who=b.name, what=ad_answer)
 
+        $ renpy.invoke_in_thread(voice_text, ad_answer[:120], "normal")
         show screen say_scroll("Boss: ", ad_answer)
         pause  # otherwise the screen instantly disappears!
         hide screen say_scroll

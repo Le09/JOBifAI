@@ -4,7 +4,7 @@ label talk_secretary:
     scene bg desk
     show secretary at truecenter
 
-    $ reply = renpy.input(["Secretary","Is there any way I can help?"], screen="viewport_llm")
+    $ reply = renpy.input(["Secretary","Is there any way I can help?", "anh"], screen="viewport_llm")
     play sound "validate.mp3"
     $ reply = reply.strip() or "babble incoherently"
     $ mm.add_history(kind="adv", who=narrator.name, what=reply)

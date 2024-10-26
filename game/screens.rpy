@@ -760,6 +760,7 @@ screen preferences():
                 hbox:
                     spacing 20
                     label "Font:"
+                    textbutton "{font=Pixellari.ttf}Pixellari" action [gui.SetPreference("font", "Pixellari.ttf"),SelectedIf(gui.text_font == "Pixellari.ttf")]
                     textbutton "{font=VCRosdNEUE.ttf}VCRosdNEUE" action [gui.SetPreference("font", "VCRosdNEUE.ttf"),SelectedIf(gui.text_font == "VCRosdNEUE.ttf")]
                     textbutton "{font=DejaVuSans.ttf}DejaVuSans" action [gui.SetPreference("font",  "DejaVuSans.ttf"), SelectedIf(gui.text_font == "DejaVuSans.ttf")]
                     textbutton "{font=OpenDyslexic.otf}OpenDyslexic" action [gui.SetPreference("font",  "OpenDyslexic.otf"), SelectedIf(gui.text_font == "OpenDyslexic.otf")]

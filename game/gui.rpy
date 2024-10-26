@@ -57,13 +57,13 @@ define gui.interface_text_color = '#ffffff'
 ## Fonts and Font Sizes ########################################################
 
 ## The font used for in-game text.
-define gui.text_font = gui.preference("font", "VCRosdNEUE.ttf")
+define gui.text_font = gui.preference("font", "Pixellari.ttf")
 
 ## The font used for character names.
-define gui.name_text_font = gui.preference("font", "VCRosdNEUE.ttf")
+define gui.name_text_font = gui.preference("font", "Pixellari.ttf")
 
 ## The font used for out-of-game text.
-define gui.interface_text_font = gui.preference("font", "VCRosdNEUE.ttf")
+define gui.interface_text_font = gui.preference("font", "Pixellari.ttf")
 
 ## The size of normal dialogue text.
 define gui.text_size = 36

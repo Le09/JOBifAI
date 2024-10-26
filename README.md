@@ -36,7 +36,7 @@ To avoid the risk of committing the keys, the `.keys.rc` file is ignored by git,
 To set up the Git hooks in your local environment, run the following command after cloning the repository:
 
 ```bash
-./setup-hooks.sh
+./setup_hooks.sh
 ```
 
 The makefile assumes that the Ren'Py SDK has been downloaded in the same folder as the parent directory of this file. If it is not, you can change the `RENPY` variable at the top of  the makefile to point to the correct location. Then you can build the game by running:

@@ -142,7 +142,7 @@ label portfolio_presentation:
             show ad angry
             play sound "bad_cancel.mp3"
             # $ ad_mood = "angry"
-            $ jump_state = "security"
+            $ jump_state = "portfolio_very_bad_answer"
         elif confidence >= 0.85:
             show ad happy
             play sound "good.mp3"
@@ -186,3 +186,8 @@ label portfolio_presentation:
     else:
         play sound "ok.mp3"
         jump boss_ok_ending
+
+label portfolio_very_bad_answer:
+    b "At this point, I don't think you are a serious candidate. I wonder how you even got here."
+    b "I'll get Darnell to see you out. He's a man of little words, which should fit you."
+    jump security

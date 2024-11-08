@@ -19,8 +19,6 @@ image side ad = Image("side_ad.png", zorder=111)
 default persistent.touch = "dynamic"
 default persistent.user_id = None
 default persistent.game_first_time = True
-default persistent.llm_url = "https://api.groq.com/openai/v1/chat/completions"
-default persistent.llm_model = "llama3-8b-8192"
 
 default persistent.ticket = None
 default persistent.steam_id = None

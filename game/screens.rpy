@@ -262,9 +262,7 @@ screen quick_menu():
                 textbutton _("Q.Save") action QuickSave()
                 textbutton _("Q.Load") action QuickLoad()
                 textbutton _("Prefs") action ShowMenu('preferences')
-                textbutton _("AI") action ShowMenu('config_menu')
                 textbutton _("Trophies") action ShowMenu("achievement_gallery")
-                textbutton _("Transcript") action Function(save_transcript)
 
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
@@ -318,7 +316,6 @@ screen navigation():
         textbutton _("Load") action ShowMenu("load")
 
         textbutton _("Preferences") action ShowMenu("preferences")
-        textbutton _("AI Configuration") action ShowMenu("config_menu")
         textbutton _("Achievements") action ShowMenu("achievement_gallery")
 
         if _in_replay:
@@ -747,6 +744,9 @@ screen preferences():
 
         vbox:
             vbox:
+                text _("The Steam version is built with the Groq and Prodia web services, using our servers to make AI calls.")
+                text _("If you want a private and configurable alternative, please use the itch.io version.")
+                null height 30
                 hbox:
                     spacing 20
                     label "Virtual Keyboard screens:"

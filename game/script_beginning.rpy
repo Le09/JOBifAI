@@ -9,6 +9,7 @@ label start:
         $ persistent.game_first_time = False
 
     scene bg room
+    $ authentify()  # make sure everything is set up
     with fade
     # play music "eyeswideopen-intro.mp3"
 

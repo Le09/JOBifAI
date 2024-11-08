@@ -16,17 +16,22 @@ default persistent.game_first_time = True
 default persistent.llm_url = "https://api.groq.com/openai/v1/chat/completions"
 default persistent.llm_model = "llama3-8b-8192"
 
+default persistent.ticket = None
+default persistent.steam_id = None
+
 default dir_session = None
 
 default portfolio_idea = None
 default portfolio_prompt = None
 default portfolio_0 = None
 default portfolio_0_job = None
+default portfolio_0_url = None
 
 default series_idea = None
 default series_prompt = None
 default series_cover = None
 default series_cover_job = None
+default series_cover_url = None
 
 default prompt = None
 default schema = None

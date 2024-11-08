@@ -4,9 +4,8 @@ init -11 python:
     import sys
     import uuid
     import datetime
-    from ai_lib.llm import ask_llm
-    from ai_lib.images import download_job_image, generate_job
-    from ai_lib.exceptions import Unauthorized
+    import base64
+    import requests
 
     # disable moving through history with the scroll wheel
     # https://www.renpy.org/doc/html/keymap.html
@@ -56,32 +55,66 @@ init -11 python:
         if config.developer:
             renpy.say("DEBUG", msg)
 
+    def ask_server(function_name, args):
+        url = "https://jobifai.woolion.art/api"
+        #url = "http://localhost:3000/lambda"
+        if not persistent.ticket:
+            authentify()
+        payload = {"ticket": persistent.ticket, "user_id": persistent.steam_id, "function_name": function_name,"args": args}
+        response = requests.post(url, json=payload)
+        if response.status_code == 401:
+            authentify()
+            response = requests.post(url, json=payload)
+        response.raise_for_status()
+        return response.json()
+
+    def authentify():
+        if not persistent.steam_id:
+            get_steam_id()
+        get_ticket()
+        ask_server("auth", {})
+
+    def get_steam_id():
+        try:
+            uid = achievement.steam.get_csteam_id()  # account_id
+            persistent.steam_id = uid
+        except Exception as e:
+            # TODO: call screen to say this version needs steam
+            raise
+
+    def get_ticket():
+        if persistent.ticket:
+            try:
+                achievement.steam.cancel_ticket()
+                persistent.ticket = None
+            except Exception as e:
+                print("Failed to cancel ticket: %s" % e)
+        ticket = achievement.steam.get_session_ticket()
+        print("Ticket: %s" % ticket)
+        persistent.ticket = base64.b64encode(ticket).decode("utf-8")
+
     def askllm(state, prompt, schema):
-        api_key = persistent.groq_api_key
-        if not persistent.llm_url.strip():
-            persistent.llm_url = "https://api.groq.com/openai/v1/chat/completions"
-        if not persistent.llm_model.strip():
-            persistent.llm_model = "llama3-8b-8192"
-        url = persistent.llm_url.strip()
-        model = persistent.llm_model.strip()
-        if "demo" in api_key:
-            api_key = groq_api_key_demo
-        return retry(state, ask_llm, {"api_key": api_key, "prompt": prompt, "schema": schema, "user_id": persistent.user_id, "url": url, "model": model})
+        args = {"prompt": prompt, "schema": schema}
+        return retry(state, ask_server, {"function_name": "ask_llm", "args": args})
 
     def generate_image(state, prompt):
-        api_key = persistent.prodia_api_key
-        if "demo" in api_key:
-            api_key = prodia_api_key_demo
-        return retry(state, generate_job, {"prompt": prompt, "api_key": api_key})
+        args = {"prompt": prompt}
+        return retry(state, ask_server, {"function_name": "generate_image", "args": args})
 
-    def download_image(job_id, file_path, force=False):
-        api_key = persistent.prodia_api_key
-        if "demo" in api_key:
-            api_key = prodia_api_key_demo
+    def get_job_image_url(state, job_id):
+        args = {"job_id": job_id}
+        return retry(state, ask_server, {"function_name": "get_image_url", "args": args})
+
+    def download_job_image(image_url, file_path):
+        response = requests.get(image_url)
+        with open(file_path, 'wb') as file:
+            file.write(response.content)
+
+    def download_image(image_url, file_path, force=False):
         if force:
-            return download_job_image(job_id, file_path, api_key)
+            return download_job_image(image_url, file_path)
         else:
-            renpy.invoke_in_thread(download_job_image, job_id, file_path, api_key)
+            renpy.invoke_in_thread(download_job_image, image_url, file_path)
 
     def escape_text(text):
         return text.replace("{", "{{").replace("[", "[[").replace("}", "}}").replace("]", "]]")
@@ -89,12 +122,6 @@ init -11 python:
     def retry(fallback, function, kwargs):
         try:
             return function(**kwargs)
-        except Unauthorized as u:
-            if "LLM" in u.service_name:
-                renpy.call_screen("error_llm_menu")
-            else:
-                renpy.call_screen("error_prodia_menu")
-            renpy.jump(fallback)
         except Exception as e:
             # TODO: more robust error handling
             if "body" in dir(e) and "error" in e.body:

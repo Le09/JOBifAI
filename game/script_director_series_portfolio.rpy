@@ -13,7 +13,7 @@ label start_series_portfolio:
         b "......"
         m "They talk so fast, I'm not sure I understand most of it... that's a professional studio for you."
         m "I'm waiting for so long... and I can't leave now. Hopefully just a few more seconds..."
-        $ retry("start_series_portfolio", download_image, {"job_id": series_cover_job, "file_path": img_full_path(series_cover), "force": True})
+        $ retry("start_series_portfolio", download_image, {"image_url": series_cover_url, "file_path": img_full_path(series_cover), "force": True})
         b "Sorry for the wait, you know how it is, there's always a multi-million dollar project cooking."
 
 label start_check_portfolio:
@@ -22,7 +22,7 @@ label start_check_portfolio:
         b "We've had a lot of submissions lately, so we got an assistant who does a reference check."
         b "I'll call in the secretary to bring your submissions back, please wait a minute..."
         m "Are these people supposed to be professional? Unbelievable."
-        $ retry("finish_portfolio_0", download_image, {"job_id": portfolio_0_job, "file_path": img_full_path(portfolio_0), "force": True})
+        $ retry("finish_portfolio_0", download_image, {"image_url": portfolio_0_url, "file_path": img_full_path(portfolio_0), "force": True})
         b "Alright, thank you for your patience. It's one of the most important virtues."
 
 label series_portfolio:

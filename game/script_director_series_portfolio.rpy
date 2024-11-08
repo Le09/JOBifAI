@@ -1,7 +1,7 @@
 # Part 6: Portfolio presentation.
 
 label start_series_portfolio:
-    if not exists_img(series_cover) or not exists_img(portfolio_0):
+    if not exists_img(series_cover):
         $ count_waiting_time+=1
         if count_waiting_time > 4:
             b "I'm sorry, I'm called urgently. We'll reschedule our meeting."

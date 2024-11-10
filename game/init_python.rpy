@@ -25,28 +25,17 @@ init -11 python:
         result = "%s%s" % (prefix, h.what)
         return "%s:\n%s" % (h.who, result) if h.who else result
 
-    def stringify_history(full=True):
-        if full:
-            s_list = [stringify_h(h) for h in _history_list]
-        else:
-            s_list = [stringify_h(h) for h in _history_list if h.what_args["style"] == "say_transcript"]
+    def stringify_history():
+        s_list = [stringify_h(h) for h in _history_list if h.what_args["style"] == "say_transcript"]
         return "\n\n".join(s_list)
 
-    def save_transcript():
-        # I don't see a way to open a file dialog for the user to choose the path...
-        # So let's default to the desktop. Hopefully it works on all platforms.
-        # will it work with steam?
+    def save_transcript(ending_state):
         transcript = stringify_history()
-        path_home = os.path.expanduser("~")
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename =  "%s_transcript_%s.txt" % (persistent.user_id, timestamp)
-        file_path = os.path.join(path_home, "Desktop", filename)
+        timestamp = datetime.datetime.now().strftime("t_%Y-%m-%d_%H-%M-%S")
         try:
-            with open(file_path, "w") as f:
-                f.write(transcript)
-            renpy.notify("Transcript saved successfully on your Desktop!")
+            ask_server("transcript", {"transcript": transcript, "timestamp": timestamp, "state": ending_state})
         except Exception as e:
-            renpy.notify("Transcript save failed. Error: %s" % e)
+            pass
 
     def path_join(*args):
         return "/".join(args)

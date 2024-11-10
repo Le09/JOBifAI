@@ -60,6 +60,7 @@ label band_plays:
 
     "{b}Stop the song and return to main screen?{/b}"
 
+    $ save_transcript("band_plays")
     return
 
 label band_escape:
@@ -68,4 +69,5 @@ label band_escape:
     show henk
     h "Look, they moved their amplifier, let's run for it!"
 
+    $ save_transcript("band_escape")
     return

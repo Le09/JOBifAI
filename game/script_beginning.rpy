@@ -9,9 +9,10 @@ label start:
         $ persistent.game_first_time = False
 
     scene bg room
-    $ authentify()  # make sure everything is set up
     with fade
     # play music "eyeswideopen-intro.mp3"
+    if not persistent.ticket:  # should only run once
+        $ retry_auth()
 
     m "Gin...ious... I'm a gin...ious..."
     show henk

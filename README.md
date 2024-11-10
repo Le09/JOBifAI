@@ -5,6 +5,9 @@ The gameplay is something that could not exist without AI; you have to bullshit 
 
 Each playthrough is unique thanks to these features, and the game is designed to be replayed multiple times.
 
+You can play the game for free on [Steam](https://store.steampowered.com/app/3248650/JOBifAI/)!
+You can also get a build directly on [itch.io](https://woolion.itch.io/jobifai).
+
 [![Video trailer](https://img.youtube.com/vi/j1NsyamimcQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=j1NsyamimcQ)
 
 ## An AI augmented visual novel.

@@ -15,6 +15,16 @@ You can also get a build directly on [itch.io](https://woolion.itch.io/jobifai).
 This is a work of fiction. 
 Names, characters, businesses, places, events, locales, and incidents are either the products of the author’s imagination or used in a fictitious manner. Any resemblance to actual persons, living or dead, or actual events is purely coincidental.
 
+## Steam version
+
+This is the Steam branch, which is the version that is distributed on Steam.
+It is hardwired to use `jobifai.woolion.art` as main server, and required the Steam API to work. 
+The user must authenticate with Steam to play the game.
+The ability to configure the AI system had been entirely removed to comply with Steam's rules.
+The remarks regarding dev setup below are not relevant for this branch.
+
+The main branch (`master`) corresponds to the version on `itch.io`, which should be the one to work with if you are not on Steam, are looking to make changes, etc.
+
 ## Roadmap
 
 Version 1.0 is done :-)

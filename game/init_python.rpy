@@ -119,6 +119,17 @@ init -11 python:
     def escape_text(text):
         return text.replace("{", "{{").replace("[", "[[").replace("}", "}}").replace("]", "]]")
 
+    def retry_auth():
+        try:
+            return authentify()
+        except Exception as e:
+            s = "Steam authentication failed.\n\nYou need a valid Steam account and the Steam client running to play this game.\nConfirm retrial of authentication, or quit the game?"
+            again = renpy.confirm(s)
+            if again:
+                return retry_auth()
+            else:
+                renpy.quit()
+
     def retry(fallback, function, kwargs):
         try:
             return function(**kwargs)

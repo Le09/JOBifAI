@@ -88,6 +88,8 @@ The screen history has been copied from [tofurocks](https://tofurocks.itch.io/re
 
 Fonts are [Pixellari](https://www.dafont.com/pixellari.font) by Zacchary Dempsey-Plante, [VCR OSD Neue](https://www.dafont.com/vcrosdneue.font) by Elli Sho and [OpenDyslexic](https://opendyslexic.org/).
 
+The TTS system is [Renpy Animalese](https://github.com/abrookst/Renpy8-Animalese), with a sound font from [DigiDuncan](https://github.com/DigiDuncan/animalese.py). It is based on [henryishuman' implementation](https://github.com/ztc0611/Ren-py-Animalese), published on a "Feel free to use and modify at your own discretion" license.
+
 ### Development team
 
 Program, script: Woolion & Flora Lin.

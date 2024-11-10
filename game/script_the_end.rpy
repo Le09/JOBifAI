@@ -15,6 +15,7 @@ label ok_ending:
     $ achievement_ending_okay.grant()
     "{b} OK Ending {/b}"
 
+    $ save_transcript("ok_ending")
     return
 
 label worst_ending:
@@ -41,6 +42,7 @@ label bad_ending:
     $ achievement_ending_bad.grant()
     "{b}Bad Ending{/b}"
 
+    $ save_transcript("bad_ending")
     return
 
 label ending:
@@ -54,4 +56,5 @@ label ending:
     $ achievement_ending_good.grant()
     "{b}Good Ending{/b}."
 
+    $ save_transcript("ending")
     return

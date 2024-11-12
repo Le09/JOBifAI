@@ -12,6 +12,9 @@ init -11 python:
     config.keymap['rollback'].remove('mousedown_4')
     config.keymap['rollforward'].remove('mousedown_5')
 
+    class BannedException(Exception):
+        pass
+
     def touch_variant():
         result = renpy.variant("touch") or renpy.variant("steam_deck")
         if persistent.touch == "yes":
@@ -51,6 +54,8 @@ init -11 python:
             authentify()
         payload = {"ticket": persistent.ticket, "user_id": persistent.steam_id, "function_name": function_name,"args": args}
         response = requests.post(url, json=payload)
+        if response.status_code == 403:
+            raise BannedException()
         if response.status_code == 401:
             authentify()
             response = requests.post(url, json=payload)
@@ -122,6 +127,10 @@ init -11 python:
     def retry(fallback, function, kwargs):
         try:
             return function(**kwargs)
+        except BannedException:
+            s = "You have been banned from the game.\nIf you think this is unfair, please contact the developers.\nSelecting yes will quit the game, selecting no will cause the game running to stop."
+            again = renpy.confirm(s)
+            renpy.quit()
         except Exception as e:
             # TODO: more robust error handling
             if "body" in dir(e) and "error" in e.body:

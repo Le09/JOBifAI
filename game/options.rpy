@@ -24,6 +24,7 @@ define config.name = _("JOBifAI")
 ## this to False to hide the title.
 
 define gui.show_name = True
+define gui.show_version = False
 
 
 ## The version of the game.

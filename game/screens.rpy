@@ -384,9 +384,9 @@ screen main_menu():
 
             text "[config.name!t]":
                 style "main_menu_title"
-
-            text "[config.version]":
-                style "main_menu_version"
+            if gui.show_version:
+                text "[config.version]":
+                    style "main_menu_version"
 
 
 style main_menu_frame is empty

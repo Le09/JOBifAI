@@ -3,6 +3,7 @@ init -11 python:
     import os
     import sys
     import uuid
+    import shutil
     import datetime
     from ai_lib.llm import ask_llm
     from ai_lib.images import download_job_image, generate_job
@@ -144,9 +145,31 @@ init -11 python:
 
     renpy.music.register_channel(name='beeps', mixer='voice')
 
+    def audio_tmp_create():
+        full_path = path_join(renpy.config.basedir, "game", "audio", "tmp")
+        if not os.path.exists(full_path):
+            os.makedirs(full_path)
+
+    def audio_tmp_remove():
+        full_path = path_join(renpy.config.basedir, "game", "audio", "tmp")
+        if os.path.exists(full_path):
+            try:
+                shutil.rmtree(full_path)
+            except Exception as e:
+                print(f"Error deleting folder '{full_path}': {e}")
+
+    renpy.config.start_callbacks.append(audio_tmp_create)
+    renpy.config.quit_callbacks.append(audio_tmp_remove)
+
     def voice_text(text, preset):
-        build_sentence(text, preset)
-        renpy.sound.play("audio/output.wav", channel="beeps", loop=False)
+        try:
+            name = get_random_object_name("voice.wav")
+            filename = path_join(renpy.config.basedir, "game", "audio", "tmp", name)
+            build_sentence(text, preset, filename)
+            name_play = path_join("audio", "tmp", name)
+            renpy.sound.play(name_play, channel="beeps", loop=False)
+        except Exception as e:
+            print(f"Error playing voice: {e}")
 
     def stop_voice():
         renpy.sound.stop(channel="beeps")

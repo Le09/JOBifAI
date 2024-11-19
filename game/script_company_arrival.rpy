@@ -8,7 +8,7 @@ label finish_series_job:
     $ renpy.checkpoint(hard=False)
     python:
         if not exists_img(series_cover):
-            retry("finish_series_job", download_image, {"job_id": series_cover_job, "file_path": img_full_path(series_cover)})
+            download_image(series_prompt, img_full_path(series_cover))
 
 label company_lobby:
 
@@ -24,8 +24,8 @@ label finish_portfolio_0:
     $ renpy.checkpoint(hard=False)
     python:
         if not exists_img(portfolio_0):
-            retry("finish_portfolio_0", download_image, {"job_id": portfolio_0_job, "file_path": img_full_path(portfolio_0)})
-    
+            download_image(portfolio_prompt, img_full_path(portfolio_0))
+
 label dont_reload_image_here:
     $ renpy.checkpoint(hard=False)
 

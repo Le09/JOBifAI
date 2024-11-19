@@ -1,4 +1,5 @@
-default persistent.prodia_api_key = "demo_key_value_1_a45ohopps7z"
+default persistent.img_account = "demo_cloudflare_account"
+default persistent.img_api_key = "demo_key_value_1_a45ohopps7z"
 default persistent.groq_api_key = "demo_key_value_2_yuzegfa8ert"
 
 
@@ -20,11 +21,19 @@ screen config_menu():
             label "Basic Configuration":
                 xalign 0.5
                 bottom_margin 20
-            text _("These two API keys NEED to be set to be able to play.")
+            text _("These 3 fields NEED to be correctly set to be able to play.")
             null height 30
-            default pak_value = VariableInputValue("persistent.prodia_api_key", returnable=True)
+            default iac_value = VariableInputValue("persistent.img_account", returnable=True)
+            default pak_value = VariableInputValue("persistent.img_api_key", returnable=True)
             default ck2_value = VariableInputValue("persistent.groq_api_key", returnable=True)
-            text "Prodia API Key:"
+            text "CloudFlare AI account:"
+            button:
+                action iac_value.Toggle()
+                input:
+                    length 40
+                    value iac_value
+                    copypaste True
+            text "CloudFlare AI token:"
             button:
                 action pak_value.Toggle()
                 input:
@@ -39,9 +48,9 @@ screen config_menu():
                     value ck2_value
                     copypaste True
             null height 30
-            text _("To play, you will need two API keys to process the AI calls the game needs to work. These free accounts will give you enough to play as much as you want.")
+            text _("To play, you will need to access the API to process the AI calls the game needs to work. These free accounts will give you enough to play as much as you want.")
             text _("{a=https://console.groq.com/keys}https://console.groq.com/keys{/a}")
-            text _("{a=https://docs.prodia.com/reference/getting-started-guide}https://docs.prodia.com/reference/getting-started-guide{/a}")
+            text _("{a=https://developers.cloudflare.com/workers-ai/get-started/rest-api/}https://developers.cloudflare.com/workers-ai/get-started/rest-api/{/a}")
             text _("(we are not affiliated to these services, they just seemed the most convenient)")
             text _("If you don't want to make this setup, you can play it directly on Steam:")
             text _("{a=https://store.steampowered.com/app/3248650/JOBifAI/}https://store.steampowered.com/app/3248650/JOBifAI/{/a}")

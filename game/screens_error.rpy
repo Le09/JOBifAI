@@ -1,4 +1,4 @@
-screen error_prodia_menu():
+screen error_img_menu():
     tag menu
     $ on_top = touch_variant()
     frame:
@@ -12,17 +12,24 @@ screen error_prodia_menu():
         vbox:
             if on_top:
                 textbutton "Return" action Return()
-            label "Prodia Error":
+            label "CloudFlare Error":
                 xalign 0.5
                 bottom_margin 20
             vbox:
-                text _("This API key is invalid. Please correct it and try again.")
+                text _("These credentials are invalid. Please correct it and try again.")
                 text _("Follow the following link to create a new one if you need to.")
-                text _("{a=https://docs.prodia.com/reference/getting-started-guide}https://docs.prodia.com/reference/getting-started-guide{/a}")
+                text _("{a=https://developers.cloudflare.com/workers-ai/get-started/rest-api/}https://developers.cloudflare.com/workers-ai/get-started/rest-api/{/a}")
                 null height 30
-            default pak_value = VariableInputValue("persistent.prodia_api_key", returnable=True)
+            default pak_value = VariableInputValue("persistent.img_api_key", returnable=True)
             vbox:
-                text "Prodia API Key:"
+                text "CloudFlare AI account:"
+                button:
+                    action iac_value.Toggle()
+                    input:
+                        length 40
+                        value iac_value
+                        copypaste True
+                text "CloudFlare AI token:"
                 button:
                     action pak_value.Toggle()
                     input:

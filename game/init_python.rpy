@@ -5,8 +5,9 @@ init -11 python:
     import uuid
     import shutil
     import datetime
+    import json
+    import requests
     from ai_lib.llm import ask_llm
-    from ai_lib.images import download_job_image, generate_job
     from ai_lib.exceptions import Unauthorized
 
     # disable moving through history with the scroll wheel
@@ -69,20 +70,31 @@ init -11 python:
             renpy.call_screen("error_llm_menu")
         return retry(state, ask_llm, {"api_key": api_key, "prompt": prompt, "schema": schema, "user_id": persistent.user_id, "url": url, "model": model})
 
-    def generate_image(state, prompt):
-        api_key = persistent.prodia_api_key
-        if "demo" in api_key:
-            renpy.call_screen("error_prodia_menu")
-        return retry(state, generate_job, {"prompt": prompt, "api_key": api_key})
+    def download_image_cloudflare(prompt, file_path):
+        api_key = persistent.img_api_key
+        account = persistent.img_account
+        if "demo" in api_key or "demo" in account:
+            renpy.call_screen("error_img_menu")
+        headers = {"Authorization": f"Bearer {api_key}"}
+        url = (f"https://api.cloudflare.com/client/v4/accounts/{account}/ai/"
+                "run/@cf/stabilityai/stable-diffusion-xl-base-1.0"
+        )
+        data = json.dumps({"prompt": prompt})
+        response = requests.post(url, headers=headers, data=data)
+        status = response.status_code
+        if status != 200:
+            if response.status_code == 401:
+                raise Unauthorized("IMG", "Invalid API key")
+            else:
+                response.raise_for_status()
+        with open(file_path, 'wb') as file:
+            file.write(response.content)
 
-    def download_image(job_id, file_path, force=False):
-        api_key = persistent.prodia_api_key
-        if "demo" in api_key:
-            renpy.call_screen("error_prodia_menu")
+    def download_image(prompt, file_path, force=False):
         if force:
-            return download_job_image(job_id, file_path, api_key)
+            return download_image_cloudflare(prompt, file_path)
         else:
-            renpy.invoke_in_thread(download_job_image, job_id, file_path, api_key)
+            renpy.invoke_in_thread(download_image_cloudflare, prompt, file_path)
 
     def escape_text(text):
         return text.replace("{", "{{").replace("[", "[[").replace("}", "}}").replace("]", "]]")
@@ -94,7 +106,7 @@ init -11 python:
             if "LLM" in u.service_name:
                 renpy.call_screen("error_llm_menu")
             else:
-                renpy.call_screen("error_prodia_menu")
+                renpy.call_screen("error_img_menu")
             renpy.jump(fallback)
         except Exception as e:
             # TODO: more robust error handling
@@ -138,8 +150,6 @@ init -11 python:
         dir_base = path_join(renpy.config.basedir, "game")
         if not images:
             dir_base = path_join(dir_base, "images")
-        if ".png" not in name:
-            name += ".png"
         file_path = path_join(dir_base, name)
         return file_path
 

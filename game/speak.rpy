@@ -30,7 +30,7 @@ init -12 python:
     dots = "dot"
 
     #Builds the sentence when given a sentence and a character's name using their speech garble.
-    def build_sentence(sentence, name):
+    def build_sentence(sentence, name, filename):
 
         #If the player isn't skipping and the voice volume setting isn't 0/muted, then generate the text sounds.
         if renpy.get_skipping() == None and preferences.volumes['voice'] > 0:
@@ -56,7 +56,7 @@ init -12 python:
                     sentence_wav += new_segment
 
             sentence_wav = change_playback_speed(sentence_wav, voice)
-            sentence_wav.export(config.gamedir+"/audio/output.wav", format="wav")
+            sentence_wav.export(filename, format="wav")
 
     #Replaces swear words with a "dot" sound effect. Can be disabled by commenting out line 36.
     def replace_swear_words(sentence):

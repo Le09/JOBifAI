@@ -92,24 +92,17 @@ init -11 python:
         args = {"prompt": prompt, "schema": schema}
         return retry(state, ask_server, {"function_name": "ask_llm", "args": args})
 
-    def generate_image(state, prompt):
-        args = {"prompt": prompt}
-        return retry(state, ask_server, {"function_name": "generate_image", "args": args})
-
-    def get_job_image_url(state, job_id):
-        args = {"job_id": job_id}
-        return retry(state, ask_server, {"function_name": "get_image_url", "args": args})
-
-    def download_job_image(image_url, file_path):
-        response = requests.get(image_url)
+    def download_flux_image(prompt, file_path):
+        response = ask_server("download_image", {"prompt": prompt})
+        image = response["image"]
         with open(file_path, 'wb') as file:
-            file.write(response.content)
+            file.write(base64.b64decode(image))
 
-    def download_image(image_url, file_path, force=False):
+    def download_image(prompt, file_path, force=False):
         if force:
-            return download_job_image(image_url, file_path)
+            return download_flux_image(prompt, file_path)
         else:
-            renpy.invoke_in_thread(download_job_image, image_url, file_path)
+            renpy.invoke_in_thread(download_flux_image, prompt, file_path)
 
     def escape_text(text):
         return text.replace("{", "{{").replace("[", "[[").replace("}", "}}").replace("]", "]]")
@@ -174,8 +167,6 @@ init -11 python:
         dir_base = path_join(renpy.config.basedir, "game")
         if not images:
             dir_base = path_join(dir_base, "images")
-        if ".png" not in name:
-            name += ".png"
         file_path = path_join(dir_base, name)
         return file_path
 

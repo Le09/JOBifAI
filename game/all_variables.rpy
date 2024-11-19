@@ -28,14 +28,10 @@ default dir_session = None
 default portfolio_idea = None
 default portfolio_prompt = None
 default portfolio_0 = None
-default portfolio_0_job = None
-default portfolio_0_url = None
 
 default series_idea = None
 default series_prompt = None
 default series_cover = None
-default series_cover_job = None
-default series_cover_url = None
 
 default prompt = None
 default schema = None

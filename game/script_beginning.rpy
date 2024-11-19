@@ -46,11 +46,9 @@ label before_portfolio_0:
     $ renpy.checkpoint(hard=False)
     python:
         portfolio_idea = result["sentence"]
-        portfolio_prompt = result["prompt"]
+        portfolio_prompt = result["prompt"] + ", 2D Game Art style, painterly brushstrokes, vibrant colors, dramatic lighting, AI artifacts, Ankama vivid animation style"
         if not portfolio_0:
-            portfolio_0 = get_random_object_name("p0.png", [dir_session])
-        if not portfolio_0_job:
-            portfolio_0_job = generate_image("before_portfolio_0", portfolio_prompt)
+            portfolio_0 = get_random_object_name("p0.webp", [dir_session])
 
 label jobifai_instructions:
     j "Complete these 4 steps to become concept designer for Grizley:"
@@ -87,11 +85,9 @@ label init_series_job:
     $ renpy.checkpoint(hard=False)
     python:
         series_idea = result["sentence"]
-        series_prompt = result["prompt"]
-        if not series_cover_job:
-            series_cover = get_random_object_name("series.png", [dir_session])
-        if not series_cover_job:
-            series_cover_job = generate_image("init_series_job", series_prompt)
+        series_prompt = "Create an action-adventure scene inspired by classic JRPG in a vibrant anime-style, where: " + result["prompt"]
+        if not series_cover:
+            series_cover = get_random_object_name("series.webp", [dir_session])
 
 label wake_up:
     scene bg room

@@ -106,6 +106,13 @@ init -11 python:
 
     def askllm(state, prompt, schema):
         args = {"prompt": prompt, "schema": schema}
+        try:
+            return ask_server("ask_llm", args)
+        except Exception as e:
+            try:
+                return ask_server("ask_llm", args)
+            except Exception as e:
+                pass
         return retry(state, ask_server, {"function_name": "ask_llm", "args": args})
 
     def download_flux_image(prompt, file_path):

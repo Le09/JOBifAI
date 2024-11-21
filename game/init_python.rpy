@@ -90,9 +90,7 @@ init -11 python:
 
     def askllm(state, prompt, schema):
         args = {"prompt": prompt, "schema": schema}
-        try:
-            return ask_server("ask_llm", args)
-        except Exception as e:
+        for i in range(3):
             try:
                 return ask_server("ask_llm", args)
             except Exception as e:

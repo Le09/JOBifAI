@@ -108,6 +108,7 @@ label portfolio_presentation:
         $ reply = reply.strip() or "huuuuuh..."
 
         $ mm.add_history(kind="adv", who=narrator.name, what=reply)
+        $ renpy.suspend_rollback(True)
 
         $ prompt_add = count_boss_presentation == 2
         $ prompt_direct = "The director should describe a bit what the original subject was about to get the applicant to explain the link with the portfolio" if prompt_add else ""
@@ -173,6 +174,7 @@ label portfolio_presentation:
         pause  # otherwise the screen instantly disappears!
         hide screen say_scroll
 
+        $ renpy.suspend_rollback(False)
         $ renpy.jump(jump_state)
     if count_boss_presentation >= 5:
         play sound "weird.mp3"

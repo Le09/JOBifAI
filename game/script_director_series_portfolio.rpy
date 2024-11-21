@@ -102,6 +102,8 @@ label portfolio_presentation:
         $ count_boss_presentation+=1
 
         $ reply = renpy.input(["Boss","Time to convince the Art Director!"], screen="viewport_llm")
+        hide screen expression "viewport_llm"
+        $ renpy.pause(.001)
         play sound "validate.mp3"
         $ reply = reply.strip() or "huuuuuh..."
 

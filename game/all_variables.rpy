@@ -1,14 +1,20 @@
 
 # Declare characters used by this game.
-define s = Character(_("Secretary"), color="#c8ffc8", callback=make_voice("anh"))
+define s = Character(_("Secretary"), color="#c8ffc8", callback=make_voice("anh"), image="secretary")
 define m = Character(_("Me"), color="#c8c8ff", callback=make_voice("an"))
-define b = Character(_("Boss"), color="#ffc8ff", callback=make_voice("normal"))
+define b = Character(_("Boss"), color="#ffc8ff", callback=make_voice("normal"), image="ad")
 define g = Character(_("Guard"), color="#ffffaa", callback=make_voice("normal"))
-define h = Character(_("Henk"), color="#c8c8", callback=make_voice("normal"))
-define j = Character(_("JOBifAI"), color="#ccc8c8", callback=make_voice("anh"))
-define r = Character(_("Random Man"), color="#99c888", callback=make_voice("normal"))
+define h = Character(_("Henk"), color="#c8c8", callback=make_voice("normal"), image="henk")
+define j = Character(_("JOBifAI"), color="#ccc8c8", callback=make_voice("anh"), image="j")
+define r = Character(_("Random Man"), color="#99c888", callback=make_voice("normal"), image="randle")
 define bb = Character(_("Boss"), color="#ffc8ff", what_style="say_transcript", callback=make_voice("normal"))
 define mm = Character(_("Me"), color="#c8c8ff", what_style="say_transcript", callback=make_voice("an"))
+
+image side henk = Image("side_henk.png", zorder=111)
+image side secretary = Image("side_secretary.png", zorder=111)
+image side j = Image("side_job.png", zorder=111)
+image side randle = Image("side_rand.png", zorder=111)
+image side ad = Image("side_ad.png", zorder=111)
 
 default persistent.touch = "dynamic"
 default persistent.user_id = None

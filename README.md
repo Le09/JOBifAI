@@ -35,6 +35,20 @@ The makefile also ensure that the session images that are created in the `game/i
 Otherwise, the images would be included in the build, bloating it for no reason.
 Images are moved back after the build is done, since otherwise that would break the corresponding save files.
 
+## Steam version
+
+The ability to configure the keys was refused by Steam.
+Steam asked for the game to handle the keys itself via in-app purchases.
+The defeats the initial purpose to have the game run in fully private mode, without any third-party knowledge of your own requests (or without any internet connection).
+
+The steam branch is thus different; it hardcodes calls to Woolion's server, which requires Steam authentication (to prevent abuse). 
+To avoid round trips, almost all the AI logic is removed from this branch, and performed on the server. 
+Image generation on Steam is using Replicate, which requires different tweaking than Prodia.
+Moreover, calls are almost instant, so instead of having a job generated in the background, it downloads the image asynchronously. 
+The local version could be adapted in a similar way.
+
+Also note that the steam version needs a version or Renpy that includes [the Steam authentication fix](https://github.com/renpy/renpy/pull/5899) to work (at least version [8.3.3](https://www.renpy.org/release/8.3.3)).
+
 ## Transcripts
 
 The interactive lines start with a "_   ", non-interactive lines with "    ".

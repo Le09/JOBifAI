@@ -66,19 +66,19 @@ init -11 python:
         url = persistent.llm_url.strip()
         model = persistent.llm_model.strip()
         if "demo" in api_key:
-            api_key = groq_api_key_demo
+            renpy.call_screen("error_llm_menu")
         return retry(state, ask_llm, {"api_key": api_key, "prompt": prompt, "schema": schema, "user_id": persistent.user_id, "url": url, "model": model})
 
     def generate_image(state, prompt):
         api_key = persistent.prodia_api_key
         if "demo" in api_key:
-            api_key = prodia_api_key_demo
+            renpy.call_screen("error_prodia_menu")
         return retry(state, generate_job, {"prompt": prompt, "api_key": api_key})
 
     def download_image(job_id, file_path, force=False):
         api_key = persistent.prodia_api_key
         if "demo" in api_key:
-            api_key = prodia_api_key_demo
+            renpy.call_screen("error_prodia_menu")
         if force:
             return download_job_image(job_id, file_path, api_key)
         else:

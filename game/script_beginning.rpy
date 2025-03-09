@@ -5,7 +5,7 @@ label start:
     if not persistent.user_id:
         $ persistent.user_id = get_random_object_name("user_id_")
     if persistent.game_first_time:
-        call screen demo_disclaimer
+        call screen first_time
         $ persistent.game_first_time = False
 
     scene bg room
